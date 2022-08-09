@@ -3,8 +3,8 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import BlogPostPreview from "../components/BlogPostPreview.astro";
 
-let title = "Example Blog";
-let description = "The perfect starter for your perfect blog.";
+let title = "Brian's Blog";
+let description = "Musings on Software or anything else that strikes my fancy.";
 
 // Use Astro.glob to fetch all post with associated frontmatter
 const unsortedPosts = await Astro.glob("./posts/*.md");
@@ -46,7 +46,7 @@ const posts = unsortedPosts.sort(function (a, b) {
 <style>
 	.content {
 		margin-top: 4rem;
-		margin-bottom: 8rem;
+		margin-bottom: 4rem;
 	}
 
 	.intro {

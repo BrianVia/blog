@@ -1,8 +1,8 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Hello static content!"
-description: "Bring your markdown, we'll handle the rest"
-publishDate: "11 Jul 2022"
+title: "Hello, Word!"
+description: "Slowly going to add some writings here. Not likely to be that informative."
+publishDate: "24 Jul 2022"
 heroImage:
   src: "/assets/blog/introducing-astro.jpg"
   alt: "Space shuttle leaving curved trail in the sky"
