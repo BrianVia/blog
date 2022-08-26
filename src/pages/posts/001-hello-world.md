@@ -4,11 +4,9 @@ title: "Hello, world"
 description: "Some thoughts on this blog"
 publishDate: "25 Aug 2022"
 heroImage:
-  src: "assets/blog/001-hello-world/career.png"
+  src: "/assets/career.png"
   alt: "Patrick Star is mayonaise an instrument meme"
 ---
-
-<!-- <img src="/assets/blog/001-hello-world/career.png" width="600" alt="Patrick star asking if posting memes is a career in tech"> -->
 
 # I’m not really a writer
 
