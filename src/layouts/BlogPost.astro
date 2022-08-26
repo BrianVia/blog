@@ -1,4 +1,6 @@
 ---
+import { Image } from '@astrojs/image/components';
+
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 
@@ -29,9 +31,9 @@ const {
 		<article class="wrapper content">
 			<header>
 				{heroImage && (
-					<img
-						width="720"
-						height="420"
+					<Image
+						width={640}
+						height={800}
 						loading="lazy"
 						src={heroImage.src}
 						alt={heroImage.alt}
