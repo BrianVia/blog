@@ -8,9 +8,7 @@ heroImage:
   alt: "Patrick Star is mayonaise an instrument meme"
 ---
 
-# Hello, World
-
-![Patrick star asking if posting memes is a career in tech](/public/assets/blog/001-hello-world/career.png)
+<img src="/assets/blog/001-hello-world/career.png" width="600" alt="Patrick star asking if posting memes is a career in tech">
 
 # I’m not really a writer
 
@@ -31,7 +29,7 @@ But regardless, there’s probably something more I could expand on, such as **_
 
 # Trying to be authentic in today’s content environment
 
-![“It’s groundhog day again” joke from Groundhog Day Film. Joking about how frontend devs only ever build blog sites. And here I am building a new blog site 😅](/public/assets/blog/001-hello-world/groundhog-day.png)
+<img src="/assets/blog/001-hello-world/groundhog-day.png" width="600">
 
 “It’s groundhog day again” joke from Groundhog Day Film. Joking about how frontend devs only ever build blog sites. And here I am building a new blog site 😅
 
@@ -41,7 +39,8 @@ But since I don’t want to be following the whole recycled twitter content grif
 
 See below for an example:
 
-![Recycled twitter content from July that people post just to build engagement](/public/assets/blog/001-hello-world/twitter-shill.png)
+![Recycled twitter content from July that people post just to build engagement](
+<img src="/assets/blog/001-hello-world/twitter-shill.png" width="600">
 
 Recycled twitter content from July that people post just to build engagement
 
