@@ -5,15 +5,6 @@ description: "Planning another Side Project I Probably Won’t Do"
 publishDate: "06 Sep 2022"
 ---
 
-# Temperature Threshold Alerting for Your Outdoor Plants (Planning another Side Project I Probably Won’t Do)
-
-Created: September 6, 2022 2:27 PM
-Last Edited: September 6, 2022 4:09 PM
-Publish Date: 2022/09/06
-Published: Yes
-Ready for Publish: Yes
-Tags: Cloud, Serverless Functions, Side Projects
-
 First installment in the _Planning another New Side Project I Probably Won’t Do_ series.
 
 While I don’t know if I’ll ever get around to building this, it’s a fun thought exercise for me to think about how I’d solve some of the problems I have in my daily living. Filing this away for a time when I can get to it, I’ll post an update if I ever get around to building it.
