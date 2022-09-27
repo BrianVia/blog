@@ -22,12 +22,16 @@ const posts = unsortedPosts.sort(function (a, b) {
 
 	<body>
 		<Header />
+		
 		<div class="wrapper">
 			<main class="content">
 				<section class="intro">
 					<h1>{title}</h1>
 					<p>{description}</p>
 				</section>
+				<aside>
+					 🚧 Hey friends, the blog is currently under active construction. Still working on margins/padding, along with images rendering correctly both locally and in production. Enjoy the content and hopefully stuff will gradually look a little less sucky!
+				</aside>
 				<section aria-label="Blog post list">
 					{posts.map(({ url, frontmatter }) => (
 						<BlogPostPreview
@@ -50,7 +54,7 @@ const posts = unsortedPosts.sort(function (a, b) {
 	}
 
 	.intro {
-		padding-bottom: 4rem;
+		padding-bottom: 1rem;
 		margin-bottom: 2rem;
 		border-bottom: 4px solid var(--theme-divider);
 	}

@@ -1,6 +1,6 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Temperature Threshold Alerting for Your Outdoor Plants"
+title: "Idea: Temperature Threshold Alerting for Your Outdoor Plants"
 description: "Planning another Side Project I Probably Won’t Do"
 publishDate: "06 Sep 2022"
 ---

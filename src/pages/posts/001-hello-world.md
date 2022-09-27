@@ -6,6 +6,7 @@ publishDate: "25 Aug 2022"
 heroImage:
   src: "/assets/blog/001-hello-world/career.png"
   alt: "Patrick Star is mayonaise an instrument meme"
+  width: 1200
 ---
 
 # I’m not really a writer
@@ -27,7 +28,7 @@ But regardless, there’s probably something more I could expand on, such as **_
 
 # Trying to be authentic in today’s content environment
 
-<img src="/assets/blog/001-hello-world/groundhog-day.png" width="600">
+[<img src="/assets/blog/001-hello-world/groundhog-day.png" width="400px" />](/assets/blog/001-hello-world/twitter-shill.png)
 
 “It’s groundhog day again” joke from Groundhog Day Film. Joking about how frontend devs only ever build blog sites. And here I am building a new blog site 😅
 
@@ -38,7 +39,6 @@ But since I don’t want to be following the whole recycled twitter content grif
 See below for an example:
 
 ![Recycled twitter content from July that people post just to build engagement](/assets/blog/001-hello-world/twitter-shill.png)
-<img src="/assets/blog/001-hello-world/twitter-shill.png" width="600" alt="Recycled twitter content from July that people post just to build engagement">
 
 # Exporting all of my thoughts
 
