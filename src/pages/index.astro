@@ -22,7 +22,7 @@ const posts = unsortedPosts.sort(function (a, b) {
 
 	<body>
 		<Header />
-		
+
 		<div class="wrapper">
 			<main class="content">
 				<section class="intro">
@@ -30,7 +30,19 @@ const posts = unsortedPosts.sort(function (a, b) {
 					<p>{description}</p>
 				</section>
 				<aside>
-					 🚧 Hey friends, the blog is currently under active construction. Still working on margins/padding, along with images rendering correctly both locally and in production. Enjoy the content and hopefully stuff will gradually look a little less sucky!
+					 🚧 Hey friends, the blog is currently under active construction. 
+					 <br>I'm currently building it with <a href="https://astro.build/">Astro!</a>
+					 <br>
+					 Things I still need to fix:
+					 <ul>
+						<li>Margins/padding responsively</li>	
+						<li>
+							Images rendering correctly both locally and in production
+						</li>
+						<li>Favicon and some other static assets</li>
+						<li>RSS Feed (because web 1.0 still matters)</li>
+					</ul>
+					Enjoy the content and hopefully stuff will gradually look a little less sucky!
 				</aside>
 				<section aria-label="Blog post list">
 					{posts.map(({ url, frontmatter }) => (
@@ -63,4 +75,8 @@ const posts = unsortedPosts.sort(function (a, b) {
 		font-size: 2.5rem;
 		font-weight: 700;
 	}
+	ul {
+	  margin: 0.5rem 0.5rem;
+	}
+
 </style>
