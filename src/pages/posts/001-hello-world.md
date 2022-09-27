@@ -4,7 +4,7 @@ title: "Hello, world"
 description: "Some thoughts on this blog"
 publishDate: "25 Aug 2022"
 heroImage:
-  src: "/assets/career.png"
+  src: "/assets/blog/001-hello-world/career.png"
   alt: "Patrick Star is mayonaise an instrument meme"
 ---
 
@@ -37,10 +37,8 @@ But since I don’t want to be following the whole recycled twitter content grif
 
 See below for an example:
 
-![Recycled twitter content from July that people post just to build engagement](
-<img src="/assets/blog/001-hello-world/twitter-shill.png" width="600">
-
-Recycled twitter content from July that people post just to build engagement
+![Recycled twitter content from July that people post just to build engagement](/assets/blog/001-hello-world/twitter-shill.png)
+<img src="/assets/blog/001-hello-world/twitter-shill.png" width="600" alt="Recycled twitter content from July that people post just to build engagement">
 
 # Exporting all of my thoughts
 
