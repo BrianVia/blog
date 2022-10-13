@@ -13,7 +13,7 @@ Full python file available [here on GitHub](https://github.com/BrianVia/booksort
 
 # The Problem
 
-Over the years, I’ve accumulated many hundreds of ebooks. Some from buying digital copies from places like Gumroad, others free online like [Software Engineering at Google](https://abseil.io/resources/swe-book/html/toc.html), or a vast majority, torrenting digital copies of ones that sit on my physical bookshelf in my office (don’t sue me? I just want easy access to information!)
+Over the years, I’ve accumulated many hundreds of ebooks. Some from buying digital copies from places like Gumroad, others free online like [Software Engineering at Google](https://abseil.io/resources/swe-book/html/toc.html).
 
 However as I became more and more busy, keeping a clean file structure to allow me to find what I’m looking for became harder and harder. The result was a hodgepodge of files without naming conventions, directories upon directories labeled “unorganized” as I tried to manually sift through hundreds of files, manually renaming them to the format I wanted, and placed inside of a single directory per book. It just became too much.
 
