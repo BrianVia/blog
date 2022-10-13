@@ -1,7 +1,7 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Idea: Temperature Threshold Alerting for Your Outdoor Plants"
-description: "Planning another Side Project I Probably Won’t Do"
+title: "Organizing EBook Files with Python 🐍"
+description: "Actually doing a side project to save myself time"
 publishDate: "13 Oct 2022"
 ---
 
