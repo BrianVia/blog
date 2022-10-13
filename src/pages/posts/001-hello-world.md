@@ -28,9 +28,7 @@ But regardless, there’s probably something more I could expand on, such as **_
 
 # Trying to be authentic in today’s content environment
 
-[<img src="/assets/blog/001-hello-world/groundhog-day.png" width="400px" />](/assets/blog/001-hello-world/twitter-shill.png)
-
-“It’s groundhog day again” joke from Groundhog Day Film. Joking about how frontend devs only ever build blog sites. And here I am building a new blog site 😅
+[<img src="/assets/blog/001-hello-world/groundhog-day.png" width="400px" alt="'It’s groundhog day again' joke from Groundhog Day Film. Joking about how frontend devs only ever build blog sites. And here I am building a new blog site 😅"/>](/assets/blog/001-hello-world/twitter-shill.png)
 
 As I said, my brain works in jokes or media references. Constantly. Probably to a fault when I share these in my work slack and people probably just react with a 😐
 
@@ -38,7 +36,7 @@ But since I don’t want to be following the whole recycled twitter content grif
 
 See below for an example:
 
-![Recycled twitter content from July that people post just to build engagement](/assets/blog/001-hello-world/twitter-shill.png)
+[<img src="/assets/blog/001-hello-world/twitter-shill.png" alt="Recycled twitter content from July that people post just to build engagement" />](/assets/blog/001-hello-world/twitter-shill.png)
 
 # Exporting all of my thoughts
 

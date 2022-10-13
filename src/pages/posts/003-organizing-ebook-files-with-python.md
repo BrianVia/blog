@@ -5,9 +5,7 @@ description: "Actually doing a side project to save myself time"
 publishDate: "13 Oct 2022"
 ---
 
-# Organizing ebook files with python 🐍
-
-![Library full of Books](/public/assets/blog/003-organizing-ebook-files-with-python/library.png)
+[<img src="/assets/blog/003-organizing-ebook-files-with-python/library.png" width="400px" alt="A Library full of books"/>](/assets/blog/003-organizing-ebook-files-with-python/library.png)
 
 If you want to jump to the code snippets, click [here](#gathering-all-unorganized-files)
 
@@ -21,7 +19,7 @@ However as I became more and more busy, keeping a clean file structure to allow 
 
 This was basically me when looking for anything:
 
-![Charlie's Murder Board from Always Sunny in Philadelphia](/public/assets/blog/003-organizing-ebook-files-with-python/charlie.png)
+[<img src="/assets/blog/003-organizing-ebook-files-with-python/charlie.png" alt="Charlie's Murder Board from Always Sunny in Philadelphia" />](/assets/blog/003-organizing-ebook-files-with-python/charlie.png)
 
 # What I Wanted the End to Look Like
 
