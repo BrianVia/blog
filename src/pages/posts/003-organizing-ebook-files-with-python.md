@@ -11,7 +11,7 @@ If you want to jump to the code snippets, click [here](#gathering-all-unorganize
 
 Full python file available [here on GitHub](https://github.com/BrianVia/booksort/blob/main/book-sort.py)
 
-# The Problem
+## The Problem
 
 Over the years, I’ve accumulated many hundreds of ebooks. Some from buying digital copies from places like Gumroad, others free online like [Software Engineering at Google](https://abseil.io/resources/swe-book/html/toc.html).
 
@@ -21,7 +21,7 @@ This was basically me when looking for anything:
 
 [<img src="/assets/blog/003-organizing-ebook-files-with-python/charlie.png" alt="Charlie's Murder Board from Always Sunny in Philadelphia" />](/assets/blog/003-organizing-ebook-files-with-python/charlie.png)
 
-# What I Wanted the End to Look Like
+## What I Wanted the End to Look Like
 
 ```bash
 Books Directory/
@@ -33,7 +33,7 @@ Books Directory/
 
 In wanting to [self host a calibre instance](https://hub.docker.com/r/linuxserver/calibre) with all of my files, ingesting them via 1 directory per book seemed like the best system. It was also incredibly necessary for just reading the files locally from my desktops via my NAS.
 
-# Why Python? 🐍
+## Why Python? 🐍
 
 First and foremost, I decided to go with Python the language of choice for this project for a couple reasons.
 
@@ -78,7 +78,7 @@ The array will look like this:
 
 This array gets returned from the function, so we can iterate over the list of book files to sort.
 
-## Parsing Metadata
+### Parsing Metadata
 
 Parsing the metadata was relatively straightforward: Find epub and pdf parsing libraries, implement and grab the correct fields.
 
@@ -97,7 +97,7 @@ for file in files:
             TitleAndAuthorString = getPdfTitleAndAuthorPath(file)
 ```
 
-### EPUB Files
+#### EPUB Files
 
 ```python
 # Returns the title and author of an epub file in the format "Title - Author"
@@ -125,7 +125,7 @@ and then specific fields like this:
 
 Both of these will fallback to `Unknown` if we can’t parse the metadata for some reason.
 
-### PDF Files
+#### PDF Files
 
 ```python
 def getPdfTitleAndAuthorPath(filepath: string):
@@ -183,7 +183,7 @@ def getFileExtension(file):
     return os.path.splitext(file)[1]
 ```
 
-## Organizing the Files to their Final Locations
+### Organizing the Files to their Final Locations
 
 Lastly, we do some `os.makedirs` and `os.rename` magic to move things around and create the needed directories if it doesn’t already exist.
 
@@ -207,7 +207,7 @@ else:
 
 `os.rename(...)` takes the existing file at the specified path, and then the final (absolute) path for the file. So in this case it’s `<output-directory>/+ "/" + TitleAndAuthorString + "/" + TitleAndAuthorString + extension`
 
-## Putting it All Together
+### Putting it All Together
 
 ```python
 def main():
@@ -221,7 +221,7 @@ Give it a whirl with a call to `main()` at the end of the file and you’re off.
 
 This script isn’t perfect, sometimes the rename fails to write to the specified path for reason I can’t figure out, but it’s helped save me many hours of manual organization, and isn’t that one of our favorite parts of programming after all?
 
-# Thanks!
+## Thanks!
 
 Thanks for reading. Hope this maybe made Python more accessible if you haven’t used it before, or you learned a new use case for it. Once again the full script file is here: [https://github.com/BrianVia/booksort/blob/main/book-sort.py](https://github.com/BrianVia/booksort/blob/main/book-sort.py)
 
