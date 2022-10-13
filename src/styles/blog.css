@@ -34,7 +34,7 @@
   --color-yellow: #ffbe2d;
   --color-yellow-rgb: 255, 190, 45;
 
-  --content-max-width: 70ch;
+  --content-max-width: 100ch;
 }
 
 :root {
@@ -87,17 +87,9 @@ body {
   --max-width: calc(100% - 2rem);
 }
 
-html {
-  max-width: 70ch;
-  padding: 3em 1em;
-  margin: auto;
-  line-height: 1.75;
-  font-size: 1.25em;
-}
-
 @media (min-width: 50em) {
   :root {
-    --max-width: 70ch;
+    --max-width: 100ch;
   }
 }
 
@@ -134,7 +126,7 @@ nav ul {
 }
 
 :is(h1, h2) {
-  max-width: 40ch;
+  max-width: 80ch;
 }
 
 :is(h2, h3):not(:first-child) {
