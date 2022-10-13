@@ -35,7 +35,7 @@ In wanting to [self host a calibre instance](https://hub.docker.com/r/linuxserve
 
 # Why Python? 🐍
 
-A quick overview of the parts needed to accomplish this. First and foremost, I decided to go with Python the language of choice for this project for a couple reasons.
+First and foremost, I decided to go with Python the language of choice for this project for a couple reasons.
 
 While it does involve renaming files, which could be easily done with bash, the logic was going to be a little complicated in terms of passing data between functions to-and-fro, which means bash would get a little tough to read IMO.
 
