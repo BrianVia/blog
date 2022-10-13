@@ -5,7 +5,7 @@ description: "Actually doing a side project to save myself time"
 publishDate: "13 Oct 2022"
 ---
 
-[<img src="/assets/blog/003-organizing-ebook-files-with-python/library.png" width="400px" alt="A Library full of books"/>](/assets/blog/003-organizing-ebook-files-with-python/library.png)
+[<img src="/assets/blog/003-organizing-ebook-files-with-python/library.png" width="800px" alt="A Library full of books"/>](/assets/blog/003-organizing-ebook-files-with-python/library.png)
 
 If you want to jump to the code snippets, click [here](#gathering-all-unorganized-files)
 
