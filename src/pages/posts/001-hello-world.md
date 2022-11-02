@@ -36,7 +36,7 @@ But since I don’t want to be following the whole recycled twitter content grif
 
 See below for an example:
 
-[<img src="/assets/blog/001-hello-world/twitter-shill.png" alt="Recycled twitter content from July that people post just to build engagement" />](/assets/blog/001-hello-world/twitter-shill.png)
+[<img src="/assets/blog/001-hello-world/twitter-shill.png" alt="Recycled twitter content from July that people post just to build engagement" width="500px" />](/assets/blog/001-hello-world/twitter-shill.png)
 
 # Exporting all of my thoughts
 

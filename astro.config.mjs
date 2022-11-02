@@ -3,7 +3,9 @@ import preact from "@astrojs/preact";
 import image from "@astrojs/image";
 
 // https://astro.build/config
+
+// https://astro.build/config
 export default defineConfig({
   integrations: [preact(), image()],
-  site: `http://astro.build`,
+  site: `http://astro.build`
 });
