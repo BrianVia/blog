@@ -1,11 +1,13 @@
 ---
 layout: "../../layouts/BlogPost.astro"
-title: "Organizing EBook Files with Python 🐍"
+title: "Organizing EBook Files with Python"
 description: "Actually doing a side project to save myself time"
 publishDate: "13 Oct 2022"
+heroImage:
+  src: "/assets/blog/003-organizing-ebook-files-with-python/library.png"
+  alt: "A Library full of books"
+  width: 800
 ---
-
-[<img src="/assets/blog/003-organizing-ebook-files-with-python/library.png" width="800px" alt="A Library full of books"/>](/assets/blog/003-organizing-ebook-files-with-python/library.png)
 
 If you want to jump to the code snippets, click [here](#gathering-all-unorganized-files)
 

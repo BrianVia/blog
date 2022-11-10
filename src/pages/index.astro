@@ -8,12 +8,17 @@ let description = "Musings on Software or anything else that strikes my fancy.";
 
 // Use Astro.glob to fetch all post with associated frontmatter
 const unsortedPosts = await Astro.glob("./posts/*.md");
-const posts = unsortedPosts.sort(function (a, b) {
+const sortedPosts = unsortedPosts.sort(function (a, b) {
   return (
     new Date(b.frontmatter.publishDate).valueOf() -
     new Date(a.frontmatter.publishDate).valueOf()
   );
 });
+// slice first index and return modified original array
+const finalSortedPosts = sortedPosts.slice(1);
+const mostRecentPost = sortedPosts[0];
+
+console.log(sortedPosts[0].frontmatter);
 ---
 
 <html lang="en">
@@ -28,13 +33,13 @@ const posts = unsortedPosts.sort(function (a, b) {
   <body>
     <Header />
 
-    <div class="wrapper">
+    <div class="xs:px-2 sm:px-4 md:px-6 lg:px-8 px-8 mx-auto">
       <main class="content">
         <section class="intro">
-          <h1>Brian's Blog</h1>
+          <h1 style="font-size: 5rem; padding: 10px 0px">B.log()</h1>
           <p>{description}</p>
         </section>
-        <aside>
+        <aside class="sm:mx-8">
           🚧 Hey friends, the blog is currently under active construction. I'm
           building it with <a href="https://astro.build/">Astro!</a>
           <br />
@@ -50,17 +55,35 @@ const posts = unsortedPosts.sort(function (a, b) {
           Enjoy the content and hopefully stuff will gradually look a little less
           sucky!
         </aside>
+        <br style="background-color: black;" />
+        <section id="most-recent-post">
+          <BlogPostPreview
+            title={mostRecentPost.frontmatter.title}
+            description={mostRecentPost.frontmatter.description}
+            publishDate={mostRecentPost.frontmatter.publishDate}
+            url={mostRecentPost.url}
+            heroImage={mostRecentPost.frontmatter.heroImage}
+            mostRecentPost={true}
+          />
+        </section>
+
         <section aria-label="Blog post list">
-          {
-            posts.map(({ url, frontmatter }) => (
-              <BlogPostPreview
-                title={frontmatter.title}
-                description={frontmatter.description}
-                publishDate={frontmatter.publishDate}
-                url={url}
-              />
-            ))
-          }
+          <!-- three column grid view -->
+          <div
+            class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-auto-rows: 1fr; gap-x-8"
+          >
+            {
+              finalSortedPosts.map((post) => (
+                <BlogPostPreview
+                  title={post.frontmatter.title}
+                  description={post.frontmatter.description}
+                  publishDate={post.frontmatter.publishDate}
+                  url={post.url}
+                  heroImage={post.frontmatter.heroImage}
+                />
+              ))
+            }
+          </div>
         </section>
       </main>
     </div>

@@ -1,43 +1,89 @@
 ---
 export interface Props {
-	title: string;
-	description: string;
-	publishDate: string;
-	url: string;
+  title: string;
+  description: string;
+  publishDate: string;
+  url: string;
+  heroImage?: {
+    src: string;
+    alt: string;
+    width: number;
+  };
+  mostRecentPost?: boolean;
 }
 
-const { title, description, publishDate, url } = Astro.props as Props;
+const {
+  title,
+  description,
+  publishDate,
+  url,
+  heroImage,
+  mostRecentPost = false,
+} = Astro.props as Props;
 ---
 
-<article class="post-preview">
-	<header>
-		<time>{publishDate}</time>
-		<a href={url}><h1 class="title">{title}</h1></a>
-	</header>
-	<p>{description}</p>
-	<a href={url}>Read more</a>
-</article>
+{
+  mostRecentPost && (
+    <div class="grid sm:grid-cols-1 sm:px-8 md:grid-cols-5 gap-4 mb-16">
+      <div class="md:col-span-3">
+        <img
+          class="rounded-md sm:w-full sm:h-72"
+          src={heroImage.src}
+          alt={heroImage.alt}
+          width={heroImage.width}
+        />
+      </div>
+      <div class="md:col-span-2">
+        <h2 class="sm: text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-black">
+          <a href={url}>{title}</a>
+        </h2>
+        <p class="text-gray-600 mb-4">{description}</p>
+        <p class="text-gray-400 text-xs">
+          <time datetime={publishDate}>{publishDate}</time>
+        </p>
+      </div>
+    </div>
+  )
+}
+{
+  !mostRecentPost && (
+    <div class="h-48">
+      <article class="post-preview">
+        <header>
+          {heroImage && (
+            <img
+              style="height: 180px; width: auto"
+              loading="lazy"
+              src={heroImage.src}
+              alt={heroImage.alt}
+              class="rounded-md"
+            />
+          )}
+          <time>{publishDate}</time>
+          <a href={url}>
+            <h4 class="title">{title}</h4>
+          </a>
+        </header>
+        <p class="h-12">{description}</p>
+      </article>
+    </div>
+  )
+}
 
 <style>
-	.post-preview {
-		padding-bottom: 2rem;
-		margin-bottom: 2rem;
-		border-bottom: 4px solid var(--theme-divider);
-	}
+  .post-preview {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    /* border-bottom: 4px solid var(--theme-divider); */
+  }
 
-	.title,
-	time {
-		margin: 0;
-	}
+  .title,
+  time {
+    margin: 0;
+  }
 
-	time {
-		font-size: 1.25rem;
-		color: var(--theme-text-lighter);
-	}
-
-	.title {
-		font-size: 2.25rem;
-		font-weight: 700;
-		color: var(--theme-text);
-	}
+  time {
+    font-size: 1.25rem;
+    color: var(--theme-text-lighter);
+  }
 </style>
