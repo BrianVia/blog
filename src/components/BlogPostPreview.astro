@@ -27,7 +27,7 @@ const {
     <div class="grid sm:grid-cols-1 sm:px-8 md:grid-cols-5 gap-4 mb-16">
       <div class="md:col-span-3">
         <img
-          class="rounded-md sm:w-full sm:h-72"
+          class="rounded-md h-auto w-full"
           src={heroImage.src}
           alt={heroImage.alt}
           width={heroImage.width}
@@ -47,7 +47,7 @@ const {
 }
 {
   !mostRecentPost && (
-    <div class="h-48">
+    <div class="h-auto">
       <article class="post-preview">
         <header>
           {heroImage && (
