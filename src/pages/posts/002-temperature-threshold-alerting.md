@@ -3,6 +3,7 @@ layout: "../../layouts/BlogPost.astro"
 title: "Idea: Temperature Threshold Alerting for Your Outdoor Plants"
 description: "Planning another Side Project I Probably Won’t Do"
 publishDate: "06 Sep 2022"
+pubDate: "06 Sep 2022"
 heroImage:
   src: "/assets/blog/002-temperature-threshold-alerting/frozen-plant.png"
   alt: "A plant in a pot"

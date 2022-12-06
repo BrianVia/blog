@@ -2,6 +2,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Hello, world"
 description: "Some meta thoughts on this blog"
+pubDate: "25 Aug 2022"
 publishDate: "25 Aug 2022"
 heroImage:
   src: "/assets/blog/001-hello-world/career.png"

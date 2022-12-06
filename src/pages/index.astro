@@ -1,6 +1,7 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 import BlogPostPreview from "../components/BlogPostPreview.astro";
 
 let title = "Brian | Via";
@@ -86,25 +87,26 @@ const mostRecentPost = sortedPosts[0];
       </main>
     </div>
   </body>
+  <Footer />
+
+  <style>
+    .content {
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    .intro {
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 4px solid var(--theme-divider);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    ul {
+      margin: 0.5rem 0.5rem;
+    }
+  </style>
 </html>
-
-<style>
-  .content {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-  }
-
-  .intro {
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
-    border-bottom: 4px solid var(--theme-divider);
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-  }
-  ul {
-    margin: 0.5rem 0.5rem;
-  }
-</style>

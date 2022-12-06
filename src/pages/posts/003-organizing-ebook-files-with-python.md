@@ -3,6 +3,7 @@ layout: "../../layouts/BlogPost.astro"
 title: "Organizing EBook Files with Python"
 description: "Actually doing a side project to save myself time"
 publishDate: "13 Oct 2022"
+pubDate: "13 Oct 2022"
 heroImage:
   src: "/assets/blog/003-organizing-ebook-files-with-python/library.png"
   alt: "A Library full of books"
