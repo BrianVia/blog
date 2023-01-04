@@ -35,7 +35,6 @@ const mostRecentPost = sortedPosts[0];
     <div class="xs:px-2 sm:px-4 md:px-6 lg:px-8 px-8 mx-auto wrapper">
       <main class="content">
         <section class="intro">
-          <h1 style="font-size: 5rem; padding: 10px 0px">B.log()</h1>
           <p>{description}</p>
         </section>
 
@@ -71,27 +70,27 @@ const mostRecentPost = sortedPosts[0];
         </section>
       </main>
     </div>
+    <Footer />
+
+    <style>
+      .content {
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+      }
+
+      .intro {
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+        border-bottom: 4px solid var(--theme-divider);
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+      ul {
+        margin: 0.5rem 0.5rem;
+      }
+    </style>
   </body>
-  <Footer />
-
-  <style>
-    .content {
-      margin-top: 4rem;
-      margin-bottom: 4rem;
-    }
-
-    .intro {
-      padding-bottom: 1rem;
-      margin-bottom: 2rem;
-      border-bottom: 4px solid var(--theme-divider);
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-    }
-    ul {
-      margin: 0.5rem 0.5rem;
-    }
-  </style>
 </html>
