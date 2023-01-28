@@ -1,0 +1,83 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import BlogPostPreview from "../components/BlogPostPreview.astro";
+
+let title = "Brian | Via - Social";
+let description = "Musings on Software or anything else that strikes my fancy.";
+let intro = `Here's how to get in touch with me if you'd like to!`;
+const socialLinks = [
+  {
+    name: "Email",
+    handle: "inquiries@brianvia.com",
+    link: "mailto:inquiries@brianvia.com",
+    imageUrl: "",
+  },
+  {
+    name: "Twitter",
+    handle: "@Brian_Via",
+    link: "",
+    imageUrl: "",
+  },
+  {
+    name: "LinkedIn",
+    handle: "@Brian_Via",
+    link: "linkedin.com/in/🧑‍💻brian-via-5b242a65",
+    imageUrl: "",
+  },
+  {
+    name: "GitHub",
+    handle: "@BrianVia",
+    link: "https://github.com/BrianVia",
+  },
+];
+---
+
+<html lang="en">
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <body class="">
+    <Header />
+
+    <div class="xs:px-2 sm:px-4 md:px-6 lg:px-8 px-8 mx-auto wrapper">
+      <main class="content">
+        <section class="intro">
+          <p>{description}</p>
+        </section>
+        <section>
+          <h1>Social Links</h1>
+          <p>{intro}</p>
+        </section>
+      </main>
+    </div>
+    <Footer />
+
+    <style>
+      .content {
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+      }
+
+      .intro {
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+        border-bottom: 4px solid var(--theme-divider);
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+      ul {
+        margin: 0.5rem 0.5rem;
+      }
+    </style>
+  </body>
+</html>
