@@ -20,7 +20,7 @@ I’ve got plants outside I want to keep growing. For example, freshly planted b
 <aside>
 🌿 Depending on your climate, some plants can’t withstand the cold evening temperatures of spring. So you’ll want to bring them inside on nights getting colder than 45 or 35 degrees depending on the plant. Credit for the image below, [Washington Post](https://www.washingtonpost.com/lifestyle/2021/03/18/vegetable-planting-schedule-seeds-mid-atlantic/)
 
-![Hardening Off](/public/assets/blog/002-temperature-threshold-alerting/hardening-off.png)
+![Hardening Off](/assets/blog/002-temperature-threshold-alerting/hardening-off.png)
 
 </aside>
 
