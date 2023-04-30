@@ -2,7 +2,6 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import BlogPostPreview from "../components/BlogPostPreview.astro";
 
 let title = "Brian | Via - Social";
 let description = "Musings on Software or anything else that strikes my fancy.";
@@ -17,13 +16,13 @@ const socialLinks = [
   {
     name: "Twitter",
     handle: "@Brian_Via",
-    link: "",
+    link: "https://twitter.com/Brian_Via",
     imageUrl: "",
   },
   {
     name: "LinkedIn",
     handle: "@Brian_Via",
-    link: "linkedin.com/in/🧑‍💻brian-via-5b242a65",
+    link: "https://linkedin.com/in/🧑‍💻brian-via-5b242a65",
     imageUrl: "",
   },
   {
@@ -54,30 +53,39 @@ const socialLinks = [
         <section>
           <h1>Social Links</h1>
           <p>{intro}</p>
+          {
+            socialLinks.map((link) => (
+              <ul>
+                <li>
+                  <a href={link.link}>{link.name}</a>
+                </li>
+              </ul>
+            ))
+          }
         </section>
       </main>
+      <Footer />
+
+      <style>
+        .content {
+          margin-top: 4rem;
+          margin-bottom: 4rem;
+        }
+
+        .intro {
+          padding-bottom: 1rem;
+          margin-bottom: 2rem;
+          border-bottom: 4px solid var(--theme-divider);
+        }
+
+        h1 {
+          font-size: 2.5rem;
+          font-weight: 700;
+        }
+        ul {
+          margin: 0.5rem 0.5rem;
+        }
+      </style>
     </div>
-    <Footer />
-
-    <style>
-      .content {
-        margin-top: 4rem;
-        margin-bottom: 4rem;
-      }
-
-      .intro {
-        padding-bottom: 1rem;
-        margin-bottom: 2rem;
-        border-bottom: 4px solid var(--theme-divider);
-      }
-
-      h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-      }
-      ul {
-        margin: 0.5rem 0.5rem;
-      }
-    </style>
   </body>
 </html>
