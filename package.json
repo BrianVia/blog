@@ -8,10 +8,22 @@
     "build": "astro build",
     "preview": "astro preview"
   },
+  "lint-staged": {
+    "*": [
+      "npm run build"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "devDependencies": {
     "@astrojs/image": "^0.13.1",
     "@astrojs/preact": "^2.1.0",
-    "astro": "^2.2.3"
+    "astro": "^2.2.3",
+    "husky": "^7.0.0",
+    "lint-staged": "^11.0.0"
   },
   "dependencies": {
     "@astrojs/rss": "^2.3.2",
