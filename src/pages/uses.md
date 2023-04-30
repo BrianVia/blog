@@ -1,6 +1,15 @@
+---
+layout: "../layouts/BlogPost.astro"
+title: "Equipment I Use"
+description: "Stuff on my Desk"
+pubDate: "30 Apr 2023"
+publishDate: "30 Apr 2023"
+heroImage:
+---
+
 ## Workstation Equipment I Use
 
-\*Some of these links may be referral link
+Some of these links may be referral link
 
 ### Peripherals
 
