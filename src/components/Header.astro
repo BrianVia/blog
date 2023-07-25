@@ -1,11 +1,12 @@
 ---
+import { Image, Picture } from "@astrojs/image/components";
 import logoSvg from "../assets/logo.svg";
 ---
 
 <header class="wrapper">
   <nav>
     <a href="/">
-      <img src={logoSvg} />
+      <Image src={logoSvg} alt="My website logo" />
     </a>
     <a href="/">Blog</a>
     <a href="/about">About</a>
