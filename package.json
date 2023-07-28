@@ -21,7 +21,7 @@
   "devDependencies": {
     "@astrojs/image": "^0.17.2",
     "@astrojs/preact": "^2.2.1",
-    "astro": "^2.9.3",
+    "astro": "^2.9.6",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3"
   },
