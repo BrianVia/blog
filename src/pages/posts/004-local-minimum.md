@@ -76,7 +76,7 @@ It was short but stressful, but dammit if I'm ever going to look down on folks w
 
 4. **Keep an emergency fund, more than you think you need.** Our savings account was far too dry for someone with 2 kids. I'm now trying to keep 4 full months worth of an E-fund, even if it pains me to not have it in the market making money.
 
-I try to steer clear of click-baity listicles, but I've wanted to get these out for some time. I could list 10 more silly things about "What getting fired taught me about B2B sales" or some stupid LinkedIn engagement-bait post.
+I try to steer clear of click-baity listicles, but I've wanted to get these out for some time. I could list 10 more silly things about "What getting fired taught me about B2B sales" or some stupid LinkedIn engagement-bait post, but I'll try to keep it to that.
 
 ## Dfinitiv
 
