@@ -4,6 +4,7 @@ title: "Hello, world"
 description: "Some meta thoughts on this blog"
 pubDate: "25 Aug 2022"
 publishDate: "25 Aug 2022"
+published: true
 heroImage:
   src: "/assets/blog/001-hello-world/career.png"
   alt: "Patrick Star is mayonaise an instrument meme"

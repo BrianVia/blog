@@ -4,6 +4,7 @@ title: "Organizing EBook Files with Python"
 description: "Actually doing a side project to save myself time"
 publishDate: "13 Oct 2022"
 pubDate: "13 Oct 2022"
+published: true
 heroImage:
   src: "/assets/blog/003-organizing-ebook-files-with-python/library.png"
   alt: "A Library full of books"
@@ -224,7 +225,7 @@ Give it a whirl with a call to `main()` at the end of the file and you’re off.
 
 This script isn’t perfect, sometimes the rename fails to write to the specified path for reason I can’t figure out, but it’s helped save me many hours of manual organization, and isn’t that one of our favorite parts of programming after all?
 
-## Thanks!
+## Thanks
 
 Thanks for reading. Hope this maybe made Python more accessible if you haven’t used it before, or you learned a new use case for it. Once again the full script file is here: [https://github.com/BrianVia/booksort/blob/main/book-sort.py](https://github.com/BrianVia/booksort/blob/main/book-sort.py)
 
