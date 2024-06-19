@@ -9,11 +9,13 @@ let description = "Musings on Software or anything else that strikes my fancy.";
 
 // Use Astro.glob to fetch all post with associated frontmatter
 const unsortedPosts = await Astro.glob("./posts/*.md");
-const sortedPosts = unsortedPosts.sort(function (a, b) {
-  return new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf();
-});
+const sortedPosts = unsortedPosts
+  .filter((post) => post.frontmatter.published === true)
+  .sort(function (a, b) {
+    return new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf();
+  });
 // slice first index and return modified original array
-const finalSortedPosts = sortedPosts.slice(1).filter((post) => post.frontmatter.published === true);
+const finalSortedPosts = sortedPosts.slice(1);
 const mostRecentPost = sortedPosts[0];
 ---
 
@@ -31,7 +33,7 @@ const mostRecentPost = sortedPosts[0];
 
     <div class="xs:px-2 sm:px-4 md:px-6 lg:px-8 px-8 mx-auto wrapper">
       <main class="content">
-        <section class="intro text-center py-2">
+        <section class="intro text-center py-2" style="font;">
           <p>I don't have talent, so I just get up earlier.<br />-Henry Rollins</p>
         </section>
 
