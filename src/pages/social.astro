@@ -2,35 +2,12 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { Image } from "astro:assets";
+import xSvg from "../assets/social-images/x-logo.svg";
 
 let title = "Brian | Via - Social";
 let description = "Musings on Software or anything else that strikes my fancy.";
 let intro = `Here's how to get in touch with me if you'd like to!`;
-const socialLinks = [
-  {
-    name: "Email",
-    handle: "inquiries@brianvia.com",
-    link: "mailto:inquiries@brianvia.com",
-    imageUrl: "",
-  },
-  {
-    name: "Twitter",
-    handle: "@Brian_Via",
-    link: "https://twitter.com/Brian_Via",
-    imageUrl: "",
-  },
-  {
-    name: "LinkedIn",
-    handle: "@Brian_Via",
-    link: "https://linkedin.com/in/🧑‍💻brian-via-5b242a65",
-    imageUrl: "",
-  },
-  {
-    name: "GitHub",
-    handle: "@BrianVia",
-    link: "https://github.com/BrianVia",
-  },
-];
 ---
 
 <html lang="en">
@@ -53,15 +30,21 @@ const socialLinks = [
         <section>
           <h1>Social Links</h1>
           <p>{intro}</p>
-          {
-            socialLinks.map((link) => (
-              <ul>
-                <li>
-                  <a href={link.link}>{link.name}</a>
-                </li>
-              </ul>
-            ))
-          }
+          <ul>
+            <li>
+              <a href="mailto:inquiries@brianvia.com">Email</a>
+            </li>
+            <li>
+              <Image src={xSvg} alt="Twitter" />
+              <a href="https://twitter.com/Brian_Via">Twitter</a>
+            </li>
+            <li>
+              <a href="https://linkedin.com/in/🧑‍💻brian-via-5b242a65">LinkedIn</a>
+            </li>
+            <li>
+              <a href="https://github.com/BrianVia">GitHub</a>
+            </li>
+          </ul>
         </section>
       </main>
       <Footer />
