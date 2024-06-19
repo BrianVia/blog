@@ -42,7 +42,9 @@ I toiled in bed, tossing and turning, combing over LinkedIn job postings I might
 Days were spent leet-coding, pretending to my kids that everything was okay, taking the youngest for walking naps, and then back to leet-coding, interview prep, or side project building. Anything and everything to keep sharp or have something to show for myself. Focusing on my own health became a luxury.  It's all work all the time when you're job hunting with kids at home. Sleep was terrible. No exercise or time to reflect. Pedal to the metal, because that was the only thing I knew how to do. Work every waking minute that could be spared on getting a job.
 
 They don't tell you how much responsibility comes with being a parent, and maybe specifically a dad when you're the sole income earner, but boy do you feel the weight of it when you don't have a job. All of a sudden you have an all-consuming purpose in life: put food on the table and keep the roof over the heads.
->It's not lost on me that I'm probably sounding all too dramatic in this stupid essay 10 months later, talking about how dire the straits were when I still had 8+ weeks of runway, investments I could fall back on, and plenty of family nearby if worst came to worst. But I don't think I've ever felt a fight or flight like response so strong in my life. The fatherly urge to ensure your clan is taken care of can't be overstated when you're no longer in control.
+
+> [!IMPORTANT]I'm probably being a silly goose
+>It's not lost on me that I'm probably sounding all too dramatic in this stupid essay 10 months later, talking about how dire the straits were when I still had 8+ weeks of runway, investments I could fall back on, and plenty of family nearby if worst came to worst. But I don't think I've ever felt a fight or flight like response so strong in my life. The fatherly urge to ensure your clan is taken care of can't be overstated when you're no longer in control is like nothing else I've experienced. 
 
 ## Just a fool's hope
 
