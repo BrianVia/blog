@@ -16,6 +16,7 @@ const { title, description, imageUrl } = Astro.props;
   title={title}
   description={description}
   canonical={canonicalURL.toString()}
+
   openGraph={{
     basic: {
       title: title,
@@ -39,6 +40,7 @@ const { title, description, imageUrl } = Astro.props;
     ],
   }}
 />
+<link rel="sitemap" href="/sitemap-index.xml" />
 
 <!-- Styles -->
 <style is:global>
