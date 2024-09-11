@@ -1,0 +1,156 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import "../styles/blog.css";
+import { SEO } from "astro-seo";
+
+export interface Props {
+  content: {
+    title: string;
+    description: string;
+    publishDate: string;
+    heroImage?: {
+      src: string;
+      alt: string;
+      width: number;
+    };
+    canonicalUrl: string;
+  };
+}
+
+const {
+  content: { title, description, publishDate, heroImage, canonicalUrl },
+} = Astro.props as Props;
+
+const canonicalURL = new URL(canonicalUrl, Astro.site);
+console.log(heroImage);
+
+const imageUrl = heroImage?.src;
+
+---
+
+<html>
+  <head>
+
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonicalURL.toString()}
+      openGraph={{
+        basic: {
+          title: title,
+          type: "website",
+          image: imageUrl,
+        }
+      }}
+      twitter={{
+        card: "summary_large_image",
+        site: "@Brian_Via",
+        creator: "@Brian_Via"
+      }}
+      extend={{
+        link: [
+          { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+          { rel: "preconnect", href: "https://fonts.gstatic.com" },
+          { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap" }
+        ],
+        meta: [
+          { name: "viewport", content: "width=device-width" },
+        ],
+      }}
+    />
+    
+    <!-- Styles -->
+    <style is:global>
+      @import "../styles/blog.css";
+    </style>
+    
+  </head>
+
+  <body>
+    <Header />
+
+      <header>
+        {
+          heroImage && (
+            <img class="w-48 max-w-48" 
+              width={heroImage.width}
+              loading="lazy"
+              src={heroImage.src}
+              alt={heroImage.alt}
+              max-width={heroImage.width}
+            />
+          )
+        }
+        
+      </header>
+      <main class="mx-8">
+        <slot />
+      </main>
+    </article>
+    <style>
+
+      .content {
+        margin-bottom: 8rem;
+      }
+
+      .content :global(h2) {
+        margin-top: 4rem;
+      }
+
+      header {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+
+        padding-bottom: 2rem;
+        margin-bottom: 2rem;
+        border-bottom: 4px solid var(--theme-divider);
+      }
+
+      .title,
+      time {
+        margin: 0;
+      }
+
+      time {
+        color: var(--theme-text-lighter);
+      }
+
+      .title {
+        font-size: 2.25rem;
+        font-weight: 700;
+      }
+
+      a {
+        color: #0077cc;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s ease;
+      }
+    
+      a:hover {
+        color: #005fa3;
+      }
+    
+      a::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: currentColor;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+    
+      a:hover::after {
+        transform: scaleX(1);
+      }
+    </style>
+  </body>
+</html>
