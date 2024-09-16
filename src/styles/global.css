@@ -245,3 +245,24 @@ aside {
   padding: 1rem;
   background-color: lightgoldenrodyellow;
 }
+
+body article a:not(h1 a, h2 a, h3 a, h4 a, h5 a) {
+  color: var(--color-blue);
+  text-decoration: none;
+  border-bottom: 1px solid #3498db;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+body article a:not(h1 a, h2 a, h3 a, h4 a, h5 a):hover {
+  color: #e74c3c;
+  border-bottom: 1px solid #e74c3c;
+}
+
+body article a:not(h1 a, h2 a, h3 a, h4 a, h5 a):active {
+  color: #c0392b;
+}
+
+body article a:not(h1 a, h2 a, h3 a, h4 a, h5 a):visited {
+  color: #8e44ad;
+  border-bottom: 1px solid #8e44ad;
+}
