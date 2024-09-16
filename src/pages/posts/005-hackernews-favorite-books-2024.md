@@ -7,7 +7,7 @@ publishDate: "2024-09-11"
 published: true
 heroImage: {
   src: "/assets/blog/005-hackernews-favorite-books-2024/kenny-eliason-uEcSKKDB1pg-unsplash.jpg",
-  alt: "Brian Via, your average developer",
+  alt: "Bunch of books on a shelf",
   width: 1200,
 }
 
