@@ -2,7 +2,7 @@
 import "../styles/blog.css";
 import { SEO } from "astro-seo";
 
-export interface Props {
+export interface BaseHeadProps {
 	title: string;
 	description: string;
 	imageUrl: string;
@@ -15,7 +15,7 @@ const { title, description, imageUrl } = Astro.props;
 <SEO
   title={title}
   description={description}
-  canonical={canonicalURL.toString()}
+  canonical={canonicalURL.toString() + '/'}
 
   openGraph={{
     basic: {
