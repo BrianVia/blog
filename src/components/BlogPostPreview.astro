@@ -60,12 +60,12 @@ const {
                 class="rounded-md"
               />
             )}
-            <time>{new Date(pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
             <a href={url}>
               <h4 class="title">{title}</h4>
             </a>
           </header>
-          <p class="h-12">{description}</p>
+          <p class="h-auto">{description}</p>
+          <time>{new Date(pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
         </div>
       </div>
     )
