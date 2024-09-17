@@ -12,7 +12,7 @@ const unsortedPosts = await Astro.glob("./posts/*.md");
 const sortedPosts = unsortedPosts
   .filter((post) => post.frontmatter.published === true)
   .sort(function (a, b) {
-    return new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf();
+    return new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf();
   });
 // slice first index and return modified original array
 const finalSortedPosts = sortedPosts.slice(1);

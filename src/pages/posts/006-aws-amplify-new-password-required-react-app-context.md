@@ -2,8 +2,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Solving AWS Amplify NEW_PASSWORD_REQUIRED with React App Context"
 description: "No need for Redux, just use App Context."
-pubDate: "2024-09-16"
-publishDate: "2024-09-16"
+pubDate: "Sept 16 2024"
 published: true
 heroImage: {
   src: "/assets/blog/006-aws-amplify-new-password-required-react-app-context/login-error.jpg",

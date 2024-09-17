@@ -3,7 +3,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Local Minimum"
 description: "Layoff, panic, rebounding, and the best job I've ever had."
-publishDate: "19 Jun 2024"
+pubDate: "19 Jun 2024"
 heroImage:
   src: "/assets/blog/004-local-minimum/spongebob-sitting-at-table.jpg"
   alt: "Spongebob sitting at table contemplating losing his nametag/identity"

@@ -6,7 +6,7 @@ export interface Props {
   content: {
     title: string;
     description: string;
-    publishDate: string;
+    pubDate: string;
     heroImage?: {
       src: string;
       alt: string;
@@ -16,7 +16,7 @@ export interface Props {
 }
 
 const {
-  content: { title, description, publishDate, heroImage },
+  content: { title, description, pubDate, heroImage },
 } = Astro.props as Props;
 console.log(heroImage);
 ---
@@ -41,7 +41,7 @@ console.log(heroImage);
           )
         }
         <h1 class="title">{title}</h1>
-        <time>{publishDate}</time>
+        <time>{pubDate}</time>
       </header>
       <main class="mx-8">
         <slot />
