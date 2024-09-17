@@ -12,7 +12,7 @@ const unsortedPosts = await Astro.glob("./posts/*.md");
 const sortedPosts = unsortedPosts
   .filter((post) => post.frontmatter.published === true)
   .sort(function (a, b) {
-    return new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf();
+    return new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf();
   });
 // slice first index and return modified original array
 const finalSortedPosts = sortedPosts.slice(1);
@@ -45,7 +45,7 @@ const mostRecentPost = sortedPosts[0];
           <BlogPostPreview
             title={mostRecentPost.frontmatter.title}
             description={mostRecentPost.frontmatter.description}
-            publishDate={mostRecentPost.frontmatter.publishDate}
+            pubDate={mostRecentPost.frontmatter.pubDate}
             url={mostRecentPost.url}
             heroImage={mostRecentPost.frontmatter.heroImage}
             mostRecentPost={true}
@@ -60,7 +60,7 @@ const mostRecentPost = sortedPosts[0];
                 <BlogPostPreview
                   title={post.frontmatter.title}
                   description={post.frontmatter.description}
-                  publishDate={post.frontmatter.publishDate}
+                  pubDate={post.frontmatter.pubDate}
                   url={post.url}
                   heroImage={post.frontmatter.heroImage}
                 />

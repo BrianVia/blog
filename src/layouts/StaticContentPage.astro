@@ -8,7 +8,7 @@ export interface Props {
   content: {
     title: string;
     description: string;
-    publishDate: string;
+    pubDate: string;
     heroImage?: {
       src: string;
       alt: string;
@@ -19,7 +19,7 @@ export interface Props {
 }
 
 const {
-  content: { title, description, publishDate, heroImage, canonicalUrl },
+  content: { title, description, pubDate, heroImage, canonicalUrl },
 } = Astro.props as Props;
 
 const canonicalURL = new URL(canonicalUrl, Astro.site);

@@ -2,7 +2,7 @@
 export interface Props {
   title: string;
   description: string;
-  publishDate: string;
+  pubDate: string;
   url: string;
   heroImage?: {
     src: string;
@@ -15,7 +15,7 @@ export interface Props {
 const {
   title,
   description,
-  publishDate,
+  pubDate,
   url,
   heroImage,
   mostRecentPost = false,
@@ -40,7 +40,7 @@ const {
           </h2>
           <p class="text-gray-600 mb-4">{description}</p>
           <p class="text-gray-400 text-xs">
-            <time datetime={publishDate}>{publishDate}</time>
+            <time>{new Date(pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
           </p>
         </div>
       </div>
@@ -60,7 +60,7 @@ const {
                 class="rounded-md"
               />
             )}
-            <time>{publishDate}</time>
+            <time>{new Date(pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
             <a href={url}>
               <h4 class="title">{title}</h4>
             </a>

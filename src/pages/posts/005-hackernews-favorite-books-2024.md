@@ -2,7 +2,7 @@
 layout: "../../layouts/BlogPost.astro"
 title: "Hacker News Favorite Books of 2024"
 description: "A list of books that Hacker News users mentioned the most."
-pubDate: "Sept 11 2024"
+pubDate: "2024-09-11"
 published: true
 heroImage: {
   src: "/assets/blog/005-hackernews-favorite-books-2024/kenny-eliason-uEcSKKDB1pg-unsplash.jpg",
