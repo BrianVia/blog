@@ -4,11 +4,11 @@ import Header from "../components/Header.astro";
 import "../styles/blog.css";
 import { SEO } from "astro-seo";
 
-export interface Props {
+export interface StaticContentPageProps {
   content: {
     title: string;
     description: string;
-    pubDate: string;
+
     heroImage?: {
       src: string;
       alt: string;
@@ -19,8 +19,8 @@ export interface Props {
 }
 
 const {
-  content: { title, description, pubDate, heroImage, canonicalUrl },
-} = Astro.props as Props;
+  content: { title, description, heroImage, canonicalUrl },
+} = Astro.props as StaticContentPageProps;
 
 const canonicalURL = new URL(canonicalUrl, Astro.site);
 console.log(heroImage);
@@ -73,7 +73,7 @@ const imageUrl = heroImage?.src;
       <header>
         {
           heroImage && (
-            <img class="w-48 max-w-48" 
+            <img class="w-1/4 max-w-1/4" 
               width={heroImage.width}
               loading="lazy"
               src={heroImage.src}
@@ -84,11 +84,11 @@ const imageUrl = heroImage?.src;
         }
         
       </header>
-      <main class="mx-8">
+      <main class="m-8">
         <slot />
       </main>
 
-    <style>
+    <style is:global>
 
       .content {
         margin-bottom: 8rem;
