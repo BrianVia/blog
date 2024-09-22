@@ -5,25 +5,26 @@ description: "Stuff on my Desk"
 pubDate: "30 Apr 2023"
 heroImage: {
   src: "https://images.unsplash.com/photo-1416339442236-8ceb164046f8?q=80&w=3820&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  alt: "Equipment I Use",
+  alt: "Not my real desk.",
   width: 1200,
 }
 ---
 
 ## Workstation Equipment I Use
 
-Some of these links may be referral link
+Some of these links may be referral links
 
 ### Peripherals
 
-- Keyboard - [Keychron K10 Wireless Mechanical Keyboard (Blue Switches)](https://www.keychron.com/products/keychron-k10-wireless-mechanical-keyboard?variant=39426677506137)
-- Mouse - [Logitech G703](https://www.amazon.com/Logitech-Lightspeed-Lightsync-Compatible-Lightweight/dp/B07NSSPV9S?crid=3QW1K2Q06QW7Y&keywords=logitech%2Bg703&qid=1680796547&sprefix=logitech%2Bg703%2Caps%2C84&sr=8-1&th=1&linkCode=ll1&tag=wishlistale0b-20&linkId=d1c904894788f6b47dbeb9aca1b093a2&language=en_US&ref_=as_li_ss_tl)
-
-- Mousepad - [Logitech G Powerplay Wireless Charging Mousepad](https://www.amazon.com/Logitech-Powerplay-Wireless-Charging-Lightspeed/dp/B071WZ56G9?&linkCode=ll1&tag=wishlistale0b-20&linkId=de7c105556a8e3dafce6a0a0fbdb40b6&language=en_US&ref_=as_li_ss_tl)
-- [Blue Yeti Desktop Condenser Microphone](https://amzn.to/3KggjoC)
+- Keyboard - [Keychron K10 Wireless Mechanical Keyboard (Blue Switches)](https://amzn.to/4gNGToH)
+- Mouse - [Logitech G703](https://amzn.to/4e3ysDL)
+- Mousepad - [Logitech G Powerplay Wireless Charging Mousepad](https://amzn.to/3ZEshlnl)
+- Microphone - [Blue Yeti Desktop Condenser Microphone](https://amzn.to/3ZytN8w)
+- Headphones - [Sony WH-1000XM5](https://amzn.to/3XzaYzo)
+- Earbuds - [Apple AirPods Pro 2nd Generation](https://amzn.to/4exlT3h)
 
 ### Desktop PC
 
-- [AMD Ryzen 5950X](https://amzn.to/3KDQ4d5)
-- [EVGA GeForce Nvidia RTX 2080Ti](https://amzn.to/3KDCh6c)
-- [Samsung 970 EVO SSD 2TB](https://amzn.to/40Tomio)
+- Processor - [AMD Ryzen 5950X](https://amzn.to/4e74ChE)
+- Video Card - [EVGA GeForce Nvidia RTX 2080Ti](https://amzn.to/4exlIF9)
+- Storage - [Samsung 970 EVO SSD 2TB](https://amzn.to/4ebcnD7)
