@@ -26,6 +26,7 @@ console.log(heroImage);
 <html>
   <head>
     <BaseHead title={title} description={description} imageUrl={heroImage.src} canonicalRoute={`posts/${slug}`}/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
   <body>
@@ -41,43 +42,45 @@ console.log(heroImage);
               alt={heroImage.alt}
               quality={80}
               format="webp"
+              class="hero-image"
             />
           )
         }
         <h1 class="title">{title}</h1>
         <time>{pubDate}</time>
       </header>
-      <main class="mx-8">
+      <main class="mx-4 sm:mx-8">
         <slot />
       </main>
     </article>
     <style>
-      img {
-        width: 600px;
+      .hero-image {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
         object-fit: cover;
         object-position: center;
         margin-top: 2rem;
         margin-bottom: 4rem;
-        max-width: 600px;
-      }
-      img {
-        max-width: 600px;
+        margin-left: 1rem;
+        margin-right: 1rem;
       }
 
-      @media (max-width: 50em) {
-        img {
-          /* height: 260px; */
-          margin-top: 0;
+      @media (max-width: 640px) {
+        .hero-image {
+          margin-top: 1rem;
           margin-bottom: 2rem;
+          margin-left: 1rem;
+          margin-right: 1rem;
         }
       }
 
       .content {
-        margin-bottom: 8rem;
+        margin-bottom: 4rem;
       }
 
       .content :global(h2) {
-        margin-top: 4rem;
+        margin-top: 2rem;
       }
 
       header {
@@ -87,9 +90,8 @@ console.log(heroImage);
         align-items: center;
         justify-content: center;
         gap: 1rem;
-
-        padding-bottom: 2rem;
-        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
         border-bottom: 4px solid var(--theme-divider);
       }
 
@@ -103,10 +105,28 @@ console.log(heroImage);
       }
 
       .title {
-        font-size: 2.25rem;
+        font-size: 1.75rem;
         font-weight: 700;
       }
 
+      @media (min-width: 640px) {
+        .content {
+          margin-bottom: 8rem;
+        }
+
+        .content :global(h2) {
+          margin-top: 4rem;
+        }
+
+        header {
+          padding-bottom: 2rem;
+          margin-bottom: 2rem;
+        }
+
+        .title {
+          font-size: 2.25rem;
+        }
+      }
     </style>
     <style is:global>
       @import "../styles/global.css";
