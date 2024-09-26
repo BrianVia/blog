@@ -3,18 +3,22 @@ import "../styles/blog.css";
 import { SEO } from "astro-seo";
 
 export interface BaseHeadProps {
-	title: string;
-	description: string;
+	title?: string;
+	description?: string;
 	imageUrl: string;
+	canonicalRoute: string;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, imageUrl } = Astro.props;
+const baseTitle = "Brian | Via";
+const baseDescription = "Musings on Software or anything else that strikes my fancy.";
+
+const { title, description, imageUrl, canonicalRoute } = Astro.props as BaseHeadProps;
+const canonicalURL = `https://brianvia.blog/${canonicalRoute || ""}`;
 ---
 
 <SEO
-  title={title}
-  description={description}
+  title={`${title} - ${baseTitle}`}
+  description={description || baseDescription}
   canonical={canonicalURL.toString()}
 
   openGraph={{

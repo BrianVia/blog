@@ -4,6 +4,7 @@ title: "Hacker News Favorite Books of 2024"
 description: "A list of books that Hacker News users mentioned the most."
 pubDate: "2024-09-11"
 published: true
+slug: "005-hackernews-favorite-books-2024"
 heroImage: {
   src: "/assets/blog/005-hackernews-favorite-books-2024/kenny-eliason-uEcSKKDB1pg-unsplash.jpg",
   alt: "Bunch of books on a shelf",

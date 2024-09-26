@@ -14,15 +14,15 @@ export interface StaticContentPageProps {
       alt: string;
       width: number;
     };
-    canonicalUrl: string;
+    canonicalRoute: string;
   };
 }
 
 const {
-  content: { title, description, heroImage, canonicalUrl },
+  content: { title, description, heroImage, canonicalRoute },
 } = Astro.props as StaticContentPageProps;
 
-const canonicalURL = new URL(canonicalUrl, Astro.site);
+const canonicalURL = `https://brianvia.blog/${canonicalRoute}`;
 console.log(heroImage);
 
 const imageUrl = heroImage?.src;

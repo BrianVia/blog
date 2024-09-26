@@ -1,6 +1,7 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
+import { Image } from 'astro:assets';
 
 export interface Props {
   content: {
@@ -12,18 +13,19 @@ export interface Props {
       alt: string;
       width: number;
     };
+    slug: string;
   };
 }
 
 const {
-  content: { title, description, pubDate, heroImage },
+  content: { title, description, pubDate, heroImage, slug },
 } = Astro.props as Props;
 console.log(heroImage);
 ---
 
 <html>
   <head>
-    <BaseHead title={title} description={description} imageUrl={heroImage.src} />
+    <BaseHead title={title} description={description} imageUrl={heroImage.src} canonicalRoute={`posts/${slug}`}/>
   </head>
 
   <body>
@@ -32,11 +34,13 @@ console.log(heroImage);
       <header>
         {
           heroImage && (
-            <img
-              width={heroImage.width}
-              loading="lazy"
+            <Image
               src={heroImage.src}
+              width={heroImage.width}
+              height={heroImage.width / 1.5}
               alt={heroImage.alt}
+              quality={80}
+              format="webp"
             />
           )
         }
