@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import astroLogo from '/public/astro-full-logo.png';
 ---
 
 <footer class="wrapper">
@@ -7,9 +9,11 @@
   </span>
   <span
     >Built with <a href="https://astro.build"
-      ><img
-        src="/astro-full-logo.png"
-        style="height: 3rem; display: inline-block;"
+      ><Image
+        src={astroLogo}
+        alt="Astro logo"
+        height={48}
+        style="display: inline-block;"
       /></a
     ></span
   >
