@@ -4,7 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import BlogPostPreview from "../components/BlogPostPreview.astro";
 
-let title = "Brian | Via";
+let title = "Blog";
 
 
 // Use Astro.glob to fetch all post with associated frontmatter
@@ -25,7 +25,7 @@ const mostRecentPost = sortedPosts[0];
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <BaseHead imageUrl="/social.png" canonicalRoute=""/>
+    <BaseHead imageUrl="/social.png" canonicalRoute="" title={title}/>
   </head>
 
   <body class="">

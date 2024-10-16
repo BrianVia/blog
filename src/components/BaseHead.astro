@@ -12,12 +12,12 @@ export interface BaseHeadProps {
 const baseTitle = "Brian | Via";
 const baseDescription = "Musings on Software or anything else that strikes my fancy.";
 
-const { title = baseTitle, description = baseDescription, imageUrl, canonicalRoute } = Astro.props as BaseHeadProps;
+const { title, description = baseDescription, imageUrl, canonicalRoute } = Astro.props as BaseHeadProps;
 const canonicalURL = `https://brianvia.blog/${canonicalRoute || ""}`;
 ---
 
 <SEO
-  title={`${title} - ${baseTitle}`}
+  title={`${title} ${title ? `- ${baseTitle}` : baseTitle}`}
   description={description}
   canonical={canonicalURL.toString()}
 
