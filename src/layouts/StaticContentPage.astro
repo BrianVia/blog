@@ -1,5 +1,6 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import "../styles/blog.css";
 import { SEO } from "astro-seo";
@@ -70,10 +71,15 @@ const imageUrl = heroImage?.src;
   <body>
     <Header />
 
-      <header>
+    <section class="intro text-center font-serif py-2">
+      <p>I don't have talent, so I just get up earlier.<br />-Henry Rollins</p>
+    </section>
+    
+
+      <section class="hero-image" >
         {
           heroImage && (
-            <img class="w-full sm:w-4/5 md:w-2/3 lg:w-1/2" 
+            <img class="w-4/5 sm:w-3/4 md:w-1/2 lg:w-1/3" 
               width={heroImage.width}
               loading="lazy"
               src={heroImage.src}
@@ -83,10 +89,11 @@ const imageUrl = heroImage?.src;
           )
         }
         
-      </header>
+      </section>
       <main class="m-8 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <slot />
       </main>
+      <Footer />
 
     <style is:global>
 
@@ -98,7 +105,7 @@ const imageUrl = heroImage?.src;
         margin-top: 4rem;
       }
 
-      header {
+      section.hero-image {
         display: flex;
         flex-direction: column;
         text-align: center;
@@ -125,12 +132,6 @@ const imageUrl = heroImage?.src;
         font-weight: 700;
       }
 
-      a {
-        color: #0077cc;
-        text-decoration: none;
-        position: relative;
-        transition: color 0.3s ease;
-      }
     
       a:hover {
         color: #005fa3;

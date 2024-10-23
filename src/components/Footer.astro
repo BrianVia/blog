@@ -4,22 +4,33 @@ import astroLogo from '/public/astro-full-logo.png';
 ---
 
 <footer class="wrapper">
-  <span>
-    <a href="/rss.xml">RSS Feed</a>
-  </span>
-  <span
-    >Built with <a href="https://astro.build"
-      ><Image
-        src={astroLogo}
-        alt="Astro logo"
-        height={48}
-        style="display: inline-block;"
-      /></a
-    ></span
-  >
+  <div class="footer-content">
+    <span>
+      <a href="/rss.xml">RSS Feed</a>
+    </span>
+    <span
+      >Built with <a href="https://astro.build"
+        ><Image
+          src={astroLogo}
+          alt="Astro logo"
+          height={48}
+          style="display: inline-block;"
+        /></a
+      ></span
+    >
+  </div>
 </footer>
 
 <style>
+  .wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  .footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   span {
     margin: 0 1rem;
   }
