@@ -2,10 +2,12 @@
 layout: "../layouts/StaticContentPage.astro"
 title: "About Me"
 description: "Subpar developer, occasionally humorous"
-heroImage: { src: "/assets/blog/001-hello-world/career.png", alt: "Me - subpar dev, occasionally humorous", width: 1200 }
+heroImage: { src: "/assets/blog/001-hello-world/career.png", alt: "Me - subpar dev, occasionally humorous", width: 600 }
 ---
 
 # About Me
+
+<img src="/assets/pfp-original.png" alt="Me - subpar dev, occasionally humorous" style="width:200px;" />
 
 *-* Currently working at <a href="https://dfinitiv.io/">Dfinitiv, Inc.</a> as a senior fullstack engineer. Building great stuff in the credit card rewards space. Check out our mobile app called <a href="https://apps.apple.com/us/app/savvy-spend-smart/id6457414408">Savvy Spend Smart</a>
 
