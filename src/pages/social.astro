@@ -6,7 +6,6 @@ import { Image } from "astro:assets";
 import xSvg from "../assets/social-images/x-logo.svg";
 
 let title = "Brian | Via - Social";
-let description = "Musings on Software or anything else that strikes my fancy.";
 let intro = `Here's how to get in touch with me if you'd like to!`;
 ---
 
@@ -16,7 +15,7 @@ let intro = `Here's how to get in touch with me if you'd like to!`;
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <BaseHead title={title} description={description} imageUrl="/social.png" />
+    <BaseHead title={title} description={"Get in touch with me if you'd like to!"} imageUrl="/social.png" />
   </head>
 
   <body class="">
@@ -25,34 +24,35 @@ let intro = `Here's how to get in touch with me if you'd like to!`;
     <div class="xs:px-2 sm:px-4 md:px-6 lg:px-8 px-8 mx-auto wrapper">
       <main class="content">
         <section class="intro">
-          <p>{description}</p>
+
         </section>
-        <section>
+        <section class="text-center">
           <h1>Social Links</h1>
           <p>{intro}</p>
-          <ul>
+          <ul class="flex flex-col items-center">
             <li class="social-item">
               <a href="mailto:inquiries@brianvia.com" class="social-link">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 <span>Email</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                
               </a>
             </li>
             <li class="social-item">
               <a href="https://twitter.com/Brian_Via" class="social-link">
-                <Image src={xSvg} alt="Twitter" class="icon" width={24} height={24} />
                 <span>Twitter</span>
+                <Image src={xSvg} style="fill: white;" alt="Twitter" class="icon" width={24} height={24} />
               </a>
             </li>
             <li class="social-item">
               <a href="https://linkedin.com/in/🧑‍💻brian-via-5b242a65" class="social-link">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 <span>LinkedIn</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
               </a>
             </li>
             <li class="social-item">
               <a href="https://github.com/BrianVia" class="social-link">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                 <span>GitHub</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
               </a>
             </li>
           </ul>
@@ -88,11 +88,40 @@ let intro = `Here's how to get in touch with me if you'd like to!`;
         .social-link {
           display: flex;
           align-items: center;
-          padding: 0.5rem;
+          justify-content: space-between;
+          padding: 0.5rem 1.5rem;
+          list-style: none;
+          box-sizing: border-box;
+          margin: 0;
+          border: 0;
+          font: inherit;
+          align-items: center;
+          max-width: 100%;
+          text-align: center;
+          text-decoration: none;
+          white-space: nowrap;  
+          display: inline-flex;
+          width: 30rem;
+          height: 3rem;
+          line-height: 3rem;
+          padding: 0 1.5rem;
+          vertical-align: middle;
+          text-transform: uppercase;
+          /* font-family: 'Public Sans', sans-serif; */
+          letter-spacing: 0.2rem;
+          padding-left: calc(0.2rem + 1.5rem);
+          font-size: 0.75em;
+          font-weight: 700;
+          border-radius: 0.375rem;
+          flex-direction: row;
+          transition: transform 0.25s ease, color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+          color: #FFFFFF;
+          background-color: #e74c3c;
         }
 
         .social-link .icon {
-          margin-right: 0.5rem;
+          margin-right: 0;
+          margin-left: 0.5rem;
         }
       </style>
     </div>
