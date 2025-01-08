@@ -10,6 +10,7 @@ export interface Props {
     width: number;
   };
   mostRecentPost?: boolean;
+  tags?: string[];
 }
 
 const {
@@ -19,12 +20,13 @@ const {
   url,
   heroImage,
   mostRecentPost = false,
+  tags = [],
 } = Astro.props as Props;
 ---
 
-<div class="blog-post-preview mb-8">
+<div class="blog-post-preview mb-6">
   {mostRecentPost ? (
-    <div class="grid md:grid-cols-2 gap-6 items-center max-w-5xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-4 items-center max-w-5xl mx-auto">
       <div class="md:col-span-1">
         <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
           <img
@@ -35,10 +37,15 @@ const {
         </div>
       </div>
       <div class="md:col-span-1">
+        {tags.length > 0 && (
+          <div class="post-card-tags mb-1">
+            {tags.join(', ')}
+          </div>
+        )}
         <h2 class="text-2xl font-bold mb-2 text-primary">
           <a href={url}>{title}</a>
         </h2>
-        <p class="text-text-light mb-4">{description}</p>
+        <p class="text-text-light mb-2">{description}</p>
         <p class="text-sm text-text-light">
           <time>{new Date(pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
         </p>
@@ -55,6 +62,11 @@ const {
         />
       )}
       <div class="p-4">
+        {tags.length > 0 && (
+          <div class="post-card-tags mb-1">
+            {tags.join(', ')}
+          </div>
+        )}
         <h3 class="text-xl font-semibold mb-2">
           <a href={url} class="text-primary hover:underline">{title}</a>
         </h3>
@@ -66,3 +78,15 @@ const {
     </div>
   )}
 </div>
+
+<style>
+  .post-card-tags {
+    display: block;
+    color: #738a94;
+    font-size: 0.8rem;
+    line-height: 1.15em;
+    font-weight: 500;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+</style>

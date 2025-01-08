@@ -45,6 +45,7 @@ const mostRecentPost = sortedPosts[0];
             url={`/posts/${mostRecentPost.frontmatter.slug}`}
             heroImage={{src: mostRecentPost.frontmatter.heroImage.src || "", alt: "", width: 1200}}
             mostRecentPost={true}
+            tags={mostRecentPost.frontmatter.tags || []}
           />
         </section>
 
@@ -58,6 +59,7 @@ const mostRecentPost = sortedPosts[0];
                 pubDate={(post.frontmatter.pubDate || "")}
                 url={`/posts/${post.frontmatter.slug}`}
                 heroImage={{src: post.frontmatter.heroImage.src || "", alt: "", width: 1200}}
+                tags={post.frontmatter.tags || []}
               />
             ))}
           </div>

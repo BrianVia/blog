@@ -5,6 +5,7 @@ description: "Actually doing a side project to save myself time"
 pubDate: "2022-10-13"
 slug: "003-organizing-ebook-files-with-python"
 published: true
+tags: ["python", "ebooks"]
 heroImage:
   src: "/assets/blog/003-organizing-ebook-files-with-python/library.png"
   alt: "A Library full of books"

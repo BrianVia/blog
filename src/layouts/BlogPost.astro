@@ -14,11 +14,12 @@ export interface Props {
       width: number;
     };
     slug: string;
+    tags?: string[];
   };
 }
 
 const {
-  content: { title, description, pubDate, heroImage, slug },
+  content: { title, description, pubDate, heroImage, slug, tags = [] },
 } = Astro.props as Props;
 console.log(heroImage);
 ---
@@ -33,19 +34,22 @@ console.log(heroImage);
     <Header />
     <article class="wrapper content">
       <header>
-        {
-          heroImage && (
-            <Image
-              src={heroImage.src}
-              width={heroImage.width}
-              height={heroImage.width / 1.5}
-              alt={heroImage.alt}
-              quality={80}
-              format="webp"
-              class="hero-image"
-            />
-          )
-        }
+        {heroImage && (
+          <Image
+            src={heroImage.src}
+            width={heroImage.width}
+            height={heroImage.width / 1.5}
+            alt={heroImage.alt}
+            quality={80}
+            format="webp"
+            class="hero-image"
+          />
+        )}
+        {tags.length > 0 && (
+          <div class="post-card-tags">
+            {tags.join(', ')}
+          </div>
+        )}
         <h1 class="title">{title}</h1>
         <time>{pubDate}</time>
       </header>
@@ -126,6 +130,17 @@ console.log(heroImage);
         .title {
           font-size: 2.25rem;
         }
+      }
+
+      .post-card-tags {
+        display: block;
+        margin-bottom: 4px;
+        color: #738a94;
+        font-size: 1.2rem;
+        line-height: 1.15em;
+        font-weight: 500;
+        letter-spacing: .5px;
+        text-transform: uppercase;
       }
     </style>
     <style is:global>

@@ -5,6 +5,7 @@ description: "No need for Redux, just use App Context."
 pubDate: "2024-09-16"
 published: true
 slug: "006-aws-amplify-new-password-required-react-app-context"
+tags: ["react", "aws", "cognito"]
 heroImage: {
   src: "/assets/blog/006-aws-amplify-new-password-required-react-app-context/login-error.jpg",
   alt: "A computer screen showing some failed login code.",

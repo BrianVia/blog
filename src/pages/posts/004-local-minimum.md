@@ -5,6 +5,7 @@ title: "Local Minimum"
 description: "Layoff, panic, rebounding, and the best job I've ever had."
 pubDate: "2024-06-19"
 slug: "004-local-minimum"
+tags: ["personal growth"]
 heroImage:
   src: "/assets/blog/004-local-minimum/spongebob-sitting-at-table.jpg"
   alt: "Spongebob sitting at table contemplating losing his nametag/identity"
