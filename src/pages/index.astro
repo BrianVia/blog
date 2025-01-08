@@ -3,18 +3,23 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import BlogPostPreview from "../components/BlogPostPreview.astro";
-
+import { getCollection } from "astro:content";
 let title = "Blog";
 
+const unsortedPosts = await getCollection("database");
 
-// Use Astro.glob to fetch all post with associated frontmatter
-const unsortedPosts = await Astro.glob("./posts/*.md");
+
 const sortedPosts = unsortedPosts
-  .filter((post) => post.frontmatter.published === true)
-  .sort(function (a, b) {
-    return new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf();
+  .sort((a, b) => {
+    const dateA = a.data.properties.Created;
+    const dateB = b.data.properties.Created;
+    return new Date(dateB).valueOf() - new Date(dateA).valueOf();
   });
-// slice first index and return modified original array
+// console.log(JSON.stringify(sortedPosts.slice(0, 1), null, 2));
+
+const listOfAllSlugs = sortedPosts.map((post) => post.data.properties.slug);
+console.log(`listOfAllSlugs: ${JSON.stringify(listOfAllSlugs, null, 2)}`);
+
 const finalSortedPosts = sortedPosts.slice(1);
 const mostRecentPost = sortedPosts[0];
 ---
@@ -43,26 +48,25 @@ const mostRecentPost = sortedPosts[0];
         <br style="background-color: black;" />
         <section id="most-recent-post">
           <BlogPostPreview
-            title={mostRecentPost.frontmatter.title}
-            description={mostRecentPost.frontmatter.description}
-            pubDate={mostRecentPost.frontmatter.pubDate}
-            url={mostRecentPost.url}
-            heroImage={mostRecentPost.frontmatter.heroImage}
+            title={mostRecentPost.data.properties.Name}
+            description={mostRecentPost.data.properties.Description}
+            publicationDate={(mostRecentPost.data.properties.Created || "")}
+            url={`/posts/${mostRecentPost.data.properties.slug}`}
+            heroImage={{src: mostRecentPost.data.properties.heroImageUrl || "", alt: "", width: 1200}}
             mostRecentPost={true}
           />
         </section>
 
         <section aria-label="Blog post list">
-          <!-- three column grid view -->
           <div class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-auto-rows: 1fr; gap-x-8">
             {
               finalSortedPosts.map((post) => (
                 <BlogPostPreview
-                  title={post.frontmatter.title}
-                  description={post.frontmatter.description}
-                  pubDate={post.frontmatter.pubDate}
-                  url={post.url}
-                  heroImage={post.frontmatter.heroImage}
+                  title={post.data.properties.Name}
+                  description={post.data.properties.Description}
+                  publicationDate={(post.data.properties.Created || "")}
+                  url={`/posts/${post.data.properties.slug}`}
+                  heroImage={{src: post.data.properties.heroImageUrl || "", alt: "", width: 1200}}
                 />
               ))
             }
@@ -73,13 +77,8 @@ const mostRecentPost = sortedPosts[0];
     <Footer />
 
     <style>
-
-
       .content {
-
       }
-
-      
 
       .intro {
         padding-bottom: 1rem;

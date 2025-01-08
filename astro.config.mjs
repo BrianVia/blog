@@ -10,9 +10,20 @@ import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({
+  image: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.amazonaws.com",
+      },
+    ],
+  },
   integrations: [tailwind(), sitemap(), robotsTxt()],
   site: `https://brianvia.blog`,
   trailingSlash: "never",
+  build: {
+    format: "preserve",
+  },
   markdown: {
     gfm: true,
     breaks: false,

@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import BlogPost from "../../layouts/BlogPost.astro";
+
+
+export const getStaticPaths = async () => {
+  const blogPosts = await getCollection("database");
+  return blogPosts.map((post) => ({
+    params: { slug: post.data.properties.slug },
+    props: { frontmatter: {
+        title: post.data.properties.Name,
+        description: post.data.properties.Description,
+        publishedDate: post.data.properties.Created,
+        heroImage: {
+            src: post.data.properties.heroImageUrl || "",
+            width: 800,
+            alt: "Hero Image",
+        },
+        slug: post.data.properties.slug,
+      },
+      content: post?.rendered?.html || "",
+    },
+  }));
+};
+
+const { slug } = Astro.params;
+const { frontmatter, content } = Astro.props;
+
+--- 
+
+<BlogPost frontmatter={frontmatter} content={content} />

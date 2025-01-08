@@ -4,28 +4,30 @@ import Header from "../components/Header.astro";
 import { Image } from 'astro:assets';
 
 export interface Props {
-  content: {
+  frontmatter: {
     title: string;
     description: string;
-    pubDate: string;
+    publishedDate: Date;
     heroImage?: {
       src: string;
-      alt: string;
+      alt?: string;
       width: number;
     };
     slug: string;
   };
+  content: string;
 }
 
 const {
-  content: { title, description, pubDate, heroImage, slug },
+  frontmatter: { title, description, publishedDate, heroImage, slug },
+  content,
 } = Astro.props as Props;
 console.log(heroImage);
 ---
 
 <html>
   <head>
-    <BaseHead title={title} description={description} imageUrl={heroImage.src} canonicalRoute={`posts/${slug}`}/>
+    <BaseHead title={title} description={description} imageUrl={heroImage?.src} canonicalRoute={`posts/${slug}`}/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
@@ -47,10 +49,10 @@ console.log(heroImage);
           )
         }
         <h1 class="title">{title}</h1>
-        <time>{pubDate}</time>
+        <time>{publishedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
       </header>
       <main class="mx-4 sm:mx-8">
-        <slot />
+        <div set:html={content} />
       </main>
     </article>
     <style>
