@@ -3,40 +3,29 @@ import { Image } from "astro:assets";
 import logoSvg from "../assets/logo.svg";
 ---
 
-<header class="wrapper">
-  <nav class="flex flex-col sm:flex-row items-center justify-between py-4">
-    <a href="/" class="">
-      <Image src={logoSvg} alt="My website logo" class="w-24 h-24" />
+<header class="bg-white shadow-md">
+  <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center">
+      <Image src={logoSvg} alt="My website logo" class="w-10 h-10 mr-2" />
+      <span class="text-xl font-bold text-primary">Brian Via</span>
     </a>
-    <div class="flex flex-wrap justify-center sm:justify-end space-x-4 mr-4">
-      <a href="/" class="py-2">Blog</a>
-      <a href="/about" class="py-2">About</a>
-      <!-- <a href="/projects" class="py-2">Projects</a> -->
-      <a href="/social" class="py-2">Social</a>
-      <!-- <a href="https://lazyweb.dev/" class="py-2">Newsletter</a> -->
-      <a href="/feeds" class="py-2">Feeds</a>
-      <a href="/links" class="py-2">Links</a>
+    <div class="flex space-x-4">
+      <a href="/" class="nav-link">Blog</a>
+      <a href="/about" class="nav-link">About</a>
+      <a href="/social" class="nav-link">Social</a>
+      <a href="/feeds" class="nav-link">Feeds</a>
+      <a href="/links" class="nav-link">Links</a>
     </div>
   </nav>
 </header>
 
 <style>
-
-
-  a {
-    text-decoration: none;
-    display: inline-flex;
-    padding-bottom: 0.5rem; /* Reduce bottom padding */
-    margin-left: 1rem;
-    margin-right: 0.5rem;
+  .nav-link {
+    color: var(--color-text);
+    font-weight: 500;
+    transition: color 0.3s ease;
   }
-
-  nav {
-    margin-bottom: -1rem; /* Negative margin to reduce space between nav and body */
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
+  .nav-link:hover {
+    color: var(--color-primary);
   }
 </style>

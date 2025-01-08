@@ -21,79 +21,49 @@ const mostRecentPost = sortedPosts[0];
 
 <html lang="en">
   <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <BaseHead imageUrl="/social.png" canonicalRoute="" title={title}/>
+    <!-- ... (keep existing head content) -->
   </head>
 
-  <body class="">
+  <body class="bg-background">
     <Header />
 
-    <div class="xs:px-2 sm:px-4 md:px-6 lg:px-8 px-8 mx-auto wrapper">
-      <main class="content">
-        <section class="intro text-center font-serif">
-          <p>I don't have talent, so I just get up earlier.<br />-Henry Rollins</p>
+    <div class="container mx-auto px-4 py-8">
+      <main>
+        <section class="text-center mb-12">
+          <h1 class="text-4xl font-bold mb-4 text-primary">Brian Via's Blog</h1>
+          <p class="text-xl text-text-light italic">
+            "I don't have talent, so I just get up earlier." -Henry Rollins
+          </p>
         </section>
-        <h1 class="text-center">
-          Blog
-        </h1>
 
-        <br style="background-color: black;" />
-        <section id="most-recent-post">
+        <section id="most-recent-post" class="mb-16">
+          <h2 class="text-2xl font-semibold mb-4 text-text">Latest Post</h2>
           <BlogPostPreview
             title={mostRecentPost.frontmatter.title}
             description={mostRecentPost.frontmatter.description}
-            pubDate={mostRecentPost.frontmatter.pubDate}
-            url={mostRecentPost.url}
-            heroImage={mostRecentPost.frontmatter.heroImage}
+            pubDate={(mostRecentPost.frontmatter.pubDate || "")}
+            url={`/posts/${mostRecentPost.frontmatter.slug}`}
+            heroImage={{src: mostRecentPost.frontmatter.heroImage.src || "", alt: "", width: 1200}}
             mostRecentPost={true}
           />
         </section>
 
         <section aria-label="Blog post list">
-          <!-- three column grid view -->
-          <div class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-auto-rows: 1fr; gap-x-8">
-            {
-              finalSortedPosts.map((post) => (
-                <BlogPostPreview
-                  title={post.frontmatter.title}
-                  description={post.frontmatter.description}
-                  pubDate={post.frontmatter.pubDate}
-                  url={post.url}
-                  heroImage={post.frontmatter.heroImage}
-                />
-              ))
-            }
+          <h2 class="text-2xl font-semibold mb-4 text-text">All Posts</h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {finalSortedPosts.map((post) => (
+              <BlogPostPreview
+                title={post.frontmatter.title}
+                description={post.frontmatter.description}
+                pubDate={(post.frontmatter.pubDate || "")}
+                url={`/posts/${post.frontmatter.slug}`}
+                heroImage={{src: post.frontmatter.heroImage.src || "", alt: "", width: 1200}}
+              />
+            ))}
           </div>
         </section>
       </main>
     </div>
     <Footer />
-
-    <style>
-
-
-      .content {
-
-      }
-
-      
-
-      .intro {
-        padding-bottom: 1rem;
-        margin-bottom: 2rem;
-        border-bottom: 4px solid var(--theme-divider);
-      }
-
-      h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-      }
-      ul {
-        margin: 0.5rem 0.5rem;
-      }
-    </style>
   </body>
 </html>
