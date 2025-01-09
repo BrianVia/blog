@@ -1,4 +1,10 @@
 ---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import "../styles/blog.css";
+import { SEO } from "astro-seo";
+
 interface Bookmark {
   id: string;
   title: string;
@@ -28,43 +34,125 @@ function formatDate(dateString: string) {
 function getFavicon(url: string) {
   return `https://www.google.com/s2/favicons?domain=${url}&sz=32`;
 }
+
+const title = "Bookmarked Links";
+const description = "A curated feed of interesting links from Readwise and Raindrop.";
+const canonicalURL = "https://brianvia.blog/links";
 ---
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <h1 class="text-4xl font-bold text-gray-900 mb-4">Bookmarked Links</h1>
-  <p class="text-xl text-gray-600 mb-8">A curated feed of interesting links from Readwise and Raindrop.</p>
+<html lang="en">
+  <head>
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonicalURL}
+      openGraph={{
+        basic: {
+          title: title,
+          type: "website",
+          image: "/path/to/og-image.jpg", // Add an appropriate OG image
+        }
+      }}
+      twitter={{
+        card: "summary_large_image",
+        site: "@Brian_Via",
+        creator: "@Brian_Via"
+      }}
+      extend={{
+        link: [
+          { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+          { rel: "preconnect", href: "https://fonts.gstatic.com" },
+          { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap" }
+        ],
+        meta: [
+          { name: "viewport", content: "width=device-width" },
+        ],
+      }}
+    />
+    
+    <style is:global>
+      @import "../styles/blog.css";
+    </style>
+  </head>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {linkData.map((link) => (
-      <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-        <a href={link.url} target="_blank" rel="noopener noreferrer" class="block">
-          {link.imageUrl && (
-            <img src={link.imageUrl} alt={link.title} class="w-full h-48 object-cover" />
-          )}
-          <div class="p-6">
-            <div class="flex items-center mb-2">
-              <img src={getFavicon(link.url)} alt="Favicon" class="w-4 h-4 mr-2" />
-              <h2 class="text-xl font-semibold text-gray-900 line-clamp-2">{link.title}</h2>
-            </div>
-            {link.summary && (
-              <p class="text-sm text-gray-600 mb-4 line-clamp-3">{link.summary}</p>
+  <body>
+    <Header />
+    <main class="m-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">{title}</h1>
+      <p class="text-xl text-gray-600 mb-8">{description}</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {linkData.map((link) => (
+          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <a href={link.url} target="_blank" rel="noopener noreferrer" class="block">
+              {link.imageUrl && (
+                <img src={link.imageUrl} alt={link.title} class="w-full h-48 object-cover" />
+              )}
+              <div class="p-6">
+                <div class="flex items-center mb-2">
+                  <img src={getFavicon(link.url)} alt="Favicon" class="w-4 h-4 mr-2" />
+                  <h2 class="text-xl font-semibold text-gray-900 line-clamp-2">{link.title}</h2>
+                </div>
+                {link.summary && (
+                  <p class="text-sm text-gray-600 mb-4 line-clamp-3">{link.summary}</p>
+                )}
+                <div class="flex items-center justify-between text-sm text-gray-500">
+                  <span>{formatDate(link.createdAt)}</span>
+                  <span class="px-2 py-1 bg-gray-100 rounded-full">{link.bookmarkSource}</span>
+                </div>
+              </div>
+            </a>
+            {link.tags && link.tags.length > 0 && (
+              <div class="px-6 pb-4">
+                {link.tags.map((tag) => (
+                  <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
             )}
-            <div class="flex items-center justify-between text-sm text-gray-500">
-              <span>{formatDate(link.createdAt)}</span>
-              <span class="px-2 py-1 bg-gray-100 rounded-full">{link.bookmarkSource}</span>
-            </div>
           </div>
-        </a>
-        {link.tags && link.tags.length > 0 && (
-          <div class="px-6 pb-4">
-            {link.tags.map((tag) => (
-              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )}
+        ))}
       </div>
-    ))}
-  </div>
-</div>
+    </main>
+
+    <Footer />
+
+    <style is:global>
+      .content {
+        margin-bottom: 8rem;
+      }
+
+      .content :global(h2) {
+        margin-top: 4rem;
+      }
+
+      a {
+        position: relative;
+        color: #007acc;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      a:hover {
+        color: #005fa3;
+      }
+
+      a::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: currentColor;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      a:hover::after {
+        transform: scaleX(1);
+      }
+    </style>
+  </body>
+</html>
