@@ -1,0 +1,135 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SEO } from "astro-seo";
+
+const title = "Books I've Read";
+const description = "A collection of books I've read, with the most recent at the top.";
+const canonicalURL = "https://brianvia.blog/books";
+
+const books = [
+  {
+    title: "Poor Charlie's Almanack - The Essential Wit and Wisdom of Charles T. Munger",
+    author: "Peter Kaufman",
+    dateRead: "2024 (All of it)",
+    rating: "5/5",
+    notes: "A comprehensive collection of Charlie Munger's wisdom and mental models"
+  },
+  {
+    title: "Think and Grow Rich",
+    author: "Napoleon Hill",
+    dateRead: "2024-12",
+    rating: "4/5",
+    notes: "Classic self-improvement book about achieving success through mindset and persistence"
+  }
+];
+---
+
+<html lang="en">
+  <head>
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonicalURL}
+      openGraph={{
+        basic: {
+          title: title,
+          type: "website",
+          image: "/assets/og-image.jpg",
+        }
+      }}
+      twitter={{
+        card: "summary_large_image",
+        site: "@Brian_Via",
+        creator: "@Brian_Via"
+      }}
+      extend={{
+        link: [
+          { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+          { rel: "preconnect", href: "https://fonts.gstatic.com" },
+          { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap" }
+        ],
+        meta: [
+          { name: "viewport", content: "width=device-width" },
+        ],
+      }}
+    />
+    <style is:global>
+      .book-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 2rem;
+      }
+      
+      .book-table th {
+        background-color: #f3f4f6;
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+      }
+      
+      .book-table td {
+        padding: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      
+      .book-table tr:hover {
+        background-color: #f9fafb;
+      }
+
+      .book-title {
+        font-weight: 500;
+        color: #1a56db;
+      }
+
+      @media (max-width: 640px) {
+        .book-table {
+          display: block;
+          overflow-x: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-background">
+    <Header />
+
+    <div class="container mx-auto px-4 py-8">
+      <main>
+        <section class="text-center mb-12">
+          <h1 class="text-4xl font-bold mb-4 text-primary">{title}</h1>
+          <p class="text-xl text-text-light italic">
+            A collection of books that have shaped my thinking
+          </p>
+        </section>
+
+        <section class="max-w-4xl mx-auto">
+          <table class="book-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Date Read</th>
+                <th>Rating</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {books.map((book) => (
+                <tr>
+                  <td class="book-title">{book.title}</td>
+                  <td>{book.author}</td>
+                  <td>{book.dateRead}</td>
+                  <td>{book.rating}</td>
+                  <td>{book.notes}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+    <Footer />
+  </body>
+</html> 
