@@ -1,0 +1,138 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SEO } from "astro-seo";
+
+const title = "RSS Feeds";
+const description = "Custom curated RSS feeds for various creators and writers.";
+const canonicalURL = "https://brianvia.blog/feeds";
+
+interface Feed {
+  title: string;
+  description: string;
+  url: string;
+  author: string;
+  imageUrl?: string;
+}
+
+const feeds: Feed[] = [
+  {
+    title: "Paul Graham Essays",
+    description: "A curated feed of Paul Graham's essays from paulgraham.com, updated regularly.",
+    url: "/feeds/paul-graham.xml",
+    author: "Paul Graham",
+    imageUrl: "https://sep.yimg.com/ca/I/paulgraham_2202_8901"
+  }
+];
+---
+
+<html lang="en">
+  <head>
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonicalURL}
+      openGraph={{
+        basic: {
+          title: title,
+          type: "website",
+          image: "/assets/og-image.jpg",
+        }
+      }}
+      twitter={{
+        card: "summary_large_image",
+        site: "@Brian_Via",
+        creator: "@Brian_Via"
+      }}
+      extend={{
+        link: [
+          { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+          { rel: "preconnect", href: "https://fonts.gstatic.com" },
+          { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap" }
+        ],
+        meta: [
+          { name: "viewport", content: "width=device-width" },
+        ],
+      }}
+    />
+  </head>
+
+  <body class="bg-background">
+    <Header />
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+      <section class="text-center mb-12">
+        <h1 class="text-4xl font-bold mb-4 text-primary">{title}</h1>
+        <p class="text-xl text-text-light italic">
+          Subscribe to custom curated RSS feeds of your favorite creators
+        </p>
+      </section>
+
+      <div class="grid gap-8">
+        {feeds.map((feed) => (
+          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div class="p-6">
+              <div class="flex items-center gap-4">
+                {feed.imageUrl && (
+                  <img 
+                    src={feed.imageUrl} 
+                    alt={feed.title} 
+                    class="w-16 h-16 object-cover rounded-full"
+                  />
+                )}
+                <div>
+                  <h2 class="text-2xl font-semibold text-gray-900">{feed.title}</h2>
+                  <p class="text-sm text-gray-600">by {feed.author}</p>
+                </div>
+              </div>
+              <p class="mt-4 text-gray-700">{feed.description}</p>
+              <div class="mt-6 flex gap-4">
+                <a
+                  href={feed.url}
+                  class="inline-flex items-center px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M5 3a1 1 0 000 2c5.523 0 10 4.477 10 10a1 1 0 102 0C17 8.373 11.627 3 5 3z" />
+                    <path d="M4 9a1 1 0 011-1 7 7 0 017 7 1 1 0 11-2 0 5 5 0 00-5-5 1 1 0 01-1-1zM3 15a2 2 0 114 0 2 2 0 01-4 0z" />
+                  </svg>
+                  Subscribe via RSS
+                </a>
+                <button
+                  onclick={`navigator.clipboard.writeText('${new URL(feed.url, "https://brianvia.blog")}')`}
+                  class="inline-flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+                    <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+                  </svg>
+                  Copy Feed URL
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <section class="mt-12 bg-gray-50 rounded-lg p-8">
+        <h2 class="text-2xl font-semibold mb-4">About These Feeds</h2>
+        <p class="text-gray-700 mb-4">
+          These RSS feeds are custom-built and maintained to provide a better reading experience for content that might not have official RSS feeds or where the official feeds could be improved.
+        </p>
+        <p class="text-gray-700">
+          Each feed is updated regularly and includes full content where possible. You can use these feeds with any RSS reader that supports standard RSS/Atom formats.
+        </p>
+      </section>
+    </main>
+    <Footer />
+
+    <style>
+      .content {
+        margin-bottom: 8rem;
+      }
+
+      .content :global(h2) {
+        margin-top: 4rem;
+      }
+    </style>
+  </body>
+</html> 
