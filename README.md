@@ -62,7 +62,8 @@ All commands are run from the root of the project, from a terminal:
 | :---------------- | :------------------------------------------- |
 | `npm install`     | Installs dependencies                        |
 | `npm run dev`     | Starts local dev server at `localhost:3000`  |
-| `npm run build`   | Build your production site to `./dist/`      |
+| `npm run build`   | Generate custom RSS feeds and build your production site to `./dist/` |
+| `npm run generate:feeds` | Generate external RSS feeds like Paul Graham's essays |
 | `npm run preview` | Preview your build locally, before deploying |
 
 ## 👀 Want to learn more?
