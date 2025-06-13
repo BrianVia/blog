@@ -6,7 +6,6 @@ import BlogPostPreview from "../components/BlogPostPreview.astro";
 
 let title = "Blog";
 
-
 // Use Astro.glob to fetch all post with associated frontmatter
 const unsortedPosts = await Astro.glob("./posts/*.md");
 const sortedPosts = unsortedPosts
@@ -15,8 +14,8 @@ const sortedPosts = unsortedPosts
     return new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf();
   });
 // slice first index and return modified original array
-const finalSortedPosts = sortedPosts.slice(1);
-const mostRecentPost = sortedPosts[0];
+const finalSortedPosts = sortedPosts.length > 1 ? sortedPosts.slice(1) : [];
+const mostRecentPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
 ---
 
 <html lang="en">
@@ -36,18 +35,20 @@ const mostRecentPost = sortedPosts[0];
           </p>
         </section>
 
-        <section id="most-recent-post" class="mb-16">
-          <h2 class="text-2xl font-semibold mb-4 text-text">Latest Post</h2>
-          <BlogPostPreview
-            title={mostRecentPost.frontmatter.title}
-            description={mostRecentPost.frontmatter.description}
-            pubDate={(mostRecentPost.frontmatter.pubDate || "")}
-            url={`/posts/${mostRecentPost.frontmatter.slug}`}
-            heroImage={{src: mostRecentPost.frontmatter.heroImage.src || "", alt: "", width: 1200}}
-            mostRecentPost={true}
-            tags={mostRecentPost.frontmatter.tags || []}
-          />
-        </section>
+        {mostRecentPost && (
+          <section id="most-recent-post" class="mb-16">
+            <h2 class="text-2xl font-semibold mb-4 text-text">Latest Post</h2>
+            <BlogPostPreview
+              title={mostRecentPost.frontmatter.title}
+              description={mostRecentPost.frontmatter.description || ""}
+              pubDate={mostRecentPost.frontmatter.pubDate}
+              url={`/posts/${mostRecentPost.frontmatter.slug}`}
+              heroImage={mostRecentPost.frontmatter.heroImage || {src: "", alt: "", width: 1200}}
+              mostRecentPost={true}
+              tags={mostRecentPost.frontmatter.tags || []}
+            />
+          </section>
+        )}
 
         <section aria-label="Blog post list">
           <h2 class="text-2xl font-semibold mb-4 text-text">All Posts</h2>
@@ -55,10 +56,10 @@ const mostRecentPost = sortedPosts[0];
             {finalSortedPosts.map((post) => (
               <BlogPostPreview
                 title={post.frontmatter.title}
-                description={post.frontmatter.description}
-                pubDate={(post.frontmatter.pubDate || "")}
+                description={post.frontmatter.description || ""}
+                pubDate={post.frontmatter.pubDate}
                 url={`/posts/${post.frontmatter.slug}`}
-                heroImage={{src: post.frontmatter.heroImage.src || "", alt: "", width: 1200}}
+                heroImage={post.frontmatter.heroImage || {src: "", alt: "", width: 1200}}
                 tags={post.frontmatter.tags || []}
               />
             ))}

@@ -20,3 +20,6 @@ pnpm-debug.log*
 
 # generated feeds
 public/feeds/
+
+# generated posts from Notion
+src/pages/posts/
