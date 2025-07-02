@@ -1,0 +1,20 @@
+---
+export interface Props {
+  username: string;
+  limit?: number;
+}
+
+const { username, limit = 5 } = Astro.props as Props;
+---
+
+<div class="twitter-wrapper">
+  <a
+    class="twitter-timeline"
+    data-tweet-limit={limit}
+    data-exclude-replies="true"
+    href={`https://twitter.com/${username}`}
+  >
+    Tweets by @{username}
+  </a>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
