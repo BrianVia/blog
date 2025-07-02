@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import BlogPostPreview from "../components/BlogPostPreview.astro";
+import TwitterTimeline from "../components/TwitterTimeline.astro";
 
 let title = "Blog";
 
@@ -64,6 +65,11 @@ const mostRecentPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
               />
             ))}
           </div>
+        </section>
+
+        <section id="twitter-feed" class="mt-16">
+          <h2 class="text-2xl font-semibold mb-4 text-text">Latest Tweets</h2>
+          <TwitterTimeline username="Brian_Via" limit={5} />
         </section>
       </main>
     </div>
