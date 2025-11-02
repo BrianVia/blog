@@ -9,24 +9,16 @@ export interface StaticContentPageProps {
   content: {
     title: string;
     description: string;
-
-    heroImage?: {
-      src: string;
-      alt: string;
-      width: number;
-    };
     canonicalRoute: string;
   };
 }
 
 const {
-  content: { title, description, heroImage, canonicalRoute },
+  content: { title, description, canonicalRoute },
 } = Astro.props as StaticContentPageProps;
 
 const canonicalURL = `https://brianvia.blog/${canonicalRoute}`;
-console.log(heroImage);
-
-const imageUrl = heroImage?.src;
+const imageUrl = "https://brianvia.blog/social-image.png";
 
 ---
 
@@ -74,22 +66,7 @@ const imageUrl = heroImage?.src;
     <section class="intro text-center font-serif py-2">
       <p>I don't have talent, so I just get up earlier.<br />-Henry Rollins</p>
     </section>
-    
 
-      <section class="hero-image" >
-        {
-          heroImage && (
-            <img class="w-4/5 sm:w-3/4 md:w-1/2 lg:w-1/3" 
-              width={heroImage.width}
-              loading="lazy"
-              src={heroImage.src}
-              alt={heroImage.alt}
-              max-width={heroImage.width}
-            />
-          )
-        }
-        
-      </section>
       <main class="m-8 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <slot />
       </main>
@@ -103,19 +80,6 @@ const imageUrl = heroImage?.src;
 
       .content :global(h2) {
         margin-top: 4rem;
-      }
-
-      section.hero-image {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-
-        padding-bottom: 2rem;
-        margin-bottom: 2rem;
-        border-bottom: 4px solid var(--theme-divider);
       }
 
       .title,

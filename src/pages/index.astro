@@ -51,7 +51,6 @@ const mostRecentPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
             description={mostRecentPost.frontmatter.description || ""}
             pubDate={mostRecentPost.frontmatter.pubDate}
             url={`/posts/${mostRecentPost.frontmatter.slug}`}
-            heroImage={mostRecentPost.frontmatter.heroImage || {src: "", alt: "", width: 1200}}
             mostRecentPost={true}
             tags={mostRecentPost.frontmatter.tags || []}
           />

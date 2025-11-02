@@ -49,9 +49,7 @@ async function processPost(page: any) {
   const slugProp = plain(page.properties.slug?.rich_text);
   const slug = slugProp || slugify(title, { lower: true, strict: true });
   const createdAt = page.properties.Created?.created_time || page.created_time;
-  const heroImageUrl = page.properties.heroImageUrl?.url;
-  const heroImageAltText = plain(page.properties.heroImageAltText?.rich_text);
-  
+
   // Get tags
   const tags = page.properties.Tags?.multi_select?.map((tag: any) => tag.name) || [];
 
@@ -75,13 +73,6 @@ async function processPost(page: any) {
   };
 
   if (description) frontMatter.description = description;
-  if (heroImageUrl) {
-    frontMatter.heroImage = {
-      src: heroImageUrl,
-      alt: heroImageAltText || "",
-      width: 1200
-    };
-  }
   if (tags.length > 0) frontMatter.tags = tags;
 
   const content = matter.stringify(markdownContent.parent || '', frontMatter);

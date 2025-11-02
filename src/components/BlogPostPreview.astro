@@ -4,11 +4,6 @@ export interface Props {
   description: string;
   pubDate: string;
   url: string;
-  heroImage?: {
-    src: string;
-    alt: string;
-    width: number;
-  };
   mostRecentPost?: boolean;
   tags?: string[];
 }
@@ -18,7 +13,6 @@ const {
   description,
   pubDate,
   url,
-  heroImage,
   mostRecentPost = false,
   tags = [],
 } = Astro.props as Props;

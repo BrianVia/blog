@@ -2,25 +2,19 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { Image } from 'astro:assets';
 
 export interface Props {
   content: {
     title: string;
     description: string;
     pubDate: string;
-    heroImage?: {
-      src: string;
-      alt: string;
-      width: number;
-    };
     slug: string;
     tags?: string[];
   };
 }
 
 const {
-  content: { title, description, pubDate, heroImage, slug, tags = [] },
+  content: { title, description, pubDate, slug, tags = [] },
 } = Astro.props as Props;
 
 const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
@@ -32,7 +26,7 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} imageUrl={heroImage?.src} canonicalRoute={`posts/${slug}`}/>
+    <BaseHead title={title} description={description} canonicalRoute={`posts/${slug}`}/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
@@ -40,21 +34,6 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
     <Header />
 
     <article class="max-w-4xl mx-auto px-6 py-12">
-      <!-- Hero Image -->
-      {heroImage && (
-        <div class="mb-12 rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800">
-          <Image
-            src={heroImage.src}
-            width={heroImage.width}
-            height={Math.round(heroImage.width / 1.5)}
-            alt={heroImage.alt}
-            quality={80}
-            format="webp"
-            class="w-full h-auto object-cover"
-          />
-        </div>
-      )}
-
       <!-- Header -->
       <header class="text-center mb-12 pb-8 border-b-2 border-gray-200 dark:border-gray-800">
         {tags.length > 0 && (
