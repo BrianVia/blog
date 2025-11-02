@@ -5,15 +5,16 @@ import { SEO } from "astro-seo";
 export interface BaseHeadProps {
 	title?: string;
 	description?: string;
-	imageUrl: string;
-	canonicalRoute: string;
+	imageUrl?: string;
+	canonicalRoute?: string;
 }
 
 const baseTitle = "Brian | Via";
 const baseDescription = "Musings on Software or anything else that strikes my fancy.";
+const defaultImage = "https://brianvia.blog/social-image.png";
 
-const { title, description = baseDescription, imageUrl, canonicalRoute } = Astro.props as BaseHeadProps;
-const canonicalURL = `https://brianvia.blog/${canonicalRoute || ""}`;
+const { title, description = baseDescription, imageUrl = defaultImage, canonicalRoute = "" } = Astro.props as BaseHeadProps;
+const canonicalURL = `https://brianvia.blog/${canonicalRoute}`;
 ---
 
 <SEO
@@ -23,7 +24,7 @@ const canonicalURL = `https://brianvia.blog/${canonicalRoute || ""}`;
 
   openGraph={{
     basic: {
-      title: title,
+      title: title || baseTitle,
       type: "website",
       image: imageUrl,
     }
@@ -37,14 +38,14 @@ const canonicalURL = `https://brianvia.blog/${canonicalRoute || ""}`;
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       { rel: "preconnect", href: "https://fonts.gstatic.com" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap" }
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Serif:wght@400;700&family=IBM+Plex+Mono&display=swap" }
     ],
     meta: [
       { name: "viewport", content: "width=device-width" },
     ],
   }}
 />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Serif:wght@400;700&display=swap" rel="stylesheet">
 
 <link rel="sitemap" href="/sitemap-index.xml" />
 

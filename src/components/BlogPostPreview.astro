@@ -22,71 +22,68 @@ const {
   mostRecentPost = false,
   tags = [],
 } = Astro.props as Props;
+
+const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
 ---
 
-<div class="blog-post-preview mb-6">
+<article class="group">
   {mostRecentPost ? (
-    <div class="grid md:grid-cols-2 gap-4 items-center max-w-5xl mx-auto">
-      <div class="md:col-span-1">
-        <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
-          <img
-            class="w-full h-full object-cover"
-            src={heroImage.src}
-            alt={heroImage.alt}
-          />
+    <!-- Featured Post Layout - 80s Mac Style (Text Only) -->
+    <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-sm p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600">
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-4">
+          {tags.map(tag => (
+            <span class="px-3 py-1 text-xs font-bold tracking-wider uppercase text-gray-600 dark:text-gray-400 border-2 border-gray-300 dark:border-gray-600 rounded-sm bg-gray-50 dark:bg-gray-700">
+              {tag}
+            </span>
+          ))}
         </div>
-      </div>
-      <div class="md:col-span-1">
-        {tags.length > 0 && (
-          <div class="post-card-tags mb-1">
-            {tags.join(', ')}
-          </div>
-        )}
-        <h2 class="text-2xl font-bold mb-2 text-primary">
-          <a href={url}>{title}</a>
-        </h2>
-        <p class="text-text-light mb-2">{description}</p>
-        <p class="text-sm text-text-light">
-          <time>{new Date(pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-        </p>
+      )}
+      <h2 class="text-3xl md:text-4xl font-bold font-heading text-gray-900 dark:text-gray-100 mb-3 tracking-tight leading-[1.1] group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
+        <a href={url}>{title}</a>
+      </h2>
+      <p class="text-lg text-secondary-700 dark:text-gray-400 mb-4 leading-relaxed">{description}</p>
+      <div class="flex items-center justify-between mt-6">
+        <time class="text-sm text-gray-500 dark:text-gray-500">{formattedDate}</time>
+        <a
+          href={url}
+          class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-sm shadow-[1px_1px_0_#ddd] dark:shadow-none hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
+        >
+          Read more →
+        </a>
       </div>
     </div>
   ) : (
-    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-      {heroImage && (
-        <img
-          class="w-full h-48 object-cover"
-          src={heroImage.src}
-          alt={heroImage.alt}
-          loading="lazy"
-        />
-      )}
-      <div class="p-4">
+    <!-- Regular Post Card - 80s Mac Style (Text Only) -->
+    <div class="bg-white dark:bg-gray-800 shadow-retro border-[6px] border-gray-200 dark:border-gray-700 rounded-md overflow-hidden transition-all hover:shadow-retro-lg flex flex-col h-full">
+      <div class="p-6 flex-1 flex flex-col">
         {tags.length > 0 && (
-          <div class="post-card-tags mb-1">
-            {tags.join(', ')}
+          <div class="flex flex-wrap gap-2 mb-3">
+            {tags.slice(0, 2).map(tag => (
+              <span class="px-2.5 py-0.5 text-xs font-bold tracking-wider uppercase text-gray-600 dark:text-gray-400 border-2 border-gray-300 dark:border-gray-600 rounded-sm bg-gray-50 dark:bg-gray-700">
+                {tag}
+              </span>
+            ))}
           </div>
         )}
-        <h3 class="text-xl font-semibold mb-2">
-          <a href={url} class="text-primary hover:underline">{title}</a>
+        <h3 class="text-xl font-bold font-heading text-gray-900 dark:text-gray-100 mb-2 tracking-tight leading-tight line-clamp-2 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
+          <a href={url}>{title}</a>
         </h3>
-        <p class="text-text-light mb-2">{description}</p>
-        <time class="text-sm text-text-light">
-          {new Date(pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-        </time>
+        <p class="text-secondary-700 dark:text-gray-400 mb-4 line-clamp-3 leading-relaxed flex-1 text-[1.05rem]">{description}</p>
+        <div class="flex items-center justify-between mt-auto pt-4 border-t-2 border-gray-200 dark:border-gray-700">
+          <time class="text-sm text-gray-500 dark:text-gray-500">{formattedDate}</time>
+          <a
+            href={url}
+            class="inline-flex items-center gap-1 text-gray-700 dark:text-gray-300 font-medium text-sm hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+          >
+            Read →
+          </a>
+        </div>
       </div>
     </div>
   )}
-</div>
-
-<style>
-  .post-card-tags {
-    display: block;
-    color: #738a94;
-    font-size: 0.8rem;
-    line-height: 1.15em;
-    font-weight: 500;
-    letter-spacing: .5px;
-    text-transform: uppercase;
-  }
-</style>
+</article>

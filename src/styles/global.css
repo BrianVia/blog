@@ -1,74 +1,83 @@
 :root {
   --font-fallback: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
     sans-serif, Apple Color Emoji, Segoe UI Emoji;
-  --font-body: 'Inter', sans-serif;
-  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', var(--font-fallback);
+  --font-heading: 'Space Grotesk', 'Poppins', var(--font-fallback);
 
-  --font-mono: "IBM Plex Mono", Consolas, "Andale Mono WT", "Andale Mono",
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", Consolas, "Andale Mono WT", "Andale Mono",
     "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono",
     "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco,
     "Courier New", Courier, monospace;
 
+  /* Modern Color Palette - Vibrant & Professional */
+  --color-primary: #6366f1;      /* Indigo - modern, trustworthy */
+  --color-secondary: #8b5cf6;    /* Purple - creative, bold */
+  --color-accent: #ec4899;       /* Pink - energetic, eye-catching */
+  --color-background: #fafafa;   /* Softer white */
+  --color-text: #18181b;         /* Near black for better contrast */
+  --color-text-light: #52525b;   /* Zinc 600 */
 
-  --color-primary: #3498db;
-  --color-secondary: #2ecc71;
-  --color-accent: #e74c3c;
-  --color-background: #f9f9f9;
-  --color-text: #333333;
-  --color-text-light: #666666;
-  
-  --color-white: #fff;
-  --color-black: #000014;
+  --color-white: #ffffff;
+  --color-black: #09090b;
 
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #1f2937;
-  --color-gray-900: #111827;
+  /* Zinc gray scale - modern and neutral */
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f4f4f5;
+  --color-gray-200: #e4e4e7;
+  --color-gray-300: #d4d4d8;
+  --color-gray-400: #a1a1aa;
+  --color-gray-500: #71717a;
+  --color-gray-600: #52525b;
+  --color-gray-700: #3f3f46;
+  --color-gray-800: #27272a;
+  --color-gray-900: #18181b;
 
-  --color-blue: #3894ff;
-  --color-blue-rgb: 56, 148, 255;
-  --color-green: #17c083;
-  --color-green-rgb: 23, 192, 131;
-  --color-orange: #ff5d01;
-  --color-orange-rgb: 255, 93, 1;
-  --color-purple: #882de7;
-  --color-purple-rgb: 136, 45, 231;
-  --color-red: #ff1639;
-  --color-red-rgb: 255, 22, 57;
-  --color-yellow: #ffbe2d;
-  --color-yellow-rgb: 255, 190, 45;
+  /* Modern vibrant colors */
+  --color-blue: #3b82f6;
+  --color-blue-rgb: 59, 130, 246;
+  --color-green: #10b981;
+  --color-green-rgb: 16, 185, 129;
+  --color-orange: #f97316;
+  --color-orange-rgb: 249, 115, 22;
+  --color-purple: #8b5cf6;
+  --color-purple-rgb: 139, 92, 246;
+  --color-red: #ef4444;
+  --color-red-rgb: 239, 68, 68;
+  --color-yellow: #f59e0b;
+  --color-yellow-rgb: 245, 158, 11;
 
   --content-max-width: 100ch;
 }
 
 :root {
   color-scheme: light;
-  --theme-accent: var(--color-orange);
-  --theme-accent-rgb: var(--color-orange-rgb);
+  --theme-accent: var(--color-primary);
+  --theme-accent-secondary: var(--color-secondary);
+  --theme-accent-rgb: var(--color-blue-rgb);
   --theme-accent-opacity: 0.1;
-  --theme-divider: var(--color-gray-100);
-  --theme-text: var(--color-gray-800);
+  --theme-divider: var(--color-gray-200);
+  --theme-text: var(--color-gray-900);
   --theme-text-light: var(--color-gray-600);
   --theme-text-lighter: var(--color-gray-400);
   --theme-bg: var(--color-white);
-  --theme-bg-offset: var(--color-gray-100);
+  --theme-bg-offset: var(--color-gray-50);
   --theme-bg-accent: rgba(var(--theme-accent-rgb), var(--theme-accent-opacity));
   --theme-code-inline-bg: var(--color-gray-100);
   --theme-code-text: var(--color-gray-100);
-  --theme-code-bg: var(--color-gray-700);
+  --theme-code-bg: var(--color-gray-800);
+  --theme-card-bg: var(--color-white);
+  --theme-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --theme-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --theme-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --theme-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-text);
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
   font-family: var(--font-body);
-  line-height: 1.6;
+  line-height: 1.7;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 
@@ -79,16 +88,21 @@ h1, h2, h3, h4, h5, h6 {
 
 :root.theme-dark {
   color-scheme: dark;
-  --theme-accent-opacity: 0.3;
-  --theme-divider: var(--color-gray-900);
-  --theme-text: var(--color-gray-200);
+  --theme-accent-opacity: 0.15;
+  --theme-divider: var(--color-gray-800);
+  --theme-text: var(--color-gray-100);
   --theme-text-light: var(--color-gray-400);
-  --theme-text-lighter: var(--color-gray-600);
+  --theme-text-lighter: var(--color-gray-500);
   --theme-bg: var(--color-black);
   --theme-bg-offset: var(--color-gray-900);
   --theme-code-inline-bg: var(--color-gray-800);
   --theme-code-text: var(--color-gray-200);
   --theme-code-bg: var(--color-gray-900);
+  --theme-card-bg: var(--color-gray-900);
+  --theme-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+  --theme-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --theme-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --theme-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
 }
 
 ::selection {
@@ -265,22 +279,24 @@ aside {
 }
 
 body article a:not(h1 a, h2 a, h3 a, h4 a, h5 a) {
-  color: var(--color-blue);
+  color: var(--color-primary);
   text-decoration: none;
-  border-bottom: 1px solid #3498db;
-  transition: color 0.3s ease, border-bottom 0.3s ease;
+  border-bottom: 2px solid var(--color-primary);
+  transition: all 0.2s ease;
+  font-weight: 500;
 }
 
 body article a:not(h1 a, h2 a, h3 a, h4 a, h5 a):hover {
-  color: #e74c3c;
-  border-bottom: 1px solid #e74c3c;
+  color: var(--color-secondary);
+  border-bottom-color: var(--color-secondary);
+  background-color: rgba(var(--color-purple-rgb), 0.05);
 }
 
 body article a:not(h1 a, h2 a, h3 a, h4 a, h5 a):active {
-  color: #c0392b;
+  color: var(--color-accent);
 }
 
 body article a:not(h1 a, h2 a, h3 a, h4 a, h5 a):visited {
-  color: #8e44ad;
-  border-bottom: 1px solid #8e44ad;
+  color: var(--color-purple);
+  border-bottom-color: var(--color-purple);
 }
