@@ -3,11 +3,7 @@ layout: "../layouts/StaticContentPage.astro"
 title: "Equipment I Use"
 description: "Stuff on my Desk"
 pubDate: "30 Apr 2023"
-heroImage: {
-  src: "https://images.unsplash.com/photo-1416339442236-8ceb164046f8?q=80&w=3820&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  alt: "Not my real desk.",
-  width: 1200,
-}
+canonicalRoute: "uses"
 ---
 
 ## Workstation Equipment I Use

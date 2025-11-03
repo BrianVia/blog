@@ -56,81 +56,47 @@ const books = [
         ],
       }}
     />
-    <style is:global>
-      .book-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 2rem;
-      }
-      
-      .book-table th {
-        background-color: #f3f4f6;
-        padding: 1rem;
-        text-align: left;
-        font-weight: 600;
-      }
-      
-      .book-table td {
-        padding: 1rem;
-        border-bottom: 1px solid #e5e7eb;
-      }
-      
-      .book-table tr:hover {
-        background-color: #f9fafb;
-      }
-
-      .book-title {
-        font-weight: 500;
-        color: #1a56db;
-      }
-
-      @media (max-width: 640px) {
-        .book-table {
-          display: block;
-          overflow-x: auto;
-        }
-      }
-    </style>
   </head>
 
-  <body class="bg-background">
+  <body class="bg-[#f7f7f7] dark:bg-gray-900 transition-colors duration-300">
     <Header />
 
-    <div class="container mx-auto px-4 py-8">
-      <main>
-        <section class="text-center mb-12">
-          <h1 class="text-4xl font-bold mb-4 text-primary">{title}</h1>
-          <p class="text-xl text-text-light italic">
-            A collection of books that have shaped my thinking
-          </p>
-        </section>
+    <main class="max-w-5xl mx-auto px-6 py-16">
+      <section class="text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight leading-tight mb-4">
+          {title}
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+          A collection of books that have shaped my thinking
+        </p>
+      </section>
 
-        <section class="max-w-4xl mx-auto">
-          <table class="book-table">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Date Read</th>
-                <th>Rating</th>
-                <th>Notes</th>
+      <section class="overflow-x-auto">
+        <table class="w-full border-2 border-gray-300 dark:border-gray-700 rounded-sm">
+          <thead>
+            <tr class="bg-gray-100 dark:bg-gray-800 border-b-2 border-gray-300 dark:border-gray-700">
+              <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Title</th>
+              <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Author</th>
+              <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Date Read</th>
+              <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Rating</th>
+              <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Notes</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white dark:bg-gray-800">
+            {books.map((book) => (
+              <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors">
+                <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-100">{book.title}</td>
+                <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{book.author}</td>
+                <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{book.dateRead}</td>
+                <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{book.rating}</td>
+                <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{book.notes}</td>
               </tr>
-            </thead>
-            <tbody>
-              {books.map((book) => (
-                <tr>
-                  <td class="book-title">{book.title}</td>
-                  <td>{book.author}</td>
-                  <td>{book.dateRead}</td>
-                  <td>{book.rating}</td>
-                  <td>{book.notes}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-      </main>
-    </div>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    </main>
+
     <Footer />
   </body>
 </html> 

@@ -2,7 +2,7 @@
 layout: "../layouts/StaticContentPage.astro"
 title: "About Me"
 description: "Subpar developer, occasionally humorous"
-heroImage: { src: "/assets/blog/001-hello-world/career.png", alt: "Me - subpar dev, occasionally humorous", width: 600 }
+canonicalRoute: "about"
 ---
 
 # About Me
