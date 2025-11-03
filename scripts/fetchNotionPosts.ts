@@ -79,7 +79,7 @@ async function processPost(page: any) {
 
   // ---- Write to disk ---------------------------------------------------
   const target = path.join(OUTPUT_DIR, `${slug}.md`);
-  await fs.writeFile(target, content);
+  await fs.writeFile(target, content, 'utf-8');
   
   const duration = Date.now() - startTime;
   console.log(`✅  ${title} -> ${target} (${duration}ms)`);
