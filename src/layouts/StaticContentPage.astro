@@ -60,62 +60,13 @@ const imageUrl = "https://brianvia.blog/social-image.png";
     
   </head>
 
-  <body>
+  <body class="bg-[#f7f7f7] dark:bg-gray-900 transition-colors duration-300">
     <Header />
 
-    <section class="intro text-center font-serif py-2">
-      <p>I don't have talent, so I just get up earlier.<br />-Henry Rollins</p>
-    </section>
+    <main class="max-w-3xl mx-auto px-6 py-16 prose prose-lg dark:prose-invert prose-headings:font-bold prose-headings:font-heading prose-headings:text-gray-900 dark:prose-headings:text-white prose-headings:tracking-tight prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-gray-900 dark:prose-a:text-gray-100 prose-a:no-underline prose-a:font-semibold hover:prose-a:underline prose-strong:text-gray-900 dark:prose-strong:text-white prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-li:text-gray-700 dark:prose-li:text-gray-300 prose-img:rounded-sm prose-img:border-2 prose-img:border-gray-300 dark:prose-img:border-gray-600">
+      <slot />
+    </main>
 
-      <main class="m-8 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <slot />
-      </main>
-      <Footer />
-
-    <style is:global>
-
-      .content {
-        margin-bottom: 8rem;
-      }
-
-      .content :global(h2) {
-        margin-top: 4rem;
-      }
-
-      .title,
-      time {
-        margin: 0;
-      }
-
-      time {
-        color: var(--theme-text-lighter);
-      }
-
-      .title {
-        font-size: 2.25rem;
-        font-weight: 700;
-      }
-
-    
-      a:hover {
-        color: #005fa3;
-      }
-    
-      a::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 1px;
-        bottom: -2px;
-        left: 0;
-        background-color: currentColor;
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-      }
-    
-      a:hover::after {
-        transform: scaleX(1);
-      }
-    </style>
+    <Footer />
   </body>
 </html>
