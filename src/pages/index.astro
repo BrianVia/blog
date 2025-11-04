@@ -6,8 +6,9 @@ import BlogPostPreview from "../components/BlogPostPreview.astro";
 
 let title = "Blog";
 
-// Use Astro.glob to fetch all post with associated frontmatter
-const unsortedPosts = await Astro.glob("./posts/*.md");
+// Use import.meta.glob to fetch all post with associated frontmatter
+const posts = import.meta.glob("./posts/*.md", { eager: true });
+const unsortedPosts = Object.values(posts);
 const sortedPosts = unsortedPosts
   .filter((post) => post.frontmatter.published === true)
   .sort(function (a, b) {
