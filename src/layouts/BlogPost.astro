@@ -10,12 +10,18 @@ export interface Props {
     pubDate: string;
     slug: string;
     tags?: string[];
+    heroImageUrl?: string;
+    heroImageAlt?: string;
   };
 }
 
 const {
-  content: { title, description, pubDate, slug, tags = [] },
+  content: { title, description, pubDate, slug, tags = [], heroImageUrl, heroImageAlt },
 } = Astro.props as Props;
+
+// Use heroImageUrl directly
+const heroImageSrc = heroImageUrl;
+const heroImageAltText = heroImageAlt || title;
 
 const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
   year: 'numeric',
@@ -27,7 +33,7 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <BaseHead title={title} description={description} canonicalRoute={`posts/${slug}`}/>
+    <BaseHead title={title} description={description} imageUrl={heroImageSrc} canonicalRoute={`posts/${slug}`}/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
@@ -52,6 +58,13 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
         <time class="text-gray-500 dark:text-gray-400 font-medium text-lg">
           {formattedDate}
         </time>
+        {heroImageSrc && (
+          <img
+            src={heroImageSrc}
+            alt={heroImageAltText}
+            class="mt-8 w-full rounded-xl shadow-lg"
+          />
+        )}
       </header>
 
       <!-- Content -->

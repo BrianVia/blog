@@ -53,6 +53,10 @@ async function processPost(page: any) {
   // Get tags
   const tags = page.properties.Tags?.multi_select?.map((tag: any) => tag.name) || [];
 
+  // Get hero image from Notion - handle both URL and rich_text types
+  const heroImageUrl = page.properties.heroImageUrl?.url || plain(page.properties.heroImageUrl?.rich_text);
+  const heroImageAlt = plain(page.properties.heroImageAltText?.rich_text) || plain(page.properties.HeroImageAlt?.rich_text);
+
   if (!title) {
     console.log(`⚠️  Skipping page with no title`);
     return;
@@ -74,6 +78,10 @@ async function processPost(page: any) {
 
   if (description) frontMatter.description = description;
   if (tags.length > 0) frontMatter.tags = tags;
+  if (heroImageUrl) {
+    frontMatter.heroImageUrl = heroImageUrl;
+    frontMatter.heroImageAlt = heroImageAlt;
+  }
 
   const content = matter.stringify(markdownContent.parent || '', frontMatter);
 
