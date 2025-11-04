@@ -7,11 +7,58 @@
         "title": {
           "type": "string"
         },
+        "description": {
+          "type": "string"
+        },
+        "pubDate": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "createdAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
         "slug": {
           "type": "string"
         },
-        "createdAt": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "heroImageUrl": {
           "type": "string"
+        },
+        "heroImageAlt": {
+          "type": "string"
+        },
+        "published": {
+          "type": "boolean"
         },
         "$schema": {
           "type": "string"
@@ -19,8 +66,8 @@
       },
       "required": [
         "title",
-        "slug",
-        "createdAt"
+        "pubDate",
+        "slug"
       ],
       "additionalProperties": false
     }
