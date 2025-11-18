@@ -5,47 +5,30 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				primary: {
-					DEFAULT: '#222222',
-					50: '#f7f7f7',
-					100: '#eaeaea',
-					200: '#d5d5d5',
-					300: '#bbbbbb',
-					400: '#888888',
-					500: '#666666',
-					600: '#444444',
-					700: '#333333',
-					800: '#222222',
-					900: '#111111',
-				},
-				secondary: {
-					DEFAULT: '#334444',
-					50: '#f0f0f0',
-					100: '#e5e5e5',
-					200: '#d0d0d0',
-					300: '#a8a8a8',
-					400: '#707070',
-					500: '#556666',
-					600: '#445555',
-					700: '#334444',
-					800: '#223333',
-					900: '#112222',
+				paper: 'var(--color-paper)',
+				ink: {
+					DEFAULT: 'var(--color-ink)',
+					light: '#575757', // Static gray for suble text
+					lighter: '#8a8a8a', // Static light gray
 				},
 				accent: {
-					DEFAULT: '#888888',
-					light: '#cccccc',
-					dark: '#666666',
+					DEFAULT: 'var(--color-accent)',
+					hover: '#A93226', // Keep static for now or use var if needed
 				},
+				secondary: {
+					DEFAULT: '#5D6D7E', 
+					light: '#AEB6BF',
+				}
 			},
 			fontFamily: {
-				sans: ['IBM Plex Serif', 'Times New Roman', 'serif'],
-				heading: ['Playfair Display', 'IBM Plex Serif', 'serif'],
-				mono: ['IBM Plex Mono', 'Courier New', 'monospace'],
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+				serif: ['Merriweather', 'Georgia', 'serif'],
+				heading: ['Playfair Display', 'Times New Roman', 'serif'],
+				mono: ['JetBrains Mono', 'IBM Plex Mono', 'monospace'],
 			},
 			boxShadow: {
-				'retro': '0 2px 8px #eeeeee',
-				'retro-lg': '0 4px 12px #dddddd',
-				'retro-img': '0 2px 6px #cccccc',
+				'editorial': '0 4px 20px rgba(0, 0, 0, 0.05)',
+				'editorial-hover': '0 10px 30px rgba(0, 0, 0, 0.08)',
 			},
 		},
 	},

@@ -24,59 +24,72 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
 });
 ---
 
-<article class="group">
+<article class="group h-full">
   {mostRecentPost ? (
-    <!-- Featured Post Layout - 80s Mac Style (Text Only) -->
-    <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-sm p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600">
-      {tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mb-4">
-          {tags.map(tag => (
-            <span class="px-3 py-1 text-xs font-bold tracking-wider uppercase text-gray-600 dark:text-gray-400 border-2 border-gray-300 dark:border-gray-600 rounded-sm bg-gray-50 dark:bg-gray-700">
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
-      <h2 class="text-3xl md:text-4xl font-bold font-heading text-gray-900 dark:text-gray-100 mb-3 tracking-tight leading-[1.1] group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
-        <a href={url}>{title}</a>
-      </h2>
-      <p class="text-lg text-secondary-700 dark:text-gray-400 mb-4 leading-relaxed">{description}</p>
-      <div class="flex items-center justify-between mt-6">
-        <time class="text-sm text-gray-500 dark:text-gray-500">{formattedDate}</time>
-        <a
-          href={url}
-          class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-sm shadow-[1px_1px_0_#ddd] dark:shadow-none hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
-        >
-          Read more &rarr;
-        </a>
-      </div>
-    </div>
-  ) : (
-    <!-- Regular Post Card - 80s Mac Style (Text Only) -->
-    <div class="bg-white dark:bg-gray-800 shadow-retro border-[6px] border-gray-200 dark:border-gray-700 rounded-md overflow-hidden transition-all hover:shadow-retro-lg flex flex-col h-full">
-      <div class="p-6 flex-1 flex flex-col">
+    <!-- Featured Post - Editorial Header Style -->
+    <div class="relative p-8 md:p-12 bg-white dark:bg-white/5 rounded-sm shadow-editorial transition-transform duration-300 hover:-translate-y-1">
+      <div class="flex flex-col items-center text-center">
         {tags.length > 0 && (
-          <div class="flex flex-wrap gap-2 mb-3">
-            {tags.slice(0, 2).map(tag => (
-              <span class="px-2.5 py-0.5 text-xs font-bold tracking-wider uppercase text-gray-600 dark:text-gray-400 border-2 border-gray-300 dark:border-gray-600 rounded-sm bg-gray-50 dark:bg-gray-700">
+          <div class="flex gap-3 mb-6">
+            {tags.map(tag => (
+              <span class="text-xs font-sans font-bold tracking-widest uppercase text-accent">
                 {tag}
               </span>
             ))}
           </div>
         )}
-        <h3 class="text-xl font-bold font-heading text-gray-900 dark:text-gray-100 mb-2 tracking-tight leading-tight line-clamp-2 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
-          <a href={url}>{title}</a>
-        </h3>
-        <p class="text-secondary-700 dark:text-gray-400 mb-4 line-clamp-3 leading-relaxed flex-1 text-[1.05rem]">{description}</p>
-        <div class="flex items-center justify-between mt-auto pt-4 border-t-2 border-gray-200 dark:border-gray-700">
-          <time class="text-sm text-gray-500 dark:text-gray-500">{formattedDate}</time>
-          <a
-            href={url}
-            class="inline-flex items-center gap-1 text-gray-700 dark:text-gray-300 font-medium text-sm hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-          >
-            Read &rarr;
+        
+        <h2 class="text-4xl md:text-5xl font-heading font-bold text-ink mb-6 leading-tight group-hover:text-accent transition-colors">
+          <a href={url}>
+            <span class="bg-gradient-to-r from-accent to-accent bg-[length:0%_2px] bg-no-repeat bg-left-bottom group-hover:bg-[length:100%_2px] transition-all duration-500">
+              {title}
+            </span>
           </a>
+        </h2>
+        
+        <p class="text-xl text-ink-light font-serif leading-relaxed max-w-2xl mb-8">
+          {description}
+        </p>
+        
+        <div class="flex items-center gap-2 text-sm font-sans font-medium text-ink-lighter uppercase tracking-widest">
+          <time>{formattedDate}</time>
+          <span>&bull;</span>
+          <a href={url} class="text-ink hover:text-accent transition-colors">Read Article</a>
         </div>
+      </div>
+    </div>
+  ) : (
+    <!-- Standard Post - Minimal Card -->
+    <div class="bg-white dark:bg-white/5 p-8 rounded-sm shadow-editorial hover:shadow-editorial-hover transition-all duration-300 h-full flex flex-col">
+      <div class="flex-1">
+        {tags.length > 0 && (
+          <div class="flex gap-2 mb-4">
+            {tags.slice(0, 2).map(tag => (
+              <span class="text-[10px] font-sans font-bold tracking-widest uppercase text-accent">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+        
+        <h3 class="text-2xl font-heading font-bold text-ink mb-3 leading-tight group-hover:text-accent transition-colors">
+          <a href={url}>
+            {title}
+          </a>
+        </h3>
+        
+        <p class="text-base text-ink-light font-serif leading-relaxed mb-6 line-clamp-3">
+          {description}
+        </p>
+      </div>
+
+      <div class="flex items-center justify-between pt-6 border-t border-ink/5 mt-auto">
+        <time class="text-xs font-sans font-medium text-ink-lighter uppercase tracking-widest">
+          {formattedDate}
+        </time>
+        <a href={url} class="text-xs font-sans font-bold text-ink hover:text-accent uppercase tracking-widest transition-colors">
+          Read
+        </a>
       </div>
     </div>
   )}
