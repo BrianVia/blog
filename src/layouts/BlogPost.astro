@@ -37,51 +37,58 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
-  <body class="bg-zinc-50 dark:bg-black transition-colors duration-300">
+  <body>
     <Header />
 
-    <article class="max-w-4xl mx-auto px-6 py-12">
+    <article class="wrapper py-16 md:py-24">
       <!-- Header -->
-      <header class="text-center mb-12 pb-8 border-b-2 border-gray-200 dark:border-gray-800">
+      <header class="text-center max-w-3xl mx-auto mb-16 md:mb-24">
         {tags.length > 0 && (
-          <div class="flex flex-wrap gap-2 justify-center mb-6">
+          <div class="flex flex-wrap gap-3 justify-center mb-6">
             {tags.map(tag => (
-              <span class="px-3 py-1.5 text-xs font-bold tracking-wider uppercase bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full">
+              <span class="text-xs font-sans font-bold tracking-widest uppercase text-accent">
                 {tag}
               </span>
             ))}
           </div>
         )}
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+        
+        <h1 class="text-5xl md:text-6xl font-bold font-heading text-ink mb-6 leading-[1.1]">
           {title}
         </h1>
-        <time class="text-gray-500 dark:text-gray-400 font-medium text-lg">
-          {formattedDate}
-        </time>
+        
+        <div class="flex items-center justify-center gap-3 text-ink-light font-sans text-sm uppercase tracking-widest">
+          <time>{formattedDate}</time>
+        </div>
+
         {heroImageSrc && (
-          <img
-            src={heroImageSrc}
-            alt={heroImageAltText}
-            class="mt-8 w-full rounded-xl shadow-lg"
-          />
+          <div class="mt-12 relative shadow-editorial rounded-sm overflow-hidden">
+            <img
+              src={heroImageSrc}
+              alt={heroImageAltText}
+              class="w-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         )}
       </header>
 
       <!-- Content -->
-      <main class="prose prose-lg dark:prose-invert prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-a:no-underline prose-a:font-semibold hover:prose-a:underline prose-strong:text-gray-900 dark:prose-strong:text-white prose-code:text-primary-600 dark:prose-code:text-primary-400 prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-gray-900 dark:prose-pre:bg-gray-950 prose-pre:border prose-pre:border-gray-800 dark:prose-pre:border-gray-700 prose-img:rounded-xl prose-img:shadow-lg max-w-none">
+      <main class="prose mx-auto">
         <slot />
       </main>
 
       <!-- Back to Blog -->
-      <footer class="mt-16 pt-8 border-t-2 border-gray-200 dark:border-gray-800">
+      <footer class="max-w-3xl mx-auto mt-24 pt-12 border-t border-ink/5">
         <a
           href="/"
-          class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:gap-3 transition-all group"
+          class="inline-flex items-center gap-3 text-ink font-sans font-bold uppercase tracking-widest text-xs hover:text-accent transition-colors group"
         >
-          <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
           </svg>
-          Back to all posts
+          Back to Journal
         </a>
       </footer>
     </article>
@@ -92,4 +99,5 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
 
 <style is:global>
   @import "../styles/global.css";
+  @import "../styles/blog.css";
 </style>
