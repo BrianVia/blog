@@ -1,4 +1,4 @@
-# Astro Starter Kit: Blog
+# Astro Starter Kit: Blog two
 
 ```
 npm init astro -- --template blog
