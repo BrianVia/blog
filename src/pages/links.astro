@@ -19,6 +19,11 @@ interface Bookmark {
 const links = await fetch('https://flatmeadow.com/links/all-bookmarks.json')
 const linkData = await links.json() as Bookmark[];
 
+// Sort by createdAt descending (newest first)
+const sortedLinks = linkData.sort((a, b) =>
+  new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+);
+
 // Function to format date
 function formatDate(dateString: string) {
   return new Date(dateString).toLocaleDateString('en-US', {
@@ -67,9 +72,9 @@ const description = "A curated feed of interesting links from Readwise and Raind
           <span class="h-px bg-ink/10 flex-1"></span>
         </div>
 
-        <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
-          {linkData.map((link) => (
-            <article class="break-inside-avoid group">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {sortedLinks.map((link) => (
+            <article class="group">
               <div class="bg-white dark:bg-white/5 rounded-sm shadow-editorial hover:shadow-editorial-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden h-full flex flex-col">
                 <a href={link.url} target="_blank" rel="noopener noreferrer" class="block flex-1 flex flex-col">
                   {link.imageUrl && (
