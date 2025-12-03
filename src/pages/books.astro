@@ -2,13 +2,25 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { SEO } from "astro-seo";
 
 const title = "Books I've Read";
 const description = "A collection of books I've read, with the most recent at the top.";
-const canonicalURL = "https://brianvia.blog/books";
 
 const books = [
+  {
+    title: "The Anthology of Balaji",
+    author: "Balaji Srinivasan",
+    dateRead: "2025-11",
+    rating: "",
+    notes: ""
+  },
+  {
+    title: "Boom: Bubbles and the End of Stagnation",
+    author: "Byrne Hobart",
+    dateRead: "2025-04",
+    rating: "",
+    notes: ""
+  },
   {
     title: "Poor Charlie's Almanack - The Essential Wit and Wisdom of Charles T. Munger",
     author: "Peter Kaufman",
@@ -29,36 +41,10 @@ const books = [
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <SEO
-      title={title}
-      description={description}
-      canonical={canonicalURL}
-      openGraph={{
-        basic: {
-          title: title,
-          type: "website",
-          image: "/assets/og-image.jpg",
-        }
-      }}
-      twitter={{
-        card: "summary_large_image",
-        site: "@Brian_Via",
-        creator: "@Brian_Via"
-      }}
-      extend={{
-        link: [
-          { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-          { rel: "preconnect", href: "https://fonts.gstatic.com" },
-          { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap" }
-        ],
-        meta: [
-          { name: "viewport", content: "width=device-width" },
-        ],
-      }}
-    />
+    <BaseHead title={title} description={description} canonicalRoute="books" />
   </head>
 
-  <body class="bg-[#f7f7f7] dark:bg-gray-900 transition-colors duration-300">
+  <body>
     <Header />
 
     <main class="max-w-5xl mx-auto px-6 py-16">

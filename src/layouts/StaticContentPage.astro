@@ -2,8 +2,6 @@
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import "../styles/blog.css";
-import { SEO } from "astro-seo";
 
 export interface StaticContentPageProps {
   content: {
@@ -16,52 +14,15 @@ export interface StaticContentPageProps {
 const {
   content: { title, description, canonicalRoute },
 } = Astro.props as StaticContentPageProps;
-
-const canonicalURL = `https://brianvia.blog/${canonicalRoute}`;
-const imageUrl = "https://brianvia.blog/social-image.png";
-
 ---
 
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <SEO
-      title={title}
-      description={description}
-      canonical={canonicalURL.toString()}
-      openGraph={{
-        basic: {
-          title: title,
-          type: "website",
-          image: imageUrl,
-        }
-      }}
-      twitter={{
-        card: "summary_large_image",
-        site: "@Brian_Via",
-        creator: "@Brian_Via",
-        image: imageUrl
-      }}
-      extend={{
-        link: [
-          { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-          { rel: "preconnect", href: "https://fonts.gstatic.com" },
-          { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap" }
-        ],
-        meta: [
-          { name: "viewport", content: "width=device-width" },
-        ],
-      }}
-    />
-    
-    <!-- Styles -->
-    <style is:global>
-      @import "../styles/blog.css";
-    </style>
-    
+    <BaseHead title={title} description={description} canonicalRoute={canonicalRoute} />
   </head>
 
-  <body class="bg-[#f7f7f7] dark:bg-gray-900 transition-colors duration-300">
+  <body>
     <Header />
 
     <main class="max-w-3xl mx-auto px-6 py-16 prose prose-lg dark:prose-invert prose-headings:font-bold prose-headings:font-heading prose-headings:text-gray-900 dark:prose-headings:text-white prose-headings:tracking-tight prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-gray-900 dark:prose-a:text-gray-100 prose-a:no-underline prose-a:font-semibold hover:prose-a:underline prose-strong:text-gray-900 dark:prose-strong:text-white prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-li:text-gray-700 dark:prose-li:text-gray-300 prose-img:rounded-sm prose-img:border-2 prose-img:border-gray-300 dark:prose-img:border-gray-600">
