@@ -16,7 +16,7 @@ interface Bookmark {
   imageUrl?: string;
 }
 
-const links = await fetch('https://flatmeadow.com/links/all-bookmarks.json')
+const links = await fetch('https://weekly-digest.brian-via.workers.dev/bookmarks/all-bookmarks.json')
 const linkData = await links.json() as Bookmark[];
 
 // Sort by createdAt descending (newest first)
