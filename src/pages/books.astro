@@ -6,42 +6,314 @@ import Footer from "../components/Footer.astro";
 const title = "Books I've Read";
 const description = "A collection of books I've read, with the most recent at the top.";
 
-const books = [
+interface Book {
+  title: string;
+  author: string;
+  dateRead: string;
+  rating: string;
+  notes: string;
+  coverUrl?: string;
+  spineColor: string;
+  textColor: string;
+}
+
+const books: Book[] = [
   {
     title: "The Anthology of Balaji",
     author: "Balaji Srinivasan",
     dateRead: "2025-11",
     rating: "",
-    notes: ""
+    notes: "",
+    coverUrl: "https://m.media-amazon.com/images/I/61f2BTMUX8L._SY522_.jpg",
+    spineColor: "#1a365d",
+    textColor: "#f7fafc"
   },
   {
     title: "Boom: Bubbles and the End of Stagnation",
     author: "Byrne Hobart",
     dateRead: "2025-04",
     rating: "",
-    notes: ""
+    notes: "",
+    coverUrl: "https://m.media-amazon.com/images/I/71NVm4dtjKL._SY522_.jpg",
+    spineColor: "#744210",
+    textColor: "#fffaf0"
   },
   {
-    title: "Poor Charlie's Almanack - The Essential Wit and Wisdom of Charles T. Munger",
+    title: "Poor Charlie's Almanack",
     author: "Peter Kaufman",
     dateRead: "2024 (All of it)",
     rating: "5/5",
-    notes: "A comprehensive collection of Charlie Munger's wisdom and mental models"
+    notes: "A comprehensive collection of Charlie Munger's wisdom and mental models",
+    coverUrl: "https://m.media-amazon.com/images/I/81zO8sNrO7L._SY522_.jpg",
+    spineColor: "#742a2a",
+    textColor: "#fffaf0"
   },
   {
     title: "Think and Grow Rich",
     author: "Napoleon Hill",
     dateRead: "2024-12",
     rating: "4/5",
-    notes: "Classic self-improvement book about achieving success through mindset and persistence"
+    notes: "Classic self-improvement book about achieving success through mindset and persistence",
+    coverUrl: "https://m.media-amazon.com/images/I/71UypkUjStL._SY522_.jpg",
+    spineColor: "#22543d",
+    textColor: "#f0fff4"
   }
 ];
+
+// Calculate books per shelf (responsive)
+const booksPerShelf = 4;
+const shelves: Book[][] = [];
+for (let i = 0; i < books.length; i += booksPerShelf) {
+  shelves.push(books.slice(i, i + booksPerShelf));
+}
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <BaseHead title={title} description={description} canonicalRoute="books" />
+    <style>
+      /* Bookshelf Styles */
+      .bookshelf-container {
+        perspective: 1500px;
+      }
+
+      .shelf {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem 0;
+        min-height: 220px;
+      }
+
+      .shelf::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 20px;
+        background: linear-gradient(180deg, #8B4513 0%, #654321 50%, #4a3728 100%);
+        border-radius: 0 0 4px 4px;
+        box-shadow:
+          0 4px 8px rgba(0, 0, 0, 0.3),
+          inset 0 2px 4px rgba(255, 255, 255, 0.1);
+      }
+
+      .shelf::before {
+        content: '';
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        height: 8px;
+        background: linear-gradient(180deg, #654321 0%, #8B4513 100%);
+        box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Dark mode shelf */
+      :root.dark .shelf::after {
+        background: linear-gradient(180deg, #5c3d2e 0%, #3d2a1f 50%, #2d1f17 100%);
+      }
+
+      :root.dark .shelf::before {
+        background: linear-gradient(180deg, #3d2a1f 0%, #5c3d2e 100%);
+      }
+
+      .book {
+        position: relative;
+        cursor: pointer;
+        transform-style: preserve-3d;
+        transition: transform 0.3s ease, z-index 0s;
+        z-index: 1;
+      }
+
+      .book:hover {
+        transform: translateY(-12px) rotateX(-5deg);
+        z-index: 10;
+      }
+
+      .book-spine {
+        width: 45px;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px 0 0 3px;
+        box-shadow:
+          2px 2px 8px rgba(0, 0, 0, 0.3),
+          inset -2px 0 4px rgba(0, 0, 0, 0.2),
+          inset 2px 0 4px rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .book-spine::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(90deg, rgba(0,0,0,0.3) 0%, transparent 100%);
+      }
+
+      .book-spine::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .spine-title {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-align: center;
+        padding: 10px 4px;
+        line-height: 1.2;
+        max-height: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      /* Book pages effect */
+      .book::after {
+        content: '';
+        position: absolute;
+        right: -8px;
+        top: 2px;
+        bottom: 2px;
+        width: 8px;
+        background: linear-gradient(90deg,
+          #f5f5dc 0%,
+          #fff8dc 20%,
+          #f5f5dc 40%,
+          #fff8dc 60%,
+          #f5f5dc 80%,
+          #fff8dc 100%
+        );
+        background-size: 4px 100%;
+        border-radius: 0 2px 2px 0;
+        box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Modal Styles */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        padding: 1rem;
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-content {
+        background: var(--color-paper);
+        border-radius: 12px;
+        max-width: 500px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        transform: scale(0.9) translateY(20px);
+        transition: transform 0.3s ease;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-overlay.active .modal-content {
+        transform: scale(1) translateY(0);
+      }
+
+      .modal-cover {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        border-radius: 12px 12px 0 0;
+      }
+
+      .modal-cover-placeholder {
+        width: 100%;
+        height: 280px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px 12px 0 0;
+        font-size: 4rem;
+      }
+
+      .modal-body {
+        padding: 1.5rem;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        transition: background 0.2s ease;
+      }
+
+      .modal-close:hover {
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      .rating-stars {
+        color: #f59e0b;
+      }
+
+      /* Responsive */
+      @media (max-width: 640px) {
+        .shelf {
+          gap: 0.25rem;
+          padding: 0.5rem 1rem 0;
+          min-height: 180px;
+        }
+
+        .book-spine {
+          width: 35px;
+          height: 140px;
+        }
+
+        .spine-title {
+          font-size: 0.6rem;
+        }
+
+        .book::after {
+          width: 6px;
+          right: -6px;
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -55,34 +327,176 @@ const books = [
         <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
           A collection of books that have shaped my thinking
         </p>
+        <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">
+          Hover over a book to see details
+        </p>
       </section>
 
-      <section class="overflow-x-auto">
-        <table class="w-full border-2 border-gray-300 dark:border-gray-700 rounded-sm">
-          <thead>
-            <tr class="bg-gray-100 dark:bg-gray-800 border-b-2 border-gray-300 dark:border-gray-700">
-              <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Title</th>
-              <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Author</th>
-              <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Date Read</th>
-              <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Rating</th>
-              <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Notes</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white dark:bg-gray-800">
-            {books.map((book) => (
-              <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors">
-                <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-100">{book.title}</td>
-                <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{book.author}</td>
-                <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{book.dateRead}</td>
-                <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{book.rating}</td>
-                <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{book.notes}</td>
-              </tr>
+      <section class="bookshelf-container">
+        {shelves.map((shelfBooks) => (
+          <div class="shelf">
+            {shelfBooks.map((book, index) => (
+              <div
+                class="book"
+                data-book-index={books.indexOf(book)}
+                role="button"
+                tabindex="0"
+                aria-label={`View details for ${book.title}`}
+              >
+                <div
+                  class="book-spine"
+                  style={`background-color: ${book.spineColor}; color: ${book.textColor};`}
+                >
+                  <span class="spine-title">{book.title}</span>
+                </div>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+        ))}
       </section>
+
+      <!-- Fallback table for accessibility/SEO -->
+      <details class="mt-12">
+        <summary class="cursor-pointer text-gray-600 dark:text-gray-400 hover:text-accent transition-colors">
+          View as list
+        </summary>
+        <div class="overflow-x-auto mt-4">
+          <table class="w-full border-2 border-gray-300 dark:border-gray-700 rounded-sm">
+            <thead>
+              <tr class="bg-gray-100 dark:bg-gray-800 border-b-2 border-gray-300 dark:border-gray-700">
+                <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Title</th>
+                <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Author</th>
+                <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Date Read</th>
+                <th class="px-6 py-4 text-left font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Rating</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-gray-800">
+              {books.map((book) => (
+                <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors">
+                  <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-100">{book.title}</td>
+                  <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{book.author}</td>
+                  <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{book.dateRead}</td>
+                  <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{book.rating || '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
     </main>
 
+    <!-- Modal -->
+    <div class="modal-overlay" id="bookModal">
+      <div class="modal-content relative">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <div id="modalCoverContainer"></div>
+        <div class="modal-body">
+          <h2 id="modalTitle" class="text-2xl font-bold font-heading text-gray-900 dark:text-gray-100 mb-2"></h2>
+          <p id="modalAuthor" class="text-lg text-gray-600 dark:text-gray-400 mb-4"></p>
+          <div class="flex flex-wrap gap-4 mb-4 text-sm">
+            <div>
+              <span class="text-gray-500 dark:text-gray-500">Read:</span>
+              <span id="modalDate" class="text-gray-700 dark:text-gray-300 ml-1"></span>
+            </div>
+            <div id="modalRatingContainer">
+              <span class="text-gray-500 dark:text-gray-500">Rating:</span>
+              <span id="modalRating" class="rating-stars ml-1"></span>
+            </div>
+          </div>
+          <div id="modalNotesContainer" class="hidden">
+            <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wide mb-2">Notes</h3>
+            <p id="modalNotes" class="text-gray-700 dark:text-gray-300 leading-relaxed"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <Footer />
+
+    <script define:vars={{ books }}>
+      const modal = document.getElementById('bookModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalAuthor = document.getElementById('modalAuthor');
+      const modalDate = document.getElementById('modalDate');
+      const modalRating = document.getElementById('modalRating');
+      const modalRatingContainer = document.getElementById('modalRatingContainer');
+      const modalNotes = document.getElementById('modalNotes');
+      const modalNotesContainer = document.getElementById('modalNotesContainer');
+      const modalCoverContainer = document.getElementById('modalCoverContainer');
+      const modalClose = modal.querySelector('.modal-close');
+
+      function formatRating(rating) {
+        if (!rating) return '';
+        const match = rating.match(/(\d+)\/(\d+)/);
+        if (match) {
+          const score = parseInt(match[1]);
+          const max = parseInt(match[2]);
+          return '★'.repeat(score) + '☆'.repeat(max - score);
+        }
+        return rating;
+      }
+
+      function openModal(bookIndex) {
+        const book = books[bookIndex];
+        if (!book) return;
+
+        modalTitle.textContent = book.title;
+        modalAuthor.textContent = `by ${book.author}`;
+        modalDate.textContent = book.dateRead;
+
+        if (book.rating) {
+          modalRating.textContent = formatRating(book.rating);
+          modalRatingContainer.classList.remove('hidden');
+        } else {
+          modalRatingContainer.classList.add('hidden');
+        }
+
+        if (book.notes) {
+          modalNotes.textContent = book.notes;
+          modalNotesContainer.classList.remove('hidden');
+        } else {
+          modalNotesContainer.classList.add('hidden');
+        }
+
+        if (book.coverUrl) {
+          modalCoverContainer.innerHTML = `<img src="${book.coverUrl}" alt="Cover of ${book.title}" class="modal-cover" />`;
+        } else {
+          modalCoverContainer.innerHTML = `<div class="modal-cover-placeholder" style="background-color: ${book.spineColor}; color: ${book.textColor};">📚</div>`;
+        }
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      // Event listeners for books
+      document.querySelectorAll('.book').forEach((bookEl) => {
+        bookEl.addEventListener('click', () => {
+          const index = parseInt(bookEl.dataset.bookIndex);
+          openModal(index);
+        });
+
+        bookEl.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const index = parseInt(bookEl.dataset.bookIndex);
+            openModal(index);
+          }
+        });
+      });
+
+      // Close modal events
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+      });
+    </script>
   </body>
-</html> 
+</html>
