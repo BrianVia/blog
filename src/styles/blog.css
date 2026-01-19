@@ -37,7 +37,9 @@
 }
 
 .prose img {
-  @apply rounded-sm shadow-editorial my-8 w-full;
+  @apply rounded-sm shadow-editorial my-8 mx-auto max-w-full h-auto;
+  max-height: 500px;
+  width: auto;
 }
 
 .prose ul {
