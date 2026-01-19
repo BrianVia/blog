@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
+
+const { slug } = Astro.params;
+
+// Get all posts and find the one matching the slug
+const allPosts = await getCollection('posts');
+const post = allPosts.find((p) => p.data.slug === slug);
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await render(post);
+
+// Transform data to match the expected BlogPost layout props
+const content = {
+  title: post.data.title,
+  description: post.data.description || '',
+  pubDate: post.data.createdAt?.toISOString() || post.data.pubDate.toISOString(),
+  heroImageUrl: post.data.heroImageUrl,
+  heroImageAlt: post.data.heroImageAlt,
+  slug: post.data.slug,
+  tags: post.data.tags || []
+};
+---
+
+<BlogPost content={content}>
+  <Content />
+</BlogPost>
