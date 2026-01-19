@@ -23,4 +23,7 @@ public/feeds/
 
 # generated posts from Notion
 src/pages/posts/
-\n# Astro build cache\n.astro/
+src/content/posts/
+
+# Astro build cache
+.astro/
