@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "fetch-posts": "bun scripts/fetchNotionPosts.ts",
+    "fetch-posts:obsidian": "bun scripts/fetchObsidianPosts.ts",
     "prebuild": "bun scripts/fetchNotionPosts.ts",
     "dev": "bun run fetch-posts && astro dev",
+    "dev:obsidian": "bun run fetch-posts:obsidian && astro dev",
     "start": "bun run fetch-posts && astro dev",
     "generate:feeds": "node scripts/update-paul-graham-feed.js",
     "build": "npm run generate:feeds && astro build",
+    "build:obsidian": "bun run fetch-posts:obsidian && npm run generate:feeds && astro build",
     "preview": "bun run fetch-posts && astro preview"
   },
   "lint-staged": {
