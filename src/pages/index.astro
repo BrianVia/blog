@@ -1,19 +1,20 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import BlogPostPreview from "../components/BlogPostPreview.astro";
 
+export const prerender = true;
+
 let title = "The Journal";
 
-// Use import.meta.glob to fetch all post with associated frontmatter
-const posts = import.meta.glob("./posts/*.md", { eager: true });
-const unsortedPosts = Object.values(posts);
-const sortedPosts = unsortedPosts
-  .filter((post) => post.frontmatter.published === true)
-  .sort(function (a, b) {
-    return new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf();
-  });
+// Use content collections to fetch all posts
+const allPosts = await getCollection('posts');
+const sortedPosts = allPosts
+  .filter((post) => post.data.published === true)
+  .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf());
+
 // slice first index and return modified original array
 const finalSortedPosts = sortedPosts.length > 1 ? sortedPosts.slice(1) : [];
 const mostRecentPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
@@ -53,12 +54,12 @@ const mostRecentPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
               <span class="h-px bg-ink/10 flex-1"></span>
            </div>
           <BlogPostPreview
-            title={mostRecentPost.frontmatter.title}
-            description={mostRecentPost.frontmatter.description || ""}
-            pubDate={mostRecentPost.frontmatter.pubDate}
-            url={`/posts/${mostRecentPost.frontmatter.slug}`}
+            title={mostRecentPost.data.title}
+            description={mostRecentPost.data.description || ""}
+            pubDate={mostRecentPost.data.pubDate}
+            url={`/posts/${mostRecentPost.data.slug}`}
             mostRecentPost={true}
-            tags={mostRecentPost.frontmatter.tags || []}
+            tags={mostRecentPost.data.tags || []}
           />
         </section>
       )}
@@ -75,11 +76,11 @@ const mostRecentPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
           {finalSortedPosts.map((post) => (
             <div class="break-inside-avoid">
               <BlogPostPreview
-                title={post.frontmatter.title}
-                description={post.frontmatter.description || ""}
-                pubDate={post.frontmatter.pubDate}
-                url={`/posts/${post.frontmatter.slug}`}
-                tags={post.frontmatter.tags || []}
+                title={post.data.title}
+                description={post.data.description || ""}
+                pubDate={post.data.pubDate}
+                url={`/posts/${post.data.slug}`}
+                tags={post.data.tags || []}
               />
             </div>
           ))}

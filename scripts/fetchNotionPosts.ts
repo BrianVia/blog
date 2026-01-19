@@ -10,7 +10,7 @@ import "dotenv/config";
 const notion = new Client({ auth: process.env.NOTION_API_KEY! });
 const n2m   = new NotionToMarkdown({ notionClient: notion });
 
-const OUTPUT_DIR = "./src/pages/posts";
+const OUTPUT_DIR = "./src/content/posts";
 
 async function main() {
   console.time("⏱️  Total fetch time");
@@ -69,7 +69,6 @@ async function processPost(page: any) {
   // ---- Front-matter + MD wrapper --------------------------------------
   // Only include defined values in front matter
   const frontMatter: any = {
-    layout: "../../layouts/BlogPost.astro",
     title,
     slug,
     pubDate: createdAt,
