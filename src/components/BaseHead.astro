@@ -52,6 +52,26 @@ const canonicalURL = `https://brianvia.blog/${canonicalRoute}`;
 
 <link rel="sitemap" href="/sitemap-index.xml" />
 
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Brian Via",
+  "jobTitle": "Senior Fullstack Engineer",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Dfinitiv, Inc."
+  },
+  "url": "https://blog.brianvia.com",
+  "sameAs": [
+    "https://x.com/BrianVia",
+    "https://github.com/BrianVia"
+  ],
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "North Carolina State University"
+  }
+})} />
+
 <!-- Styles -->
 <style is:global>
   @import "../styles/global.css";
