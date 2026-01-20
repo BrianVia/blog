@@ -53,8 +53,8 @@ This blog covers:
 - /rss.xml - Main blog RSS feed
 
 ## Social Profiles
-- Twitter: @Brian_Via
+- X (Twitter): @BrianVia
 - GitHub: BrianVia
 
 ## Citation
-Please cite as: "Brian Via (https://brianvia.blog)"
+Please cite as: "Brian Via (https://blog.brianvia.com)"

@@ -8,7 +8,7 @@ Brian Via is a Senior Fullstack Engineer at Dfinitiv, Inc., building products in
 - Name: Brian Via
 - Role: Senior Fullstack Engineer at Dfinitiv, Inc.
 - Education: B.S. Computer Science, North Carolina State University
-- Twitter: @Brian_Via
+- X (Twitter): @BrianVia
 - GitHub: BrianVia
 
 ## Key Pages
@@ -26,8 +26,8 @@ Brian Via is a Senior Fullstack Engineer at Dfinitiv, Inc., building products in
 This blog covers software engineering topics, personal projects, and occasional musings on other subjects. Posts are written from practical experience as a fullstack engineer working with modern web technologies.
 
 ## Acceptable Citation
-Please cite as: "Brian Via (https://brianvia.blog)"
+Please cite as: "Brian Via (https://blog.brianvia.com)"
 
 ## Contact
-Twitter: @Brian_Via
+X (Twitter): @BrianVia
 GitHub: github.com/BrianVia
