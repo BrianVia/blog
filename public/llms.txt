@@ -1,0 +1,33 @@
+# Brian Via - Personal Blog
+> Musings on Software or anything else that strikes my fancy.
+
+## About
+Brian Via is a Senior Fullstack Engineer at Dfinitiv, Inc., building products in the credit card rewards space. He holds a Computer Science degree from North Carolina State University, where he was on the varsity swim team (2010-2014). His interests include cooking, DJing, building computers, and triathlons.
+
+## Author
+- Name: Brian Via
+- Role: Senior Fullstack Engineer at Dfinitiv, Inc.
+- Education: B.S. Computer Science, North Carolina State University
+- Twitter: @Brian_Via
+- GitHub: BrianVia
+
+## Key Pages
+- /: Homepage - The Journal (blog index with featured and archived posts)
+- /about: About page with bio and background
+- /posts/*: Individual blog posts
+- /books: Recommended reading list with ratings
+- /uses: Equipment and tools used
+- /links: Curated link collection
+- /social: Social media presence
+- /feeds: RSS feeds directory
+- /rss.xml: Main blog RSS feed
+
+## Content
+This blog covers software engineering topics, personal projects, and occasional musings on other subjects. Posts are written from practical experience as a fullstack engineer working with modern web technologies.
+
+## Acceptable Citation
+Please cite as: "Brian Via (https://brianvia.blog)"
+
+## Contact
+Twitter: @Brian_Via
+GitHub: github.com/BrianVia
