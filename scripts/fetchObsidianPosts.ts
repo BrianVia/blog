@@ -3,12 +3,15 @@ import matter from "gray-matter";
 import slugify from "slugify";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { execSync } from "node:child_process";
 import "dotenv/config";
 
 // Configuration via environment variables
 const VAULT_PATH = process.env.OBSIDIAN_VAULT_PATH;
+const VAULT_NAME = process.env.OBSIDIAN_VAULT_NAME;
 const POSTS_FOLDER = process.env.OBSIDIAN_POSTS_FOLDER || "blog-posts";
 const OUTPUT_DIR = "./src/pages/posts";
+const HEADLESS_SYNC_PATH = "./.obsidian-vault";
 
 /**
  * Convert Obsidian-specific syntax to standard Markdown
@@ -146,20 +149,65 @@ async function processPost(filePath: string): Promise<boolean> {
   }
 }
 
+/**
+ * Pull latest vault files using Obsidian Headless Sync.
+ * Used in CI/CD when OBSIDIAN_AUTH_TOKEN is set.
+ */
+async function syncVaultHeadless(): Promise<string> {
+  const syncPath = path.resolve(HEADLESS_SYNC_PATH);
+  await fs.mkdir(syncPath, { recursive: true });
+
+  const run = (cmd: string) => {
+    console.log(`  $ ${cmd}`);
+    execSync(cmd, { stdio: "inherit" });
+  };
+
+  console.time("🔄 Obsidian Headless Sync");
+
+  // Setup sync (idempotent — safe to run every build)
+  const vaultArg = VAULT_NAME ? `--vault "${VAULT_NAME}"` : "";
+  const password = process.env.OBSIDIAN_SYNC_PASSWORD
+    ? `--password "${process.env.OBSIDIAN_SYNC_PASSWORD}"`
+    : "";
+
+  run(`ob sync-setup ${vaultArg} --path "${syncPath}" ${password}`.trim());
+  run(`ob sync --path "${syncPath}"`);
+
+  console.timeEnd("🔄 Obsidian Headless Sync");
+
+  return syncPath;
+}
+
 async function main() {
   console.time("⏱️  Total fetch time");
 
-  // Validate configuration
-  if (!VAULT_PATH) {
-    console.error("❌  OBSIDIAN_VAULT_PATH environment variable is not set");
+  // Determine vault path: headless sync (CI) or local path
+  let vaultPath = VAULT_PATH;
+
+  if (process.env.OBSIDIAN_AUTH_TOKEN) {
+    // CI mode: use headless sync to pull vault
+    console.log("🌐 OBSIDIAN_AUTH_TOKEN detected — using Headless Sync");
+
+    if (!VAULT_NAME) {
+      console.error("❌  OBSIDIAN_VAULT_NAME is required for headless sync");
+      console.error('  Set it in your CI environment variables alongside OBSIDIAN_AUTH_TOKEN');
+      process.exit(1);
+    }
+
+    vaultPath = await syncVaultHeadless();
+  } else if (!vaultPath) {
+    console.error("❌  No vault configured.");
     console.error("");
-    console.error("Set it in your .env file:");
+    console.error("Local development — set in .env:");
     console.error('  OBSIDIAN_VAULT_PATH="/path/to/your/obsidian/vault"');
-    console.error('  OBSIDIAN_POSTS_FOLDER="blog-posts"  # optional, defaults to "blog-posts"');
+    console.error("");
+    console.error("CI/CD — set in environment:");
+    console.error('  OBSIDIAN_AUTH_TOKEN="your-auth-token"');
+    console.error('  OBSIDIAN_VAULT_NAME="Your Vault Name"');
     process.exit(1);
   }
 
-  const postsDir = path.join(VAULT_PATH, POSTS_FOLDER);
+  const postsDir = path.join(vaultPath, POSTS_FOLDER);
 
   // Check if the posts directory exists
   try {

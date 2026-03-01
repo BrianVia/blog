@@ -21,6 +21,9 @@ pnpm-debug.log*
 # generated feeds
 public/feeds/
 
-# generated posts from Notion
+# generated posts from Notion / Obsidian
 src/pages/posts/
+
+# Obsidian Headless Sync (CI)
+.obsidian-vault/
 \n# Astro build cache\n.astro/
