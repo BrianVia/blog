@@ -2,8 +2,6 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { Image } from "astro:assets";
-import xSvg from "../assets/social-images/x-logo.svg";
 
 export const prerender = true;
 
@@ -51,7 +49,7 @@ let intro = `Here's how to get in touch with me if you'd like to!`;
               class="flex items-center justify-between w-full p-6 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-sm hover:border-gray-400 dark:hover:border-gray-600 transition-all group"
             >
               <span class="text-lg font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Twitter</span>
-              <Image src={xSvg} alt="Twitter" class="w-6 h-6 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors" width={24} height={24} />
+              <img src="/x-logo.svg" alt="Twitter" class="w-6 h-6 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors" width="24" height="24" />
             </a>
           </li>
           <li>

@@ -1,6 +1,5 @@
 ---
-import { Image } from "astro:assets";
-import logoSvg from "../assets/logo.svg";
+
 ---
 
 <header class="sticky top-0 z-50 w-full border-b border-ink/5 bg-paper/95 backdrop-blur transition-colors duration-500">
@@ -8,7 +7,7 @@ import logoSvg from "../assets/logo.svg";
     <!-- Logo / Brand -->
     <a href="/" class="group flex items-center gap-3">
       <div class="relative overflow-hidden">
-        <Image src={logoSvg} alt="Brian Via Logo" class="w-8 h-8 opacity-90 transition-transform duration-500 group-hover:rotate-12" />
+        <img src="/logo.svg" alt="Brian Via Logo" class="w-8 h-8 opacity-90 transition-transform duration-500 group-hover:rotate-12" />
       </div>
       <span class="font-heading font-bold text-2xl text-ink tracking-tight">
         Brian Via
