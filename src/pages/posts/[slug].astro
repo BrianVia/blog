@@ -2,16 +2,17 @@
 import { getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
-const { slug } = Astro.params;
-
-// Get all posts and find the one matching the slug
-const allPosts = await getCollection('posts');
-const post = allPosts.find((p) => p.data.slug === slug);
-
-if (!post) {
-  return Astro.redirect('/404');
+export async function getStaticPaths() {
+  const allPosts = await getCollection('posts');
+  return allPosts
+    .filter((post) => post.data.published === true)
+    .map((post) => ({
+      params: { slug: post.data.slug },
+      props: { post },
+    }));
 }
 
+const { post } = Astro.props;
 const { Content } = await render(post);
 
 // Transform data to match the expected BlogPost layout props

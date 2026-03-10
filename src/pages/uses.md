@@ -4,7 +4,6 @@ title: "Equipment I Use"
 description: "Stuff on my Desk"
 pubDate: "30 Apr 2023"
 canonicalRoute: "uses"
-prerender: true
 ---
 
 ## Workstation Equipment I Use

@@ -3,7 +3,6 @@ layout: "../layouts/StaticContentPage.astro"
 title: "For LLMs"
 description: "Machine-readable information about Brian Via and this blog"
 canonicalRoute: "llms"
-prerender: true
 ---
 
 # Brian Via - Senior Fullstack Engineer
