@@ -14,6 +14,25 @@ export default defineConfig({
         video: false,
         image: false,
       },
+      changefreq: "weekly",
+      priority: 0.5,
+      serialize(item) {
+        // Boost blog posts and homepage above static pages
+        if (/\/posts\/[^/]+\/?$/.test(item.url)) {
+          item.changefreq = "monthly";
+          item.priority = 0.9;
+        } else if (/^https?:\/\/[^/]+\/?$/.test(item.url)) {
+          item.changefreq = "weekly";
+          item.priority = 1.0;
+        } else if (/\/(links|books|feeds)\/?$/.test(item.url)) {
+          item.changefreq = "weekly";
+          item.priority = 0.7;
+        } else {
+          item.changefreq = "monthly";
+          item.priority = 0.4;
+        }
+        return item;
+      },
     }),
     robotsTxt(),
   ],

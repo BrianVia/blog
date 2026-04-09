@@ -4,22 +4,39 @@ import BlogPost from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('posts');
-  return allPosts
+  const publishedPosts = allPosts
     .filter((post) => post.data.published === true)
-    .map((post) => ({
+    .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf());
+
+  return publishedPosts.map((post, index) => {
+    // Sorted newest-first, so "next" (newer) is at a lower index,
+    // "prev" (older) is at a higher index.
+    const newerPost = index > 0 ? publishedPosts[index - 1] : undefined;
+    const olderPost = index < publishedPosts.length - 1 ? publishedPosts[index + 1] : undefined;
+
+    return {
       params: { slug: post.data.slug },
-      props: { post },
-    }));
+      props: {
+        post,
+        prevPost: olderPost
+          ? { slug: olderPost.data.slug, title: olderPost.data.title }
+          : undefined,
+        nextPost: newerPost
+          ? { slug: newerPost.data.slug, title: newerPost.data.title }
+          : undefined,
+      },
+    };
+  });
 }
 
-const { post } = Astro.props;
+const { post, prevPost, nextPost } = Astro.props;
 const { Content } = await render(post);
 
 // Transform data to match the expected BlogPost layout props
 const content = {
   title: post.data.title,
   description: post.data.description || '',
-  pubDate: post.data.createdAt?.toISOString() || post.data.pubDate.toISOString(),
+  pubDate: post.data.pubDate.toISOString(),
   heroImageUrl: post.data.heroImageUrl,
   heroImageAlt: post.data.heroImageAlt,
   slug: post.data.slug,
@@ -27,6 +44,6 @@ const content = {
 };
 ---
 
-<BlogPost content={content}>
+<BlogPost content={content} prevPost={prevPost} nextPost={nextPost}>
   <Content />
 </BlogPost>

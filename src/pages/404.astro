@@ -1,0 +1,54 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const title = "Page Not Found";
+const description = "The page you're looking for doesn't exist or has moved.";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <BaseHead
+      title={title}
+      description={description}
+      canonicalRoute="404"
+      noindex={true}
+    />
+  </head>
+
+  <body>
+    <Header />
+
+    <main class="wrapper py-24 md:py-32">
+      <section class="max-w-2xl mx-auto text-center">
+        <p class="text-sm font-sans font-bold uppercase tracking-widest text-accent mb-6">
+          Error 404
+        </p>
+        <h1 class="text-6xl md:text-8xl font-bold font-heading text-ink mb-8 tracking-tight leading-[0.9]">
+          Lost in the stacks
+        </h1>
+        <p class="text-xl md:text-2xl font-serif italic text-ink-light mb-12">
+          The page you're looking for doesn't exist — or maybe it never did.
+        </p>
+        <a
+          href="/"
+          class="inline-flex items-center gap-3 text-ink font-sans font-bold uppercase tracking-widest text-sm hover:text-accent transition-colors group"
+        >
+          <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back to the Journal
+        </a>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  @import "../styles/global.css";
+  @import "../styles/blog.css";
+</style>

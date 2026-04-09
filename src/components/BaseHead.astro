@@ -3,74 +3,238 @@ import "../styles/global.css";
 import "../styles/blog.css";
 import { SEO } from "astro-seo";
 
+export interface BreadcrumbItem {
+	name: string;
+	item?: string;
+}
+
+export interface BlogPostingData {
+	headline: string;
+	description?: string;
+	image?: string;
+	datePublished: string;
+	dateModified?: string;
+	keywords?: string[];
+}
+
 export interface BaseHeadProps {
 	title?: string;
 	description?: string;
 	imageUrl?: string;
+	imageAlt?: string;
 	canonicalRoute?: string;
+	type?: "website" | "article";
+	pubDate?: Date | string;
+	modifiedDate?: Date | string;
+	tags?: string[];
+	author?: string;
+	noindex?: boolean;
+	prevUrl?: string;
+	nextUrl?: string;
+	includePersonSchema?: boolean;
+	includeWebsiteSchema?: boolean;
+	blogPosting?: BlogPostingData;
+	breadcrumbs?: BreadcrumbItem[];
 }
 
 const baseTitle = "Brian | Via";
 const baseDescription = "Musings on Software or anything else that strikes my fancy.";
-const defaultImage = "https://brianvia.blog/social-image.png";
+const siteUrl = "https://brianvia.blog";
+const defaultImage = `${siteUrl}/social.png`;
+const defaultImageDimensions = { width: 1012, height: 506, type: "image/png" };
+const authorProfileUrl = `${siteUrl}/about`;
+const authorImageUrl = `${siteUrl}/pfp-original.jpg`;
 
-const { title, description = baseDescription, imageUrl = defaultImage, canonicalRoute = "" } = Astro.props as BaseHeadProps;
-const canonicalURL = `https://brianvia.blog/${canonicalRoute}`;
+const {
+	title,
+	description = baseDescription,
+	imageUrl = defaultImage,
+	imageAlt,
+	canonicalRoute = "",
+	type = "website",
+	pubDate,
+	modifiedDate,
+	tags,
+	author = authorProfileUrl,
+	noindex = false,
+	prevUrl,
+	nextUrl,
+	includePersonSchema = false,
+	includeWebsiteSchema = false,
+	blogPosting,
+	breadcrumbs,
+} = Astro.props as BaseHeadProps;
+
+const canonicalURL = canonicalRoute ? `${siteUrl}/${canonicalRoute}` : siteUrl;
+const fullTitle = title ? `${title} - ${baseTitle}` : baseTitle;
+const socialTitle = title || baseTitle;
+const resolvedImageAlt = imageAlt || description;
+const isDefaultImage = imageUrl === defaultImage;
+
+const toIso = (d: Date | string | undefined) => {
+	if (!d) return undefined;
+	if (d instanceof Date) return d.toISOString();
+	return new Date(d).toISOString();
+};
+
+const publishedTime = toIso(pubDate);
+const modifiedTime = toIso(modifiedDate);
+
+const openGraphImage = {
+	url: imageUrl,
+	alt: resolvedImageAlt,
+	...(isDefaultImage ? defaultImageDimensions : {}),
+};
+
+const openGraphArticle =
+	type === "article"
+		? {
+				publishedTime,
+				modifiedTime,
+				authors: [author],
+				tags,
+			}
+		: undefined;
+
+// ---------- JSON-LD schemas ----------
+
+const personSchema = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: "Brian Via",
+	jobTitle: "Senior Fullstack Engineer",
+	image: authorImageUrl,
+	worksFor: {
+		"@type": "Organization",
+		name: "Dfinitiv, Inc.",
+	},
+	url: authorProfileUrl,
+	sameAs: ["https://x.com/BrianVia", "https://github.com/BrianVia"],
+	alumniOf: {
+		"@type": "CollegeOrUniversity",
+		name: "North Carolina State University",
+	},
+};
+
+const websiteSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	name: baseTitle,
+	url: siteUrl,
+	description: baseDescription,
+	publisher: {
+		"@type": "Person",
+		name: "Brian Via",
+		url: authorProfileUrl,
+	},
+	inLanguage: "en-US",
+};
+
+const blogPostingSchema = blogPosting
+	? {
+			"@context": "https://schema.org",
+			"@type": "BlogPosting",
+			headline: blogPosting.headline,
+			description: blogPosting.description,
+			image: blogPosting.image ? [blogPosting.image] : [defaultImage],
+			datePublished: blogPosting.datePublished,
+			dateModified: blogPosting.dateModified || blogPosting.datePublished,
+			author: {
+				"@type": "Person",
+				name: "Brian Via",
+				url: authorProfileUrl,
+			},
+			publisher: {
+				"@type": "Person",
+				name: "Brian Via",
+				url: authorProfileUrl,
+			},
+			mainEntityOfPage: {
+				"@type": "WebPage",
+				"@id": canonicalURL,
+			},
+			...(blogPosting.keywords && blogPosting.keywords.length > 0
+				? { keywords: blogPosting.keywords.join(", ") }
+				: {}),
+		}
+	: null;
+
+const breadcrumbSchema =
+	breadcrumbs && breadcrumbs.length > 0
+		? {
+				"@context": "https://schema.org",
+				"@type": "BreadcrumbList",
+				itemListElement: breadcrumbs.map((crumb, index) => ({
+					"@type": "ListItem",
+					position: index + 1,
+					name: crumb.name,
+					...(crumb.item ? { item: crumb.item } : {}),
+				})),
+			}
+		: null;
 ---
 
 <SEO
-  title={`${title} ${title ? `- ${baseTitle}` : baseTitle}`}
+  title={fullTitle}
   description={description}
-  canonical={canonicalURL.toString()}
+  canonical={canonicalURL}
+  noindex={noindex}
+  nofollow={noindex}
 
   openGraph={{
     basic: {
-      title: title || baseTitle,
-      type: "website",
+      title: socialTitle,
+      type,
       image: imageUrl,
-    }
+      url: canonicalURL,
+    },
+    optional: {
+      description,
+      siteName: baseTitle,
+      locale: "en_US",
+    },
+    image: openGraphImage,
+    ...(openGraphArticle ? { article: openGraphArticle } : {}),
   }}
   twitter={{
     card: "summary_large_image",
-    site: "@Brian_Via",
-    creator: "@Brian_Via",
-    image: imageUrl
+    site: "@BrianVia",
+    creator: "@BrianVia",
+    title: socialTitle,
+    description,
+    image: imageUrl,
+    imageAlt: resolvedImageAlt,
   }}
   extend={{
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Serif:wght@400;700&family=IBM+Plex+Mono&display=swap" }
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Serif:wght@400;700&family=IBM+Plex+Mono&display=swap" },
+      { rel: "alternate", type: "application/rss+xml", title: `${baseTitle} RSS Feed`, href: "/rss.xml" },
+      ...(prevUrl ? [{ rel: "prev", href: prevUrl }] : []),
+      ...(nextUrl ? [{ rel: "next", href: nextUrl }] : []),
     ],
     meta: [
-      { name: "viewport", content: "width=device-width" },
-      { charset: "UTF-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
     ],
   }}
 />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Serif:wght@400;700&display=swap" rel="stylesheet">
 
 <link rel="sitemap" href="/sitemap-index.xml" />
 
-<script type="application/ld+json" set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Brian Via",
-  "jobTitle": "Senior Fullstack Engineer",
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Dfinitiv, Inc."
-  },
-  "url": "https://blog.brianvia.com",
-  "sameAs": [
-    "https://x.com/BrianVia",
-    "https://github.com/BrianVia"
-  ],
-  "alumniOf": {
-    "@type": "CollegeOrUniversity",
-    "name": "North Carolina State University"
-  }
-})} />
+{includePersonSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+)}
+{includeWebsiteSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+)}
+{blogPostingSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
+)}
+{breadcrumbSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+)}
 
 <!-- Styles -->
 <style is:global>

@@ -3,21 +3,34 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
+export interface AdjacentPost {
+  slug: string;
+  title: string;
+}
+
 export interface Props {
   content: {
     title: string;
     description: string;
     pubDate: string;
+    modifiedDate?: string;
     slug: string;
     tags?: string[];
     heroImageUrl?: string;
     heroImageAlt?: string;
   };
+  prevPost?: AdjacentPost;
+  nextPost?: AdjacentPost;
 }
 
 const {
-  content: { title, description, pubDate, slug, tags = [], heroImageUrl, heroImageAlt },
+  content: { title, description, pubDate, modifiedDate, slug, tags = [], heroImageUrl, heroImageAlt },
+  prevPost,
+  nextPost,
 } = Astro.props as Props;
+
+const prevUrl = prevPost ? `https://brianvia.blog/posts/${prevPost.slug}` : undefined;
+const nextUrl = nextPost ? `https://brianvia.blog/posts/${nextPost.slug}` : undefined;
 
 // Use heroImageUrl directly
 const heroImageSrc = heroImageUrl;
@@ -28,13 +41,40 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
   month: 'long',
   day: 'numeric'
 });
+
+const blogPosting = {
+  headline: title,
+  description,
+  image: heroImageSrc,
+  datePublished: new Date(pubDate).toISOString(),
+  dateModified: modifiedDate ? new Date(modifiedDate).toISOString() : undefined,
+  keywords: tags,
+};
+
+const breadcrumbs = [
+  { name: "Journal", item: "https://brianvia.blog" },
+  { name: title },
+];
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <BaseHead title={title} description={description} imageUrl={heroImageSrc} canonicalRoute={`posts/${slug}`}/>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <BaseHead
+      title={title}
+      description={description}
+      imageUrl={heroImageSrc}
+      imageAlt={heroImageAltText}
+      canonicalRoute={`posts/${slug}`}
+      type="article"
+      pubDate={pubDate}
+      modifiedDate={modifiedDate}
+      tags={tags}
+      blogPosting={blogPosting}
+      breadcrumbs={breadcrumbs}
+      prevUrl={prevUrl}
+      nextUrl={nextUrl}
+    />
   </head>
 
   <body>
@@ -62,12 +102,13 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
         </div>
 
         {heroImageSrc && (
-          <div class="mt-12 relative shadow-editorial rounded-sm overflow-hidden">
+          <div class="mt-12 relative shadow-editorial rounded-sm overflow-hidden aspect-[16/9] bg-ink/5">
             <img
               src={heroImageSrc}
               alt={heroImageAltText}
-              class="w-full object-cover"
-              loading="lazy"
+              class="w-full h-full object-cover"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
             />
           </div>
@@ -79,8 +120,41 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
         <slot />
       </main>
 
-      <!-- Back to Blog -->
-      <footer class="max-w-3xl mx-auto mt-24 pt-12 border-t border-ink/5">
+      <!-- Post Navigation -->
+      <footer class="max-w-3xl mx-auto mt-24 pt-12 border-t border-ink/5 space-y-12">
+        {(prevPost || nextPost) && (
+          <nav aria-label="Post navigation" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {prevPost ? (
+              <a
+                href={`/posts/${prevPost.slug}`}
+                rel="prev"
+                class="group block p-6 border border-ink/10 rounded-sm hover:border-accent transition-colors"
+              >
+                <span class="text-xs font-sans font-bold uppercase tracking-widest text-ink-lighter block mb-2">
+                  ← Previous
+                </span>
+                <span class="font-heading font-bold text-lg text-ink group-hover:text-accent transition-colors">
+                  {prevPost.title}
+                </span>
+              </a>
+            ) : <div />}
+            {nextPost ? (
+              <a
+                href={`/posts/${nextPost.slug}`}
+                rel="next"
+                class="group block p-6 border border-ink/10 rounded-sm hover:border-accent transition-colors md:text-right"
+              >
+                <span class="text-xs font-sans font-bold uppercase tracking-widest text-ink-lighter block mb-2">
+                  Next →
+                </span>
+                <span class="font-heading font-bold text-lg text-ink group-hover:text-accent transition-colors">
+                  {nextPost.title}
+                </span>
+              </a>
+            ) : <div />}
+          </nav>
+        )}
+
         <a
           href="/"
           class="inline-flex items-center gap-3 text-ink font-sans font-bold uppercase tracking-widest text-xs hover:text-accent transition-colors group"
