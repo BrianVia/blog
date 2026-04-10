@@ -56,4 +56,4 @@ This blog covers:
 - GitHub: BrianVia
 
 ## Citation
-Please cite as: "Brian Via (https://blog.brianvia.com)"
+Please cite as: "Brian Via (https://brianvia.blog)"

@@ -3,6 +3,7 @@ layout: "../layouts/StaticContentPage.astro"
 title: "About Me"
 description: "Subpar developer, occasionally humorous"
 canonicalRoute: "about"
+includePersonSchema: true
 ---
 
 # About Me

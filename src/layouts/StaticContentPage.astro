@@ -8,18 +8,24 @@ export interface StaticContentPageProps {
     title: string;
     description: string;
     canonicalRoute: string;
+    includePersonSchema?: boolean;
   };
 }
 
 const {
-  content: { title, description, canonicalRoute },
+  content: { title, description, canonicalRoute, includePersonSchema = false },
 } = Astro.props as StaticContentPageProps;
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <BaseHead title={title} description={description} canonicalRoute={canonicalRoute} />
+    <BaseHead
+      title={title}
+      description={description}
+      canonicalRoute={canonicalRoute}
+      includePersonSchema={includePersonSchema}
+    />
   </head>
 
   <body>

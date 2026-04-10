@@ -2,6 +2,9 @@
   "name": "blog",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "fetch-posts": "bun scripts/fetchNotionPosts.ts",
     "prebuild": "bun scripts/fetchNotionPosts.ts",
