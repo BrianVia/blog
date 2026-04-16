@@ -2,7 +2,7 @@
 export interface Props {
   title: string;
   description: string;
-  pubDate: string;
+  pubDate: string | Date;
   url: string;
   mostRecentPost?: boolean;
   tags?: string[];
@@ -32,9 +32,9 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
         {tags.length > 0 && (
           <div class="flex gap-3 mb-6">
             {tags.map(tag => (
-              <span class="text-xs font-sans font-bold tracking-widest uppercase text-accent">
+              <a href={`/tags/${encodeURIComponent(tag)}`} class="text-xs font-sans font-bold tracking-widest uppercase text-accent hover:text-accent-hover transition-colors">
                 {tag}
-              </span>
+              </a>
             ))}
           </div>
         )}
@@ -65,9 +65,9 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
         {tags.length > 0 && (
           <div class="flex gap-2 mb-4">
             {tags.slice(0, 2).map(tag => (
-              <span class="text-[10px] font-sans font-bold tracking-widest uppercase text-accent">
+              <a href={`/tags/${encodeURIComponent(tag)}`} class="text-[10px] font-sans font-bold tracking-widest uppercase text-accent hover:text-accent-hover transition-colors">
                 {tag}
-              </span>
+              </a>
             ))}
           </div>
         )}

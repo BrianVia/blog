@@ -1,8 +1,13 @@
-const axios = require('axios');
 const cheerio = require('cheerio');
 const { Feed } = require('feed');
 const fs = require('fs');
 const path = require('path');
+
+async function fetchText(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`${url} -> ${res.status}`);
+  return res.text();
+}
 
 const baseUrl = 'https://paulgraham.com/articles.html';
 const selector = 'body > table > tbody > tr > td:nth-child(3) > table:nth-child(6) > tbody a';
@@ -81,11 +86,11 @@ function separateArticleTextFromDate(text) {
 async function getAllArticles() {
   const articles = [];
   try {
-    const mainResponse = await axios.get(baseUrl);
-    const mainPage = cheerio.load(mainResponse.data);
+    const mainHtml = await fetchText(baseUrl);
+    const mainPage = cheerio.load(mainHtml);
 
     const links = mainPage(selector)
-      .map((i, el) => ({
+      .map((_, el) => ({
         title: mainPage(el).text().trim(),
         href: mainPage(el).attr('href')?.trim()?.startsWith('https')
           ? mainPage(el).attr('href').trim()
@@ -96,8 +101,8 @@ async function getAllArticles() {
     for (const link of links) {
       let $;
       try {
-        const articleResponse = await axios.get(link.href);
-        $ = cheerio.load(articleResponse.data);
+        const articleHtml = await fetchText(link.href);
+        $ = cheerio.load(articleHtml);
       } catch (err) {
         console.error(`Error fetching article at ${link.href}:`, err);
         continue;

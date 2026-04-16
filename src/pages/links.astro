@@ -17,13 +17,20 @@ interface Bookmark {
   imageUrl?: string;
 }
 
-const links = await fetch('https://weekly-digest.brian-via.workers.dev/bookmarks/all-bookmarks.json')
-const linkData = await links.json() as Bookmark[];
+const BOOKMARKS_ENDPOINT =
+  "https://weekly-digest.brian-via.workers.dev/bookmarks/all-bookmarks.json";
 
-// Sort by createdAt descending (newest first)
-const sortedLinks = linkData.sort((a, b) =>
-  new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
-);
+let sortedLinks: Bookmark[] = [];
+try {
+  const res = await fetch(BOOKMARKS_ENDPOINT);
+  if (!res.ok) throw new Error(`bookmarks endpoint returned ${res.status}`);
+  const linkData = (await res.json()) as Bookmark[];
+  sortedLinks = linkData.sort(
+    (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+  );
+} catch (err) {
+  console.warn("[links.astro] bookmarks fetch failed, rendering empty state:", err);
+}
 
 // Function to format date
 function formatDate(dateString: string) {
@@ -32,11 +39,6 @@ function formatDate(dateString: string) {
     month: 'long',
     day: 'numeric'
   });
-}
-
-// Function to get favicon
-function getFavicon(url: string) {
-  return `https://www.google.com/s2/favicons?domain=${url}&sz=32`;
 }
 
 const title = "Bookmarked Links";
@@ -52,7 +54,7 @@ const description = "A curated feed of interesting links from Readwise and Raind
   <body>
     <Header />
 
-    <main class="wrapper py-16 md:py-24">
+    <main id="main-content" class="wrapper py-16 md:py-24">
       <!-- Hero Section -->
       <section class="text-center mb-24 md:mb-32">
         <h1 class="text-6xl md:text-8xl font-bold font-heading text-ink mb-8 tracking-tight leading-[0.9]">
@@ -72,6 +74,12 @@ const description = "A curated feed of interesting links from Readwise and Raind
           <h2 class="text-sm font-sans font-bold uppercase tracking-widest text-ink-lighter">Reading List</h2>
           <span class="h-px bg-ink/10 flex-1"></span>
         </div>
+
+        {sortedLinks.length === 0 && (
+          <p class="text-center text-ink-light font-serif italic">
+            The reading list is taking a short break. Check back shortly.
+          </p>
+        )}
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {sortedLinks.map((link) => (

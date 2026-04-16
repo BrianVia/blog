@@ -1,55 +1,70 @@
-/* Blog Post Content Styles */
+/* Blog Post Content Styles
+ *
+ * Scoped to `.post-content` instead of `.prose` so it doesn't collide with
+ * @tailwindcss/typography's `.prose` class, which is used by the static
+ * content pages (about, uses, llms).
+ */
 
-.prose {
+.post-content {
   @apply max-w-none text-ink;
 }
 
-.prose p {
+.post-content p {
   @apply font-serif text-lg leading-8 mb-6 text-ink-light;
 }
 
-.prose h2, .prose h3, .prose h4 {
+.post-content h2, .post-content h3, .post-content h4 {
   @apply font-heading text-ink mt-12 mb-6;
 }
 
-.prose h2 {
+.post-content h2 {
   @apply text-3xl border-b border-secondary-light/30 pb-4;
 }
 
-.prose a {
+.post-content a {
   @apply text-accent underline decoration-1 underline-offset-4 hover:text-accent-hover transition-colors;
 }
 
-.prose blockquote {
+.post-content blockquote {
   @apply border-l-4 border-accent pl-6 italic font-heading text-2xl text-ink my-8 not-italic bg-transparent;
 }
 
-.prose strong {
+.post-content strong {
   @apply text-ink font-bold;
 }
 
-.prose code {
+.post-content code {
   @apply font-mono text-sm bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-accent-hover;
 }
 
-.prose pre {
-  @apply bg-gray-900 text-gray-100 rounded-sm p-6 overflow-x-auto text-sm my-8 shadow-editorial;
+/* Shiki emits its own inline background/color via `pre.astro-code`.
+ * These rules only style the outer <pre> wrapper and any non-Shiki pre blocks. */
+.post-content pre {
+  @apply rounded-sm p-6 overflow-x-auto text-sm my-8 shadow-editorial;
 }
 
-.prose img {
+.post-content pre:not(.astro-code) {
+  @apply bg-gray-900 text-gray-100;
+}
+
+.post-content pre code {
+  @apply bg-transparent p-0;
+}
+
+.post-content img {
   @apply rounded-sm shadow-editorial my-8 mx-auto max-w-full h-auto;
   max-height: 500px;
   width: auto;
 }
 
-.prose ul {
+.post-content ul {
   @apply list-disc list-outside ml-6 mb-6 marker:text-accent;
 }
 
-.prose ol {
+.post-content ol {
   @apply list-decimal list-outside ml-6 mb-6 marker:text-ink font-bold;
 }
 
-.prose li {
+.post-content li {
   @apply mb-2 pl-2;
 }

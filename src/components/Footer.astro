@@ -1,4 +1,5 @@
 ---
+import { primaryNav } from "../data/nav";
 ---
 
 <footer class="mt-auto border-t border-ink/5 bg-paper transition-colors duration-300">
@@ -6,12 +7,9 @@
     <div class="flex flex-col items-center gap-6 text-center">
       <!-- Navigation Links -->
       <nav class="flex flex-wrap justify-center gap-x-8 gap-y-2">
-        <a href="/" class="nav-link">Journal</a>
-        <a href="/about" class="nav-link">About</a>
-        <a href="/social" class="nav-link">Social</a>
-        <a href="/feeds" class="nav-link">Feeds</a>
-        <a href="/links" class="nav-link">Links</a>
-        <a href="/books" class="nav-link">Library</a>
+        {primaryNav.map((link) => (
+          <a href={link.href} class="nav-link">{link.label}</a>
+        ))}
       </nav>
 
       <!-- RSS Feed -->

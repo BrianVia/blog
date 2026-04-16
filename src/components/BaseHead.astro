@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import "../styles/blog.css";
 import { SEO } from "astro-seo";
+import { ClientRouter } from "astro:transitions";
 
 export interface BreadcrumbItem {
 	name: string;
@@ -223,21 +224,30 @@ const breadcrumbSchema =
 
 <link rel="sitemap" href="/sitemap-index.xml" />
 
+<ClientRouter />
+
+<script is:inline>
+  // Blocking theme init — runs in <head> before any paint to avoid FOUC.
+  (function () {
+    try {
+      var stored = localStorage.getItem("theme");
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var theme = stored || (prefersDark ? "dark" : "light");
+      if (theme === "dark") document.documentElement.classList.add("dark");
+      if (!stored) localStorage.setItem("theme", theme);
+    } catch (e) {}
+  })();
+</script>
+
 {includePersonSchema && (
-  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 )}
 {includeWebsiteSchema && (
-  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 )}
 {blogPostingSchema && (
-  <script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
 )}
 {breadcrumbSchema && (
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 )}
-
-<!-- Styles -->
-<style is:global>
-  @import "../styles/global.css";
-  @import "../styles/blog.css";
-</style>

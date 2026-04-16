@@ -44,6 +44,10 @@ export default defineConfig({
     pedantic: false,
     tables: true,
     sanitize: false,
+    shikiConfig: {
+      theme: "github-dark-dimmed",
+      wrap: true,
+    },
   },
   build: {
     // Enable prerender route conflict detection to catch routing bugs at build time

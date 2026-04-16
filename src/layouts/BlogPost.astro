@@ -86,9 +86,9 @@ const breadcrumbs = [
         {tags.length > 0 && (
           <div class="flex flex-wrap gap-3 justify-center mb-6">
             {tags.map(tag => (
-              <span class="text-xs font-sans font-bold tracking-widest uppercase text-accent">
+              <a href={`/tags/${encodeURIComponent(tag)}`} class="text-xs font-sans font-bold tracking-widest uppercase text-accent hover:text-accent-hover transition-colors">
                 {tag}
-              </span>
+              </a>
             ))}
           </div>
         )}
@@ -116,7 +116,7 @@ const breadcrumbs = [
       </header>
 
       <!-- Content -->
-      <main class="prose mx-auto">
+      <main id="main-content" class="post-content mx-auto">
         <slot />
       </main>
 
@@ -170,8 +170,3 @@ const breadcrumbs = [
     <Footer />
   </body>
 </html>
-
-<style is:global>
-  @import "../styles/global.css";
-  @import "../styles/blog.css";
-</style>
