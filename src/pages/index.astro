@@ -63,6 +63,8 @@ const mostRecentPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
             url={`/posts/${mostRecentPost.data.slug}`}
             mostRecentPost={true}
             tags={mostRecentPost.data.tags || []}
+            heroImageUrl={mostRecentPost.data.heroImageUrl}
+            heroImageAlt={mostRecentPost.data.heroImageAlt}
           />
         </section>
       )}
@@ -84,6 +86,8 @@ const mostRecentPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
                 pubDate={post.data.pubDate}
                 url={`/posts/${post.data.slug}`}
                 tags={post.data.tags || []}
+                heroImageUrl={post.data.heroImageUrl}
+                heroImageAlt={post.data.heroImageAlt}
               />
             </div>
           ))}
