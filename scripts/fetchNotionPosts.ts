@@ -10,6 +10,17 @@ import "dotenv/config";
 const notion = new Client({ auth: process.env.NOTION_API_KEY! });
 const n2m   = new NotionToMarkdown({ notionClient: notion });
 
+// notion-to-md renders embed/bookmark blocks as a literal "[embed](url)" /
+// "[bookmark](url)" link. Show the URL itself as the link text instead.
+for (const blockType of ["embed", "bookmark"]) {
+  n2m.setCustomTransformer(blockType, async (block: any) => {
+    const url = block?.[blockType]?.url;
+    if (!url) return "";
+    const caption = block?.[blockType]?.caption?.[0]?.plain_text?.trim();
+    return `[${caption || url}](${url})`;
+  });
+}
+
 const OUTPUT_DIR = "./src/content/posts";
 
 async function main() {
