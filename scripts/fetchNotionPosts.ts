@@ -16,7 +16,7 @@ const n2m   = new NotionToMarkdown({ notionClient: notion });
 async function tweetEmbedHtml(url: string): Promise<string | null> {
   if (!/^https?:\/\/(?:www\.)?(?:twitter\.com|x\.com)\/[^/]+\/status\//.test(url)) return null;
   try {
-    const res = await fetch(`https://publish.x.com/oembed?url=${encodeURIComponent(url)}&dnt=true`);
+    const res = await fetch(`https://publish.x.com/oembed?url=${encodeURIComponent(url)}&dnt=true&align=center`);
     if (!res.ok) return null;
     const data: any = await res.json();
     return data.html?.trim() || null;
