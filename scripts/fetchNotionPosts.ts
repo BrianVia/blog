@@ -10,12 +10,30 @@ import "dotenv/config";
 const notion = new Client({ auth: process.env.NOTION_API_KEY! });
 const n2m   = new NotionToMarkdown({ notionClient: notion });
 
+// Tweet embeds: fetch the oEmbed HTML at build time so posts render a real
+// tweet card (degrades to a styled blockquote with the tweet text if the
+// reader blocks widgets.js).
+async function tweetEmbedHtml(url: string): Promise<string | null> {
+  if (!/^https?:\/\/(?:www\.)?(?:twitter\.com|x\.com)\/[^/]+\/status\//.test(url)) return null;
+  try {
+    const res = await fetch(`https://publish.x.com/oembed?url=${encodeURIComponent(url)}&dnt=true`);
+    if (!res.ok) return null;
+    const data: any = await res.json();
+    return data.html?.trim() || null;
+  } catch {
+    return null;
+  }
+}
+
 // notion-to-md renders embed/bookmark blocks as a literal "[embed](url)" /
-// "[bookmark](url)" link. Show the URL itself as the link text instead.
+// "[bookmark](url)" link. Tweets become embedded cards; everything else
+// shows the URL (or the block's caption) as the link text.
 for (const blockType of ["embed", "bookmark"]) {
   n2m.setCustomTransformer(blockType, async (block: any) => {
     const url = block?.[blockType]?.url;
     if (!url) return "";
+    const tweet = await tweetEmbedHtml(url);
+    if (tweet) return tweet;
     const caption = block?.[blockType]?.caption?.[0]?.plain_text?.trim();
     return `[${caption || url}](${url})`;
   });
