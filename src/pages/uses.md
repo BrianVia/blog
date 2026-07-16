@@ -1,12 +1,12 @@
 ---
 layout: "../layouts/StaticContentPage.astro"
 title: "Equipment I Use"
-description: "Stuff on my Desk"
+description: "Explore the computer hardware, peripherals, audio gear, and everyday tools that Brian Via uses for software development and creative work."
 pubDate: "30 Apr 2023"
 canonicalRoute: "uses"
 ---
 
-## Workstation Equipment I Use
+# Workstation Equipment I Use
 
 Some of these links may be referral links
 

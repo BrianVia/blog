@@ -4,8 +4,9 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
 
-let title = "Brian | Via - Social";
+let title = "Social";
 let intro = `Here's how to get in touch with me if you'd like to!`;
+const description = "Contact Brian Via by email or connect through X, LinkedIn, and GitHub to talk about software engineering, projects, and ideas.";
 ---
 
 <html lang="en">
@@ -15,7 +16,7 @@ let intro = `Here's how to get in touch with me if you'd like to!`;
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <BaseHead title={title} description={"Get in touch with me if you'd like to!"} imageUrl="/social.png" />
+    <BaseHead title={title} description={description} imageUrl="/social.png" canonicalRoute="social" />
   </head>
 
   <body>
@@ -34,6 +35,7 @@ let intro = `Here's how to get in touch with me if you'd like to!`;
       <section class="max-w-2xl mx-auto">
         <ul class="space-y-4">
           <li>
+            <!--email_off-->
             <a
               href="mailto:inquiries@brianvia.com"
               class="flex items-center justify-between w-full p-6 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-sm hover:border-gray-400 dark:hover:border-gray-600 transition-all group"
@@ -41,6 +43,7 @@ let intro = `Here's how to get in touch with me if you'd like to!`;
               <span class="text-lg font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Email</span>
               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
             </a>
+            <!--/email_off-->
           </li>
           <li>
             <a

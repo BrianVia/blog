@@ -37,7 +37,9 @@ export default defineConfig({
     robotsTxt(),
   ],
   site: `https://brianvia.blog`,
-  trailingSlash: "never",
+  // The production host serves directory routes with a trailing slash. Emit
+  // the same URL shape in pages and the sitemap so crawlers never hit a 308.
+  trailingSlash: "always",
   markdown: {
     gfm: true,
     breaks: false,

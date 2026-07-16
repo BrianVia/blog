@@ -1,7 +1,7 @@
 ---
 layout: "../layouts/StaticContentPage.astro"
 title: "About Me"
-description: "Subpar developer, occasionally humorous"
+description: "Meet Brian Via, a full-stack software engineer, former NC State swimmer, builder of side projects, parent, and aspiring triathlete."
 canonicalRoute: "about"
 includePersonSchema: true
 ---

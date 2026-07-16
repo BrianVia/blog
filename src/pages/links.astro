@@ -2,47 +2,15 @@
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import BookmarkGrid from "../components/BookmarkGrid.astro";
+import { BOOKMARKS_PER_PAGE, getBookmarks } from "../lib/bookmarks";
 
-
-interface Bookmark {
-  id: string;
-  title: string;
-  url: string;
-  createdAt: string;
-  bookmarkSource: "Raindrop" | "ReadwiseReader";
-  originalUrl: string;
-  summary?: string;
-  author?: string;
-  tags?: string[];
-  imageUrl?: string;
-}
-
-const BOOKMARKS_ENDPOINT =
-  "https://weekly-digest.brian-via.workers.dev/bookmarks/all-bookmarks.json";
-
-let sortedLinks: Bookmark[] = [];
-try {
-  const res = await fetch(BOOKMARKS_ENDPOINT);
-  if (!res.ok) throw new Error(`bookmarks endpoint returned ${res.status}`);
-  const linkData = (await res.json()) as Bookmark[];
-  sortedLinks = linkData.sort(
-    (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
-  );
-} catch (err) {
-  console.warn("[links.astro] bookmarks fetch failed, rendering empty state:", err);
-}
-
-// Function to format date
-function formatDate(dateString: string) {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-}
+const allBookmarks = await getBookmarks();
+const sortedLinks = allBookmarks.slice(0, BOOKMARKS_PER_PAGE);
+const totalPages = Math.ceil(allBookmarks.length / BOOKMARKS_PER_PAGE);
 
 const title = "Bookmarked Links";
-const description = "A curated feed of interesting links from Readwise and Raindrop.";
+const description = "A curated archive of useful articles, tools, products, and ideas saved from Readwise Reader and Raindrop.";
 ---
 
 <html lang="en">
@@ -75,66 +43,13 @@ const description = "A curated feed of interesting links from Readwise and Raind
           <span class="h-px bg-ink/10 flex-1"></span>
         </div>
 
-        {sortedLinks.length === 0 && (
-          <p class="text-center text-ink-light font-serif italic">
-            The reading list is taking a short break. Check back shortly.
-          </p>
+        <BookmarkGrid bookmarks={sortedLinks} />
+
+        {totalPages > 1 && (
+          <nav aria-label="Bookmark archive pages" class="mt-16 flex justify-center">
+            <a href="/links/2/" rel="next" class="nav-link">Older bookmarks →</a>
+          </nav>
         )}
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sortedLinks.map((link) => (
-            <article class="group">
-              <div class="bg-white dark:bg-white/5 rounded-sm shadow-editorial hover:shadow-editorial-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden h-full flex flex-col">
-                <a href={link.url} target="_blank" rel="noopener noreferrer" class="block flex-1 flex flex-col">
-                  {link.imageUrl && (
-                    <div class="relative overflow-hidden">
-                      <img
-                        src={link.imageUrl}
-                        alt={link.title}
-                        class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
-                  )}
-
-                  <div class="p-8 flex-1 flex flex-col">
-                    {link.tags && link.tags.length > 0 && (
-                      <div class="flex gap-2 mb-4">
-                        {link.tags.slice(0, 2).map((tag) => (
-                          <span class="text-[10px] font-sans font-bold tracking-widest uppercase text-accent">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    <h3 class="text-2xl font-heading font-bold text-ink mb-3 leading-tight group-hover:text-accent transition-colors">
-                      <span class="bg-gradient-to-r from-accent to-accent bg-[length:0%_2px] bg-no-repeat bg-left-bottom group-hover:bg-[length:100%_2px] transition-all duration-500 box-decoration-clone">
-                        {link.title}
-                      </span>
-                    </h3>
-
-                    {link.summary && (
-                      <p class="text-base text-ink-light font-serif leading-relaxed mb-6 line-clamp-3 flex-1">
-                        {link.summary}
-                      </p>
-                    )}
-
-                    <div class="flex items-center justify-between pt-6 border-t border-ink/5 mt-auto">
-                      <time class="text-xs font-sans font-medium text-ink-lighter uppercase tracking-widest">
-                        {formatDate(link.createdAt)}
-                      </time>
-                      <span class="text-xs font-sans font-bold text-ink hover:text-accent uppercase tracking-widest transition-colors">
-                        {link.bookmarkSource === "ReadwiseReader" ? "Readwise" : link.bookmarkSource}
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
       </section>
     </main>
 

@@ -11,7 +11,9 @@
     "dev": "bun run fetch-posts && astro dev",
     "start": "bun run fetch-posts && astro dev",
     "generate:feeds": "node scripts/update-paul-graham-feed.js",
-    "build": "bun run generate:feeds && astro build",
+    "build": "bun run generate:feeds && astro build && bun run audit:seo",
+    "audit:seo": "node scripts/audit-seo.mjs",
+    "audit:seo:live": "node scripts/audit-live-seo.mjs",
     "preview": "bun run fetch-posts && astro preview",
     "check": "astro check"
   },

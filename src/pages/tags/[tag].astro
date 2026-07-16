@@ -31,7 +31,7 @@ export async function getStaticPaths() {
 
 const { tag, posts } = Astro.props;
 const title = `#${tag}`;
-const description = `Posts tagged ${tag}`;
+const description = `Browse Brian Via's journal entries tagged “${tag},” including notes, lessons, and practical ideas from recent projects.`;
 ---
 
 <html lang="en">
@@ -60,7 +60,7 @@ const description = `Posts tagged ${tag}`;
               title={post.data.title}
               description={post.data.description || ""}
               pubDate={post.data.pubDate}
-              url={`/posts/${post.data.slug}`}
+              url={`/posts/${post.data.slug}/`}
               tags={post.data.tags || []}
             />
           </div>
@@ -68,7 +68,7 @@ const description = `Posts tagged ${tag}`;
       </section>
 
       <p class="text-center mt-16">
-        <a href="/tags" class="nav-link">← All tags</a>
+        <a href="/tags/" class="nav-link">← All tags</a>
       </p>
     </main>
 

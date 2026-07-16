@@ -39,11 +39,12 @@ export interface BaseHeadProps {
 }
 
 const baseTitle = "Brian | Via";
-const baseDescription = "Musings on Software or anything else that strikes my fancy.";
+const baseDescription = "Software engineering notes, side projects, reading lists, and personal essays from Brian Via.";
 const siteUrl = "https://brianvia.blog";
+const siteRoot = `${siteUrl}/`;
 const defaultImage = `${siteUrl}/social.png`;
 const defaultImageDimensions = { width: 1012, height: 506, type: "image/png" };
-const authorProfileUrl = `${siteUrl}/about`;
+const authorProfileUrl = `${siteUrl}/about/`;
 const authorImageUrl = `${siteUrl}/pfp-original.jpg`;
 
 const {
@@ -66,11 +67,53 @@ const {
 	breadcrumbs,
 } = Astro.props as BaseHeadProps;
 
-const canonicalURL = canonicalRoute ? `${siteUrl}/${canonicalRoute}` : siteUrl;
-const fullTitle = title ? `${title} - ${baseTitle}` : baseTitle;
+const normalizedRoute = canonicalRoute.replace(/^\/+|\/+$/g, "");
+const encodedRoute = normalizedRoute
+	.split("/")
+	.filter(Boolean)
+	.map((segment) => encodeURIComponent(segment))
+	.join("/");
+const canonicalURL = encodedRoute ? `${siteRoot}${encodedRoute}/` : siteRoot;
+const shortenTitle = (value: string, maxLength = 45) => {
+	if (value.length <= maxLength) return value;
+	const excerpt = value.slice(0, maxLength + 1).replace(/\s+\S*$/, "").trim();
+	return `${excerpt}…`;
+};
+const fullTitle = title ? `${shortenTitle(title)} - ${baseTitle}` : baseTitle;
 const socialTitle = title || baseTitle;
+const resolvedImageUrl = new URL(imageUrl, `${siteUrl}/`).toString();
 const resolvedImageAlt = imageAlt || description;
-const isDefaultImage = imageUrl === defaultImage;
+const isDefaultImage = resolvedImageUrl === defaultImage;
+
+// Social cards want a fast, correctly-cropped 2:1 image. Hero photos are often
+// multi-MB and 16:9 — X/Twitter's crawler times out on heavy images and then
+// silently drops the card. Derive a lightweight 1200x630 OG variant (the on-page
+// hero is unaffected) and advertise its exact dimensions so X can render the
+// large card without fetching the bytes first.
+const ogImageDimensions = { width: 1200, height: 630, type: "image/jpeg" };
+
+const toSocialImage = (url: string): { url: string; width?: number; height?: number; type?: string } => {
+	// Unsplash supports on-the-fly resizing/cropping via query params.
+	if (/^https?:\/\/images\.unsplash\.com\//.test(url)) {
+		const u = new URL(url);
+		// Drop `auto=format` — it content-negotiates WebP/AVIF and overrides `fm`,
+		// which would contradict the image/jpeg type we advertise below.
+		u.searchParams.delete("auto");
+		u.searchParams.set("w", "1200");
+		u.searchParams.set("h", "630");
+		u.searchParams.set("fit", "crop");
+		u.searchParams.set("crop", "entropy");
+		u.searchParams.set("fm", "jpg");
+		u.searchParams.set("q", "75");
+		return { url: u.toString(), ...ogImageDimensions };
+	}
+	return { url };
+};
+
+const socialImage = isDefaultImage
+	? { url: resolvedImageUrl, ...defaultImageDimensions }
+	: toSocialImage(resolvedImageUrl);
+const ogImageUrl = socialImage.url;
 
 const toIso = (d: Date | string | undefined) => {
 	if (!d) return undefined;
@@ -82,9 +125,11 @@ const publishedTime = toIso(pubDate);
 const modifiedTime = toIso(modifiedDate);
 
 const openGraphImage = {
-	url: imageUrl,
+	url: ogImageUrl,
 	alt: resolvedImageAlt,
-	...(isDefaultImage ? defaultImageDimensions : {}),
+	...(socialImage.width
+		? { width: socialImage.width, height: socialImage.height, type: socialImage.type }
+		: {}),
 };
 
 const openGraphArticle =
@@ -121,7 +166,7 @@ const websiteSchema = {
 	"@context": "https://schema.org",
 	"@type": "WebSite",
 	name: baseTitle,
-	url: siteUrl,
+	url: siteRoot,
 	description: baseDescription,
 	publisher: {
 		"@type": "Person",
@@ -186,7 +231,7 @@ const breadcrumbSchema =
     basic: {
       title: socialTitle,
       type,
-      image: imageUrl,
+      image: ogImageUrl,
       url: canonicalURL,
     },
     optional: {
@@ -203,7 +248,7 @@ const breadcrumbSchema =
     creator: "@BrianVia",
     title: socialTitle,
     description,
-    image: imageUrl,
+    image: ogImageUrl,
     imageAlt: resolvedImageAlt,
   }}
   extend={{

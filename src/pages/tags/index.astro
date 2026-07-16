@@ -19,7 +19,7 @@ const tags = [...counts.entries()]
   .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
 
 const title = "Tags";
-const description = "All tags used across the journal.";
+const description = "Browse every topic in Brian Via's journal, from software engineering and AI to reading, productivity, and side projects.";
 ---
 
 <html lang="en">
@@ -48,7 +48,7 @@ const description = "All tags used across the journal.";
             {tags.map(({ tag, count }) => (
               <li>
                 <a
-                  href={`/tags/${encodeURIComponent(tag)}`}
+                  href={`/tags/${encodeURIComponent(tag)}/`}
                   class="inline-flex items-baseline gap-2 px-4 py-2 border border-ink/10 rounded-sm hover:border-accent transition-colors group"
                 >
                   <span class="text-xs font-sans font-bold uppercase tracking-widest text-ink group-hover:text-accent transition-colors">

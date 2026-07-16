@@ -11,7 +11,7 @@ export interface AdjacentPost {
 export interface Props {
   content: {
     title: string;
-    description: string;
+    description?: string;
     pubDate: string;
     modifiedDate?: string;
     slug: string;
@@ -29,8 +29,18 @@ const {
   nextPost,
 } = Astro.props as Props;
 
-const prevUrl = prevPost ? `https://brianvia.blog/posts/${prevPost.slug}` : undefined;
-const nextUrl = nextPost ? `https://brianvia.blog/posts/${nextPost.slug}` : undefined;
+const suppliedDescription = description?.trim();
+const metaDescriptionCandidate = suppliedDescription && suppliedDescription.length >= 70
+  ? suppliedDescription
+  : suppliedDescription
+    ? `${suppliedDescription.replace(/[.!?]?$/, ".")} Read Brian Via's notes and perspective on ${title}.`
+    : `Read ${title}, a journal entry by Brian Via about software engineering, technology, and the lessons learned while building.`;
+const metaDescription = metaDescriptionCandidate.length > 155
+  ? `${metaDescriptionCandidate.slice(0, 152).replace(/\s+\S*$/, "")}…`
+  : metaDescriptionCandidate;
+
+const prevUrl = prevPost ? `https://brianvia.blog/posts/${prevPost.slug}/` : undefined;
+const nextUrl = nextPost ? `https://brianvia.blog/posts/${nextPost.slug}/` : undefined;
 
 // Use heroImageUrl directly
 const heroImageSrc = heroImageUrl;
@@ -44,7 +54,7 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
 
 const blogPosting = {
   headline: title,
-  description,
+  description: metaDescription,
   image: heroImageSrc,
   datePublished: new Date(pubDate).toISOString(),
   dateModified: modifiedDate ? new Date(modifiedDate).toISOString() : undefined,
@@ -52,7 +62,7 @@ const blogPosting = {
 };
 
 const breadcrumbs = [
-  { name: "Journal", item: "https://brianvia.blog" },
+  { name: "Journal", item: "https://brianvia.blog/" },
   { name: title },
 ];
 ---
@@ -62,7 +72,7 @@ const breadcrumbs = [
     <meta charset="UTF-8" />
     <BaseHead
       title={title}
-      description={description}
+      description={metaDescription}
       imageUrl={heroImageSrc}
       imageAlt={heroImageAltText}
       canonicalRoute={`posts/${slug}`}
@@ -86,7 +96,7 @@ const breadcrumbs = [
         {tags.length > 0 && (
           <div class="flex flex-wrap gap-3 justify-center mb-6">
             {tags.map(tag => (
-              <a href={`/tags/${encodeURIComponent(tag)}`} class="text-xs font-sans font-bold tracking-widest uppercase text-accent hover:text-accent-hover transition-colors">
+              <a href={`/tags/${encodeURIComponent(tag)}/`} class="text-xs font-sans font-bold tracking-widest uppercase text-accent hover:text-accent-hover transition-colors">
                 {tag}
               </a>
             ))}
@@ -117,7 +127,9 @@ const breadcrumbs = [
 
       <!-- Content -->
       <main id="main-content" class="post-content mx-auto">
+        <!--email_off-->
         <slot />
+        <!--/email_off-->
       </main>
 
       <!-- Post Navigation -->
@@ -126,7 +138,7 @@ const breadcrumbs = [
           <nav aria-label="Post navigation" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {prevPost ? (
               <a
-                href={`/posts/${prevPost.slug}`}
+                href={`/posts/${prevPost.slug}/`}
                 rel="prev"
                 class="group block p-6 border border-ink/10 rounded-sm hover:border-accent transition-colors"
               >
@@ -140,7 +152,7 @@ const breadcrumbs = [
             ) : <div />}
             {nextPost ? (
               <a
-                href={`/posts/${nextPost.slug}`}
+                href={`/posts/${nextPost.slug}/`}
                 rel="next"
                 class="group block p-6 border border-ink/10 rounded-sm hover:border-accent transition-colors md:text-right"
               >

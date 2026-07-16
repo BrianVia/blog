@@ -73,7 +73,12 @@ async function processPost(page: any) {
   const plain = (prop: any) => (prop?.[0]?.plain_text ?? "").trim();
 
   // Get properties based on your database schema
-  const title = plain(page.properties.Name?.title);
+  const rawTitle = plain(page.properties.Name?.title);
+  // A legacy Notion title includes a linked call-to-action in the title
+  // property. Keep that annotation out of the document title and H1.
+  const title = rawTitle
+    .replace(/If you want to skip to the code snippets,?\s*click.*$/i, "")
+    .trim();
   const description = plain(page.properties.Description?.rich_text);
   const slugProp = plain(page.properties.slug?.rich_text);
   const slug = slugProp || slugify(title, { lower: true, strict: true });
@@ -95,6 +100,20 @@ async function processPost(page: any) {
   const mdBlocks = await n2m.pageToMarkdown(page.id);
   const markdownContent = n2m.toMarkdownString(mdBlocks);
 
+  // BlogPost.astro owns the page's single H1. Notion's heading_1 blocks must
+  // therefore begin at H2; leave hash-prefixed lines inside code fences alone.
+  let inFence = false;
+  const body = (markdownContent.parent || "")
+    .split("\n")
+    .map((line: string) => {
+      if (/^\s*```/.test(line)) {
+        inFence = !inFence;
+        return line;
+      }
+      return !inFence && /^# /.test(line) ? `#${line}` : line;
+    })
+    .join("\n");
+
   // ---- Front-matter + MD wrapper --------------------------------------
   // Only include defined values in front matter
   const frontMatter: any = {
@@ -108,10 +127,10 @@ async function processPost(page: any) {
   if (tags.length > 0) frontMatter.tags = tags;
   if (heroImageUrl) {
     frontMatter.heroImageUrl = heroImageUrl;
-    frontMatter.heroImageAlt = heroImageAlt;
+    frontMatter.heroImageAlt = heroImageAlt || `Featured image for ${title}`;
   }
 
-  const content = matter.stringify(markdownContent.parent || '', frontMatter);
+  const content = matter.stringify(body, frontMatter);
 
   // ---- Write to disk ---------------------------------------------------
   const target = path.join(OUTPUT_DIR, `${slug}.md`);
@@ -121,7 +140,25 @@ async function processPost(page: any) {
   console.log(`✅  ${title} -> ${target} (${duration}ms)`);
 }
 
-main().catch((err) => {
-  console.error("❌  Notion import failed:", err);
-  process.exit(1);
+main().catch(async (err) => {
+  // Builds should remain reproducible from the checked-out content when Notion
+  // is temporarily unavailable or a local developer has no valid credential.
+  // A fresh checkout with no cached posts still fails loudly.
+  const cachedPosts = await fs
+    .readdir(OUTPUT_DIR)
+    .then((files) => files.filter((file) => file.endsWith(".md")))
+    .catch(() => []);
+  const recoverableNotionFailure =
+    ["unauthorized", "restricted_resource", "rate_limited", "service_unavailable"].includes(err?.code) ||
+    err?.status >= 500;
+
+  if (recoverableNotionFailure && cachedPosts.length > 0) {
+    console.warn(
+      `⚠️  Notion import failed (${err?.code || err?.message || "unknown error"}); using ${cachedPosts.length} cached posts.`,
+    );
+    return;
+  }
+
+  console.error("❌  Notion import failed and no cached posts are available:", err);
+  process.exitCode = 1;
 });
