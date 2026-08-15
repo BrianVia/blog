@@ -26,5 +26,8 @@ public/feeds/
 src/pages/posts/
 src/content/posts/
 
+# Notion images mirrored locally at fetch time
+public/images/notion/
+
 # Astro build cache
 .astro/

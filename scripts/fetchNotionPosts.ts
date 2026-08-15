@@ -6,9 +6,35 @@ import slugify from "slugify";
 import fs from "node:fs/promises";
 import path from "node:path";
 import "dotenv/config";
+import {
+  IMAGE_DIR,
+  mirrorImage,
+  mirroredImageCount,
+  pruneUnreferencedImages,
+} from "./notionImages";
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY! });
 const n2m   = new NotionToMarkdown({ notionClient: notion });
+
+// notion-to-md emits the signed URL verbatim. Reproduce its alt-text rules
+// (caption, else the original filename, else "image") against the *original*
+// URL — the mirrored path is a content hash and would make useless alt text.
+n2m.setCustomTransformer("image", async (block: any) => {
+  const content = block?.image;
+  const url = content?.type === "external" ? content.external?.url : content?.file?.url;
+  if (!url) return "";
+
+  const caption = (content.caption || []).map((item: any) => item.plain_text).join("");
+  let alt = "image";
+  if (caption.trim().length > 0) {
+    alt = caption;
+  } else {
+    const matches = url.match(/[^\/\\&\?]+\.\w{3,4}(?=([\?&].*$|$))/);
+    if (matches) alt = matches[0];
+  }
+
+  return `![${alt}](${await mirrorImage(url)})`;
+});
 
 // Tweet embeds: fetch the oEmbed HTML at build time so posts render a real
 // tweet card (degrades to a styled blockquote with the tweet text if the
@@ -61,7 +87,13 @@ async function main() {
   console.time("🔄 Processing all posts");
   await Promise.all(pages.results.map(processPost));
   console.timeEnd("🔄 Processing all posts");
-  
+
+  const pruned = await pruneUnreferencedImages();
+  console.log(
+    `🖼️  Mirrored ${mirroredImageCount()} Notion image(s) into ${IMAGE_DIR}` +
+      (pruned > 0 ? ` (pruned ${pruned} unreferenced)` : ""),
+  );
+
   console.timeEnd("⏱️  Total fetch time");
 }
 
@@ -126,7 +158,9 @@ async function processPost(page: any) {
   if (description) frontMatter.description = description;
   if (tags.length > 0) frontMatter.tags = tags;
   if (heroImageUrl) {
-    frontMatter.heroImageUrl = heroImageUrl;
+    // The hero drives the on-page image, og:image and the BlogPosting schema,
+    // so an expired URL breaks the post and its social card together.
+    frontMatter.heroImageUrl = await mirrorImage(heroImageUrl);
     frontMatter.heroImageAlt = heroImageAlt || `Featured image for ${title}`;
   }
 
