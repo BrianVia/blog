@@ -45,6 +45,11 @@ const nextUrl = nextPost ? `https://brianvia.blog/posts/${nextPost.slug}/` : und
 // Use heroImageUrl directly
 const heroImageSrc = heroImageUrl;
 const heroImageAltText = heroImageAlt || title;
+// Notion-hosted images are mirrored into /images/notion at fetch time, so the
+// hero is usually a site-relative path. Structured data needs an absolute URL.
+const heroImageAbsolute = heroImageSrc
+  ? new URL(heroImageSrc, "https://brianvia.blog/").toString()
+  : undefined;
 
 const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
   year: 'numeric',
@@ -55,7 +60,7 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
 const blogPosting = {
   headline: title,
   description: metaDescription,
-  image: heroImageSrc,
+  image: heroImageAbsolute,
   datePublished: new Date(pubDate).toISOString(),
   dateModified: modifiedDate ? new Date(modifiedDate).toISOString() : undefined,
   keywords: tags,
