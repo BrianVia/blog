@@ -15,14 +15,18 @@
     "audit:seo": "node scripts/audit-seo.mjs",
     "audit:seo:live": "node scripts/audit-live-seo.mjs",
     "preview": "bun run fetch-posts && astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "lint": "oxlint --quiet .",
+    "lint:fix": "oxlint --quiet --fix ."
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@tailwindcss/typography": "^0.5.15",
     "astro": "^6.0.2",
     "tsx": "^4.20.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "oxlint": "1.77.0",
+    "@oxlint/plugins": "1.77.0"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.17",
