@@ -30,31 +30,28 @@ const description = "Browse every topic in Brian Via's journal, from software en
   <body>
     <Header />
 
-    <main id="main-content" class="wrapper py-16 md:py-24">
-      <section class="text-center mb-16">
-        <h1 class="text-6xl md:text-8xl font-bold font-heading text-ink mb-8 tracking-tight leading-[0.9]">
-          Tags
-        </h1>
-        <p class="text-xl md:text-2xl font-serif italic text-ink-light max-w-2xl mx-auto">
-          Browse the archive by topic.
-        </p>
+    <main id="main-content" class="wrapper">
+      <section class="margin-grid pt-14 pb-12 md:pt-20 md:pb-16">
+        <p class="label md:pt-3">Index</p>
+        <div>
+          <h1 class="display text-[2.5rem] sm:text-5xl md:text-6xl">Tags</h1>
+          <p class="mt-6 max-w-xl font-display text-xl italic leading-snug text-ink-2 md:text-2xl" style="font-weight:300">
+            The archive by topic.
+          </p>
+        </div>
       </section>
 
-      <section class="max-w-3xl mx-auto">
+      <section class="margin-grid border-t border-line pt-8">
+        <p class="label">{tags.length} topics</p>
         {tags.length === 0 ? (
-          <p class="text-center text-ink-light font-serif">No tags yet.</p>
+          <p class="text-ink-2">No tags yet.</p>
         ) : (
-          <ul class="flex flex-wrap gap-3 justify-center">
+          <ul>
             {tags.map(({ tag, count }) => (
-              <li>
-                <a
-                  href={`/tags/${encodeURIComponent(tag)}/`}
-                  class="inline-flex items-baseline gap-2 px-4 py-2 border border-ink/10 rounded-sm hover:border-accent transition-colors group"
-                >
-                  <span class="text-xs font-sans font-bold uppercase tracking-widest text-ink group-hover:text-accent transition-colors">
-                    {tag}
-                  </span>
-                  <span class="text-xs font-sans text-ink-lighter">{count}</span>
+              <li class="border-b border-line">
+                <a href={`/tags/${encodeURIComponent(tag)}/`} class="row-link group flex items-baseline justify-between gap-6 py-4">
+                  <span class="font-display text-2xl leading-tight text-ink group-hover:text-accent transition-colors" style="font-weight:500">{tag}</span>
+                  <span class="index-num text-lg">{String(count).padStart(2, "0")}</span>
                 </a>
               </li>
             ))}

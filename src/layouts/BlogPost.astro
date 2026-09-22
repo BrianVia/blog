@@ -2,6 +2,7 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { formatDate } from "../data/postMeta";
 
 export interface AdjacentPost {
   slug: string;
@@ -19,12 +20,16 @@ export interface Props {
     heroImageUrl?: string;
     heroImageAlt?: string;
   };
+  number: number;
+  minutes: number;
   prevPost?: AdjacentPost;
   nextPost?: AdjacentPost;
 }
 
 const {
   content: { title, description, pubDate, modifiedDate, slug, tags = [], heroImageUrl, heroImageAlt },
+  number,
+  minutes,
   prevPost,
   nextPost,
 } = Astro.props as Props;
@@ -51,11 +56,8 @@ const heroImageAbsolute = heroImageSrc
   ? new URL(heroImageSrc, "https://brianvia.blog/").toString()
   : undefined;
 
-const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-});
+const formattedDate = formatDate(pubDate);
+const num = String(number).padStart(2, "0");
 
 const blogPosting = {
   headline: title,
@@ -95,92 +97,73 @@ const breadcrumbs = [
   <body>
     <Header />
 
-    <article class="wrapper py-16 md:py-24">
-      <!-- Header -->
-      <header class="text-center max-w-3xl mx-auto mb-16 md:mb-24">
-        {tags.length > 0 && (
-          <div class="flex flex-wrap gap-3 justify-center mb-6">
-            {tags.map(tag => (
-              <a href={`/tags/${encodeURIComponent(tag)}/`} class="text-xs font-sans font-bold tracking-widest uppercase text-accent hover:text-accent-hover transition-colors">
-                {tag}
-              </a>
+    <article class="wrapper">
+      <header class="margin-grid pt-14 pb-10 md:pt-20 md:pb-14">
+        <p class="label md:pt-3">
+          <span class="text-ink">№ {num}</span>
+        </p>
+        <div class="max-w-3xl">
+          <h1 class="display text-[2.5rem] sm:text-5xl md:text-6xl">{title}</h1>
+          {description && (
+            <p class="mt-6 max-w-2xl font-display text-xl italic leading-snug text-ink-2 md:text-2xl" style="font-weight:300">
+              {description}
+            </p>
+          )}
+          <p class="label mt-8 flex flex-wrap gap-x-4 gap-y-1">
+            <time datetime={new Date(pubDate).toISOString()}>{formattedDate}</time>
+            <span>{minutes} min read</span>
+            {tags.map((tag) => (
+              <a href={`/tags/${encodeURIComponent(tag)}/`} class="hover:text-accent transition-colors">{tag}</a>
             ))}
-          </div>
-        )}
-        
-        <h1 class="text-5xl md:text-6xl font-bold font-heading text-ink mb-6 leading-[1.1]">
-          {title}
-        </h1>
-        
-        <div class="flex items-center justify-center gap-3 text-ink-light font-sans text-sm uppercase tracking-widest">
-          <time>{formattedDate}</time>
+          </p>
         </div>
-
-        {heroImageSrc && (
-          <div class="mt-12 relative shadow-editorial rounded-sm overflow-hidden aspect-[16/9] bg-ink/5">
-            <img
-              src={heroImageSrc}
-              alt={heroImageAltText}
-              class="w-full h-full object-cover"
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-            />
-          </div>
-        )}
       </header>
 
-      <!-- Content -->
-      <main id="main-content" class="post-content mx-auto">
-        <!--email_off-->
-        <slot />
-        <!--/email_off-->
-      </main>
+      {heroImageSrc && (
+        <div class="aspect-[16/9] overflow-hidden rounded-sm border border-line bg-paper-2">
+          <img
+            src={heroImageSrc}
+            alt={heroImageAltText}
+            class="h-full w-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
+      )}
 
-      <!-- Post Navigation -->
-      <footer class="max-w-3xl mx-auto mt-24 pt-12 border-t border-ink/5 space-y-12">
-        {(prevPost || nextPost) && (
-          <nav aria-label="Post navigation" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {prevPost ? (
-              <a
-                href={`/posts/${prevPost.slug}/`}
-                rel="prev"
-                class="group block p-6 border border-ink/10 rounded-sm hover:border-accent transition-colors"
-              >
-                <span class="text-xs font-sans font-bold uppercase tracking-widest text-ink-lighter block mb-2">
-                  ← Previous
-                </span>
-                <span class="font-heading font-bold text-lg text-ink group-hover:text-accent transition-colors">
-                  {prevPost.title}
-                </span>
-              </a>
-            ) : <div />}
-            {nextPost ? (
-              <a
-                href={`/posts/${nextPost.slug}/`}
-                rel="next"
-                class="group block p-6 border border-ink/10 rounded-sm hover:border-accent transition-colors md:text-right"
-              >
-                <span class="text-xs font-sans font-bold uppercase tracking-widest text-ink-lighter block mb-2">
-                  Next →
-                </span>
-                <span class="font-heading font-bold text-lg text-ink group-hover:text-accent transition-colors">
-                  {nextPost.title}
-                </span>
-              </a>
-            ) : <div />}
-          </nav>
-        )}
+      <div class="margin-grid pt-12 md:pt-16">
+        <div class="hidden md:block" aria-hidden="true"></div>
+        <main id="main-content" class="post-content">
+          <!--email_off-->
+          <slot />
+          <!--/email_off-->
+        </main>
+      </div>
 
-        <a
-          href="/"
-          class="inline-flex items-center gap-3 text-ink font-sans font-bold uppercase tracking-widest text-xs hover:text-accent transition-colors group"
-        >
-          <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-          </svg>
-          Back to Journal
-        </a>
+      <footer class="margin-grid mt-20 border-t border-line pt-8">
+        <p class="label">Continue</p>
+        <div>
+          {(prevPost || nextPost) && (
+            <nav aria-label="Post navigation" class="grid gap-8 sm:grid-cols-2">
+              {prevPost ? (
+                <a href={`/posts/${prevPost.slug}/`} rel="prev" class="group block">
+                  <span class="label block mb-2">Older</span>
+                  <span class="font-display text-xl leading-tight text-ink group-hover:text-accent transition-colors" style="font-weight:500">{prevPost.title}</span>
+                </a>
+              ) : <div />}
+              {nextPost ? (
+                <a href={`/posts/${nextPost.slug}/`} rel="next" class="group block sm:text-right">
+                  <span class="label block mb-2">Newer</span>
+                  <span class="font-display text-xl leading-tight text-ink group-hover:text-accent transition-colors" style="font-weight:500">{nextPost.title}</span>
+                </a>
+              ) : <div />}
+            </nav>
+          )}
+          <p class="mt-10">
+            <a href="/" class="nav-link">&larr; Back to the Journal</a>
+          </p>
+        </div>
       </footer>
     </article>
 

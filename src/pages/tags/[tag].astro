@@ -4,10 +4,16 @@ import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import BlogPostPreview from "../../components/BlogPostPreview.astro";
+import { readingMinutes } from "../../data/postMeta";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
-  const published = posts.filter((p) => p.data.published === true);
+  const published = posts
+    .filter((p) => p.data.published === true)
+    .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf());
+
+  // Catalog number: oldest post is 01, matching the home page index.
+  const numbers = new Map(published.map((p, i) => [p.id, published.length - i]));
 
   const byTag = new Map<string, typeof published>();
   for (const post of published) {
@@ -22,9 +28,7 @@ export async function getStaticPaths() {
     params: { tag },
     props: {
       tag,
-      posts: tagPosts.sort(
-        (a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
-      ),
+      posts: tagPosts.map((post) => ({ post, number: numbers.get(post.id) ?? 0 })),
     },
   }));
 }
@@ -42,34 +46,33 @@ const description = `Browse Brian Via's journal entries tagged “${tag},” inc
   <body>
     <Header />
 
-    <main id="main-content" class="wrapper py-16 md:py-24">
-      <section class="text-center mb-16">
-        <p class="text-sm font-sans font-bold uppercase tracking-widest text-accent mb-4">Tag</p>
-        <h1 class="text-6xl md:text-7xl font-bold font-heading text-ink mb-6 tracking-tight leading-[0.9]">
-          {tag}
-        </h1>
-        <p class="text-lg font-serif italic text-ink-light">
-          {posts.length} {posts.length === 1 ? "post" : "posts"}
-        </p>
+    <main id="main-content" class="wrapper">
+      <section class="margin-grid pt-14 pb-12 md:pt-20 md:pb-16">
+        <p class="label md:pt-3">Tag</p>
+        <div>
+          <h1 class="display text-[2.5rem] sm:text-5xl md:text-6xl">{tag}</h1>
+          <p class="mt-6 font-display text-xl italic leading-snug text-ink-2 md:text-2xl" style="font-weight:300">
+            {posts.length} {posts.length === 1 ? "post" : "posts"}
+          </p>
+        </div>
       </section>
 
-      <section class="columns-1 md:columns-2 gap-12 space-y-12" aria-label={`Posts tagged ${tag}`}>
-        {posts.map((post) => (
-          <div class="break-inside-avoid">
+      <section class="margin-grid border-t border-line pt-8" aria-label={`Posts tagged ${tag}`}>
+        <p class="label"><a href="/tags/" class="hover:text-accent transition-colors">&larr; All tags</a></p>
+        <div>
+          {posts.map(({ post, number }) => (
             <BlogPostPreview
               title={post.data.title}
               description={post.data.description || ""}
               pubDate={post.data.pubDate}
               url={`/posts/${post.data.slug}/`}
+              number={number}
+              minutes={readingMinutes(post.body)}
               tags={post.data.tags || []}
             />
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
-
-      <p class="text-center mt-16">
-        <a href="/tags/" class="nav-link">← All tags</a>
-      </p>
     </main>
 
     <Footer />

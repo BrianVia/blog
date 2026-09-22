@@ -1,74 +1,42 @@
 ---
 import { primaryNav } from "../data/nav";
+
+const current = Astro.url.pathname;
 ---
 
-<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:px-4 focus:py-2 focus:bg-ink focus:text-paper focus:font-sans focus:text-sm focus:uppercase focus:tracking-widest focus:rounded-sm">
+<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:px-4 focus:py-2 focus:bg-ink focus:text-paper focus:rounded-sm label">
   Skip to content
 </a>
 
-<header class="sticky top-0 z-50 w-full border-b border-ink/5 bg-paper/95 backdrop-blur transition-colors duration-500">
-  <nav class="wrapper flex items-center justify-between py-5">
-    <!-- Logo / Brand -->
-    <a href="/" class="group flex items-center gap-3">
-      <div class="relative overflow-hidden">
-        <img src="/logo.svg" alt="Brian Via Logo" class="w-8 h-8 opacity-90 transition-transform duration-500 group-hover:rotate-12" />
-      </div>
-      <span class="font-heading font-bold text-2xl text-ink tracking-tight">
-        Brian Via
-      </span>
+<header class="wrapper">
+  <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b border-line py-5">
+    <a href="/" class="font-display text-2xl text-ink hover:text-accent transition-colors" style="font-weight:500;letter-spacing:-0.02em">
+      Brian Via
     </a>
 
-    <!-- Desktop Nav -->
-    <div class="hidden md:flex items-center gap-8">
-      {primaryNav.map((link) => (
-        <a href={link.href} class="nav-link">{link.label}</a>
-      ))}
+    <button
+      id="theme-toggle"
+      class="order-2 text-ink-3 hover:text-accent transition-colors md:order-3"
+      aria-label="Toggle dark mode"
+    >
+      <svg class="hidden dark:block w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"></path>
+      </svg>
+      <svg class="block dark:hidden w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"></path>
+      </svg>
+    </button>
 
-      <!-- Theme Toggle (Minimal) -->
-      <button
-        id="theme-toggle"
-        class="ml-4 text-ink-lighter hover:text-accent transition-colors"
-        aria-label="Toggle dark mode"
-      >
-        <svg class="sun-icon hidden dark:block w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-        <svg class="moon-icon block dark:hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Mobile Menu Button -->
-    <div class="md:hidden flex items-center gap-4">
-       <button
-        id="theme-toggle-mobile"
-        class="text-ink-lighter hover:text-accent transition-colors"
-        aria-label="Toggle dark mode"
-      >
-        <svg class="sun-icon hidden dark:block w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-        <svg class="moon-icon block dark:hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-      </button>
-      
-      <button id="menu-toggle" class="text-ink hover:text-accent transition-colors" aria-label="Toggle menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-        </svg>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Mobile Menu Dropdown -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-ink/5 bg-paper">
-      <div class="flex flex-col p-6 gap-4">
-        {primaryNav.map((link) => (
-          <a href={link.href} class="nav-link text-lg">{link.label}</a>
-        ))}
-      </div>
+    <nav class="order-3 flex w-full flex-wrap gap-x-5 gap-y-2 md:order-2 md:w-auto" aria-label="Primary">
+      {primaryNav.map((link) => {
+        const active = link.href === "/" ? current === "/" : current.startsWith(link.href);
+        return (
+          <a href={link.href} class:list={["nav-link", active && "text-ink"]} aria-current={active ? "page" : undefined}>
+            {link.label}
+          </a>
+        );
+      })}
+    </nav>
   </div>
 </header>
 
@@ -81,19 +49,7 @@ import { primaryNav } from "../data/nav";
   }
 
   function wireHeader() {
-    const toggleBtn = document.getElementById('theme-toggle');
-    const toggleBtnMobile = document.getElementById('theme-toggle-mobile');
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    toggleBtn?.addEventListener('click', handleToggleClick);
-    toggleBtnMobile?.addEventListener('click', handleToggleClick);
-
-    if (menuToggle && mobileMenu) {
-      menuToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-    }
+    document.getElementById('theme-toggle')?.addEventListener('click', handleToggleClick);
   }
 
   // Fire on normal page load, and again on every View Transitions swap.
