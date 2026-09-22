@@ -17,7 +17,6 @@ Brian Via is a Senior Fullstack Engineer at Dfinitiv, Inc., building products in
 - /posts/*: Individual blog posts
 - /books: Recommended reading list with ratings
 - /uses: Equipment and tools used
-- /links: Curated link collection
 - /social: Social media presence
 - /feeds: RSS feeds directory
 - /rss.xml: Main blog RSS feed

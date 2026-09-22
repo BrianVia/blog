@@ -24,7 +24,7 @@ export default defineConfig({
         } else if (/^https?:\/\/[^/]+\/?$/.test(item.url)) {
           item.changefreq = "weekly";
           item.priority = 1.0;
-        } else if (/\/(links|books|feeds)\/?$/.test(item.url)) {
+        } else if (/\/(books|feeds)\/?$/.test(item.url)) {
           item.changefreq = "weekly";
           item.priority = 0.7;
         } else {
