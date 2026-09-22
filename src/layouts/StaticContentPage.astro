@@ -31,9 +31,12 @@ const {
   <body>
     <Header />
 
-    <main id="main-content" class="max-w-3xl mx-auto px-6 py-16 prose prose-lg dark:prose-invert prose-headings:font-bold prose-headings:font-heading prose-headings:text-gray-900 dark:prose-headings:text-white prose-headings:tracking-tight prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-gray-900 dark:prose-a:text-gray-100 prose-a:no-underline prose-a:font-semibold hover:prose-a:underline prose-strong:text-gray-900 dark:prose-strong:text-white prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-li:text-gray-700 dark:prose-li:text-gray-300 prose-img:rounded-sm prose-img:border-2 prose-img:border-gray-300 dark:prose-img:border-gray-600">
-      <slot />
-    </main>
+    <div class="wrapper margin-grid pt-14 md:pt-20">
+      <div class="hidden md:block" aria-hidden="true"></div>
+      <main id="main-content" class="post-content">
+        <slot />
+      </main>
+    </div>
 
     <Footer />
   </body>

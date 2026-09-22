@@ -7,6 +7,12 @@ import Footer from "../components/Footer.astro";
 let title = "Social";
 let intro = `Here's how to get in touch with me if you'd like to!`;
 const description = "Contact Brian Via by email or connect through X, LinkedIn, and GitHub to talk about software engineering, projects, and ideas.";
+
+const links = [
+  { label: "X", handle: "@BrianVia", href: "https://x.com/BrianVia" },
+  { label: "GitHub", handle: "BrianVia", href: "https://github.com/BrianVia" },
+  { label: "LinkedIn", handle: "brian-via", href: "https://linkedin.com/in/🧑‍💻brian-via-5b242a65" },
+];
 ---
 
 <html lang="en">
@@ -22,56 +28,36 @@ const description = "Contact Brian Via by email or connect through X, LinkedIn, 
   <body>
     <Header />
 
-    <main id="main-content" class="max-w-4xl mx-auto px-6 py-16">
-      <section class="text-center mb-12">
-        <h1 class="text-5xl md:text-6xl font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight leading-tight mb-4">
-          Social Links
-        </h1>
-        <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-          {intro}
-        </p>
+    <main id="main-content" class="wrapper">
+      <section class="margin-grid pt-14 pb-12 md:pt-20 md:pb-16">
+        <p class="label md:pt-3">Social</p>
+        <div>
+          <h1 class="display text-[2.5rem] sm:text-5xl md:text-6xl">Say hello</h1>
+          <p class="mt-6 max-w-xl font-display text-xl italic leading-snug text-ink-2 md:text-2xl" style="font-weight:300">
+            {intro}
+          </p>
+        </div>
       </section>
 
-      <section class="max-w-2xl mx-auto">
-        <ul class="space-y-4">
-          <li>
+      <section class="margin-grid border-t border-line pt-8">
+        <p class="label">Elsewhere</p>
+        <ul>
+          <li class="border-b border-line">
             <!--email_off-->
-            <a
-              href="mailto:inquiries@brianvia.com"
-              class="flex items-center justify-between w-full p-6 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-sm hover:border-gray-400 dark:hover:border-gray-600 transition-all group"
-            >
-              <span class="text-lg font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Email</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <a href="mailto:inquiries@brianvia.com" class="row-link group flex items-baseline justify-between gap-6 py-5">
+              <span class="font-display text-2xl leading-tight text-ink group-hover:text-accent transition-colors" style="font-weight:500">Email</span>
+              <span class="label truncate">inquiries@brianvia.com &rarr;</span>
             </a>
             <!--/email_off-->
           </li>
-          <li>
-            <a
-              href="https://x.com/BrianVia"
-              class="flex items-center justify-between w-full p-6 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-sm hover:border-gray-400 dark:hover:border-gray-600 transition-all group"
-            >
-              <span class="text-lg font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">Twitter</span>
-              <img src="/x-logo.svg" alt="Twitter" class="w-6 h-6 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors" width="24" height="24" />
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://linkedin.com/in/🧑‍💻brian-via-5b242a65"
-              class="flex items-center justify-between w-full p-6 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-sm hover:border-gray-400 dark:hover:border-gray-600 transition-all group"
-            >
-              <span class="text-lg font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">LinkedIn</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://github.com/BrianVia"
-              class="flex items-center justify-between w-full p-6 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-sm hover:border-gray-400 dark:hover:border-gray-600 transition-all group"
-            >
-              <span class="text-lg font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight">GitHub</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-            </a>
-          </li>
+          {links.map((item) => (
+            <li class="border-b border-line">
+              <a href={item.href} class="row-link group flex items-baseline justify-between gap-6 py-5">
+                <span class="font-display text-2xl leading-tight text-ink group-hover:text-accent transition-colors" style="font-weight:500">{item.label}</span>
+                <span class="label truncate">{item.handle} &rarr;</span>
+              </a>
+            </li>
+          ))}
         </ul>
       </section>
     </main>

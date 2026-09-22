@@ -2,31 +2,20 @@
 import { primaryNav } from "../data/nav";
 ---
 
-<footer class="mt-auto border-t border-ink/5 bg-paper transition-colors duration-300">
-  <div class="wrapper py-12">
-    <div class="flex flex-col items-center gap-6 text-center">
-      <!-- Navigation Links -->
-      <nav class="flex flex-wrap justify-center gap-x-8 gap-y-2">
+<footer class="wrapper mt-auto pt-24 pb-12">
+  <div class="margin-grid border-t border-line pt-8">
+    <p class="label">Colophon</p>
+    <div class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+      <p class="max-w-md text-base text-ink-2">
+        Set in Fraunces and Newsreader. Built with Astro, written in Notion,
+        served from Cloudflare. &copy; {new Date().getFullYear()} Brian Via.
+      </p>
+      <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Footer">
         {primaryNav.map((link) => (
           <a href={link.href} class="nav-link">{link.label}</a>
         ))}
+        <a href="/rss.xml" class="nav-link">RSS</a>
       </nav>
-
-      <!-- RSS Feed -->
-      <a
-        href="/rss.xml"
-        class="inline-flex items-center gap-2 text-ink-lighter hover:text-accent transition-colors text-sm"
-      >
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-3.368c10.58.046 19.152 8.594 19.183 19.188h4.817c-.03-13.231-10.755-23.954-24-24v4.812z"/>
-        </svg>
-        Subscribe via RSS
-      </a>
-
-      <!-- Copyright -->
-      <p class="text-ink-lighter text-sm">
-        © {new Date().getFullYear()} Brian Via
-      </p>
     </div>
   </div>
 </footer>

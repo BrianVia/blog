@@ -5,32 +5,25 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				paper: 'var(--color-paper)',
+				paper: {
+					DEFAULT: 'var(--paper)',
+					2: 'var(--paper-2)',
+				},
 				ink: {
-					DEFAULT: 'var(--color-ink)',
-					light: '#575757', // Static gray for suble text
-					lighter: '#8a8a8a', // Static light gray
+					DEFAULT: 'var(--ink)',
+					2: 'var(--ink-2)',
+					3: 'var(--ink-3)',
 				},
-				accent: {
-					DEFAULT: 'var(--color-accent)',
-					hover: '#A93226', // Keep static for now or use var if needed
-				},
-				secondary: {
-					DEFAULT: '#5D6D7E', 
-					light: '#AEB6BF',
-				}
+				line: 'var(--line)',
+				accent: 'var(--accent)',
+				code: 'var(--code-bg)',
 			},
 			fontFamily: {
-				sans: ['Inter', 'system-ui', 'sans-serif'],
-				serif: ['Merriweather', 'Georgia', 'serif'],
-				heading: ['Playfair Display', 'Times New Roman', 'serif'],
-				mono: ['JetBrains Mono', 'IBM Plex Mono', 'monospace'],
-			},
-			boxShadow: {
-				'editorial': '0 4px 20px rgba(0, 0, 0, 0.05)',
-				'editorial-hover': '0 10px 30px rgba(0, 0, 0, 0.08)',
+				serif: ['Newsreader', 'Georgia', 'Times New Roman', 'serif'],
+				display: ['Fraunces', 'Georgia', 'serif'],
+				mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
 			},
 		},
 	},
-	plugins: [require('@tailwindcss/typography'), require('@tailwindcss/aspect-ratio'),],
+	plugins: [],
 }

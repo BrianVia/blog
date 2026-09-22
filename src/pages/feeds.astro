@@ -35,58 +35,51 @@ const feeds: Feed[] = [
   <body>
     <Header />
 
-    <main id="main-content" class="max-w-4xl mx-auto px-6 py-16">
-      <section class="text-center mb-12">
-        <h1 class="text-5xl md:text-6xl font-bold font-heading text-gray-900 dark:text-gray-100 tracking-tight leading-tight mb-4">
-          {title}
-        </h1>
-        <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-          Subscribe to custom curated RSS feeds of your favorite creators
-        </p>
+    <main id="main-content" class="wrapper">
+      <section class="margin-grid pt-14 pb-12 md:pt-20 md:pb-16">
+        <p class="label md:pt-3">Feeds</p>
+        <div>
+          <h1 class="display text-[2.5rem] sm:text-5xl md:text-6xl">{title}</h1>
+          <p class="mt-6 max-w-xl font-display text-xl italic leading-snug text-ink-2 md:text-2xl" style="font-weight:300">
+            Hand-built RSS feeds for writers who don't publish one.
+          </p>
+        </div>
       </section>
 
-      <div class="space-y-6">
-        {feeds.map((feed) => (
-          <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-sm p-8 transition-all hover:border-gray-400 dark:hover:border-gray-600">
-            <div class="flex items-start gap-6 mb-4">
+      <section class="margin-grid border-t border-line pt-8">
+        <p class="label">{feeds.length} {feeds.length === 1 ? "feed" : "feeds"}</p>
+        <ul>
+          {feeds.map((feed) => (
+            <li class="flex flex-col gap-6 border-b border-line py-6 sm:flex-row sm:items-start">
               {feed.imageUrl && (
                 <img
                   src={feed.imageUrl}
                   alt={feed.title}
-                  class="w-20 h-20 object-cover rounded-sm border-2 border-gray-300 dark:border-gray-600"
+                  class="h-20 w-20 flex-none rounded-sm border border-line object-cover"
+                  width="80"
+                  height="80"
+                  loading="lazy"
                 />
               )}
               <div class="flex-1">
-                <h2 class="text-3xl font-bold font-heading text-gray-900 dark:text-gray-100 mb-1 tracking-tight">{feed.title}</h2>
-                <p class="text-sm text-gray-500 dark:text-gray-500">by {feed.author}</p>
+                <h2 class="font-display text-2xl leading-tight text-ink" style="font-weight:500">{feed.title}</h2>
+                <p class="label mt-1">by {feed.author}</p>
+                <p class="mt-3 max-w-xl text-base text-ink-2">{feed.description}</p>
+                <p class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+                  <a href={feed.url} class="nav-link text-ink">Subscribe via RSS &rarr;</a>
+                  <button
+                    type="button"
+                    onclick={`navigator.clipboard.writeText('${new URL(feed.url, "https://brianvia.blog")}')`}
+                    class="nav-link"
+                  >
+                    Copy feed URL
+                  </button>
+                </p>
               </div>
-            </div>
-            <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">{feed.description}</p>
-            <div class="flex gap-4">
-              <a
-                href={feed.url}
-                class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-sm shadow-[1px_1px_0_#ddd] dark:shadow-none hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M5 3a1 1 0 000 2c5.523 0 10 4.477 10 10a1 1 0 102 0C17 8.373 11.627 3 5 3z" />
-                  <path d="M4 9a1 1 0 011-1 7 7 0 017 7 1 1 0 11-2 0 5 5 0 00-5-5 1 1 0 01-1-1zM3 15a2 2 0 114 0 2 2 0 01-4 0z" />
-                </svg>
-                Subscribe via RSS
-              </a>
-              <button
-                onclick={`navigator.clipboard.writeText('${new URL(feed.url, "https://brianvia.blog")}')`}
-                class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                  <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-                </svg>
-                Copy Feed URL
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+            </li>
+          ))}
+        </ul>
+      </section>
     </main>
 
     <Footer />
