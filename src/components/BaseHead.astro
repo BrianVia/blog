@@ -79,7 +79,14 @@ const shortenTitle = (value: string, maxLength = 45) => {
 	const excerpt = value.slice(0, maxLength + 1).replace(/\s+\S*$/, "").trim();
 	return `${excerpt}…`;
 };
-const fullTitle = title ? `${shortenTitle(title)} - ${baseTitle}` : baseTitle;
+// Keep the brand suffix only when it fits; otherwise spend the ~60 chars
+// Google shows on the post's own keywords.
+const suffix = ` - ${baseTitle}`;
+const fullTitle = !title
+	? baseTitle
+	: title.length + suffix.length <= 60
+		? `${title}${suffix}`
+		: shortenTitle(title, 60);
 const socialTitle = title || baseTitle;
 const resolvedImageUrl = new URL(imageUrl, `${siteUrl}/`).toString();
 const resolvedImageAlt = imageAlt || description;
