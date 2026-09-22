@@ -30,6 +30,10 @@ const {
 
 const num = String(number).padStart(2, "0");
 const date = formatDate(pubDate);
+// Unsplash resizes on the fly; don't ship a 5000px photo into a 10rem thumbnail.
+const thumbUrl = heroImageUrl?.startsWith("https://images.unsplash.com/")
+  ? heroImageUrl.replace(/([?&])w=\d+/, "$1w=480")
+  : heroImageUrl;
 ---
 
 {featured ? (
@@ -65,7 +69,20 @@ const date = formatDate(pubDate);
   </article>
 ) : (
   <article class="border-b border-line">
-    <a href={url} class="row-link grid gap-x-6 gap-y-1 py-6 sm:grid-cols-[3.5rem_1fr_auto]">
+    <a href={url} class="row-link grid gap-x-6 gap-y-1 py-6 sm:grid-cols-[3.5rem_1fr_auto_10rem]">
+      {heroImageUrl && (
+        <span class="mb-4 block aspect-[16/9] overflow-hidden rounded-sm border border-line bg-paper-2 sm:order-last sm:mb-0 sm:mt-1">
+          <img
+            src={thumbUrl}
+            alt={heroImageAlt || `Featured image for ${title}`}
+            width="320"
+            height="180"
+            class="h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </span>
+      )}
       <span class="index-num text-lg leading-[1.35] sm:text-xl">{num}</span>
       <span>
         <span class="block font-display text-2xl leading-tight text-ink" style="font-weight:500">{title}</span>

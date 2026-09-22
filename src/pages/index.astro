@@ -6,7 +6,7 @@ import Footer from "../components/Footer.astro";
 import BlogPostPreview from "../components/BlogPostPreview.astro";
 import { readingMinutes } from "../data/postMeta";
 
-let title = "The Journal";
+let title = "Side Effects";
 
 // Use content collections to fetch all posts
 const allPosts = await getCollection('posts');
@@ -36,7 +36,7 @@ const total = sortedPosts.length;
     <main id="main-content" class="wrapper">
       <section class="grid gap-y-6 pt-14 pb-20 md:grid-cols-[auto_1fr] md:items-end md:gap-x-16 md:pt-24 md:pb-28">
         <h1 class="display text-[3.25rem] sm:text-7xl md:text-[5.5rem]">
-          The<br class="hidden md:block" /> Journal
+          Side<br class="hidden md:block" /> Effects
         </h1>
         <p class="max-w-lg font-display text-2xl italic leading-snug text-ink-2 md:text-[1.75rem] md:pb-3" style="font-weight:300">
           Notes from a fullstack engineer on building software, and on the
@@ -74,6 +74,8 @@ const total = sortedPosts.length;
               number={total - 1 - i}
               minutes={readingMinutes(post.body)}
               tags={post.data.tags || []}
+              heroImageUrl={post.data.heroImageUrl}
+              heroImageAlt={post.data.heroImageAlt}
             />
           ))}
         </div>
