@@ -268,7 +268,8 @@ const breadcrumbSchema =
       ...(nextUrl ? [{ rel: "next", href: nextUrl }] : []),
     ],
     meta: [
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { name: "theme-color", content: "#faf6ee" },
     ],
   }}
 />
@@ -288,6 +289,12 @@ const breadcrumbSchema =
       if (!stored) localStorage.setItem("theme", theme);
     } catch (e) {}
   })();
+  // ClientRouter swaps <html> attributes on navigation, dropping .dark.
+  document.addEventListener("astro:after-swap", function () {
+    try {
+      if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("dark");
+    } catch (e) {}
+  });
 </script>
 
 {includePersonSchema && (
