@@ -288,6 +288,12 @@ const breadcrumbSchema =
       if (!stored) localStorage.setItem("theme", theme);
     } catch (e) {}
   })();
+  // ClientRouter swaps <html> attributes on navigation, dropping .dark.
+  document.addEventListener("astro:after-swap", function () {
+    try {
+      if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("dark");
+    } catch (e) {}
+  });
 </script>
 
 {includePersonSchema && (
