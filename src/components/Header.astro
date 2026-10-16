@@ -8,6 +8,9 @@ const current = Astro.url.pathname;
   Skip to content
 </a>
 
+<div class="edge-top" aria-hidden="true"></div>
+<div class="edge-bottom" aria-hidden="true"></div>
+
 <header class="wrapper">
   <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b border-line py-5">
     <a href="/" class="font-display text-2xl text-ink hover:text-accent transition-colors" style="font-weight:500;letter-spacing:-0.02em">
@@ -46,9 +49,18 @@ const current = Astro.url.pathname;
     element.classList.toggle('dark');
     const isDark = element.classList.contains('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    syncThemeColor();
+  }
+
+  // Safari's tab-bar tint follows theme-color; read the live --paper so it
+  // always matches the page and edge strips in either theme.
+  function syncThemeColor() {
+    const paper = getComputedStyle(document.documentElement).getPropertyValue('--paper').trim();
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', paper);
   }
 
   function wireHeader() {
+    syncThemeColor();
     document.getElementById('theme-toggle')?.addEventListener('click', handleToggleClick);
   }
 

@@ -64,6 +64,8 @@
   }
 
   html {
+    /* Top Safari edge samples this; body covers the bottom. */
+    background: var(--paper);
     font-optical-sizing: auto;
     -webkit-text-size-adjust: 100%;
   }
@@ -72,6 +74,8 @@
     @apply flex min-h-screen flex-col bg-paper text-ink font-serif antialiased;
     font-size: 1.125rem;
     line-height: 1.6;
+    /* viewport-fit=cover: keep content out of the notch and home indicator. */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -104,6 +108,27 @@
 }
 
 @layer components {
+  /* Solid fixed strips Safari extends behind its status bar and toolbar
+     (joshpuckett.me/seamless-mobile-safari). Needs >=5px visible to sample. */
+  .edge-top::after,
+  .edge-bottom::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    pointer-events: none;
+    background: var(--paper);
+  }
+  .edge-top::after {
+    top: 0;
+    height: max(12px, env(safe-area-inset-top));
+  }
+  .edge-bottom::after {
+    bottom: 0;
+    height: max(12px, env(safe-area-inset-bottom));
+  }
+
   .wrapper {
     @apply mx-auto w-full max-w-5xl px-4 sm:px-8;
   }
